@@ -8,7 +8,7 @@ push-pypi:
 	poetry publish
 
 serve-docs:
-	poetry run mkdocs serve -a localhost:8001
+	poetry run mkdocs serve -f ./docs/mkdocs.yml -a localhost:8001
 
 generate-components:
 	poetry run python scripts/generate_components.py

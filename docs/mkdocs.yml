@@ -2,6 +2,7 @@ site_name: GOV.UK Frontend Django
 site_url: https://uktrade.github.io/govuk-frontend-django/
 repo_url: https://github.com/uktrade/govuk-frontend-django/
 site_description: Documentation for the GOV.UK Frontend Django package
+docs_dir: .
 plugins:
   - awesome-pages
   - material/social:
