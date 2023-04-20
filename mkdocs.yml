@@ -9,6 +9,8 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/uktrade/govuk-frontend-django/
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/govuk-frontend-django/
 
 # Standard config:
 plugins:

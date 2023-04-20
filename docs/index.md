@@ -5,9 +5,8 @@ hide:
 
 # GOV.UK Frontend Django
 
-
-:fontawesome-solid-book: [Documentation Site](https://uktrade.github.io/govuk-frontend-django/) | :fontawesome-brands-github: [GitHub](https://github.com/uktrade/govuk-frontend-django/) | :fontawesome-brands-python: [PyPI](https://pypi.org/project/govuk-frontend-django/)
-
+[:fontawesome-brands-github: GitHub](https://github.com/uktrade/govuk-frontend-django/){ .md-button }
+[:fontawesome-brands-python: PyPI](https://pypi.org/project/govuk-frontend-django/){ .md-button }
 
 The `govuk_frontend_django` package contains django functionality to help when building a GOV.UK website.
 
