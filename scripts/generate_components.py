@@ -82,7 +82,7 @@ DATACLASS_TYPE_MAPPING: Dict[str, Dict[str, Tuple[str, bool]]] = {
     },
     "CheckboxesItems": {
         "conditional": ("govuk_frontend_base.CheckboxesConditional", False),
-        "conditional.html": (IGNORE,),
+        "conditional.html": (IGNORE, False),
     },
     "Details": {
         "summaryText": ("Optional[str] = None", False),
