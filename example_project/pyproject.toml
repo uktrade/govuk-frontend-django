@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "govuk-frontend-django-example-project"
+version = "0.1.0"
+description = ""
+authors = []
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.1.7"
+govuk-frontend-django = { path = "../", develop = true }
+govuk-frontend-jinja = "^2.5.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

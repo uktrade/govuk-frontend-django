@@ -1,0 +1,56 @@
+{% load static govuk_frontend_django %}
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <meta name="theme-color" content="#0b0c0c">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="shortcut icon" sizes="16x16 32x32 48x48" href='{% static "frontend/govuk/assets/images/favicon.ico" %}' type="image/x-icon">
+        <link rel="mask-icon" href='{% static "govuk-frontend/govuk/assets/images/govuk-mask-icon.svg" %}' color="#0b0c0c">
+        <link rel="apple-touch-icon" sizes="180x180" href='{% static "frontend/govuk/assets/images/govuk-apple-touch-icon-180x180.png" %}'>
+        <link rel="apple-touch-icon" sizes="167x167" href='{% static "frontend/govuk/assets/images/govuk-apple-touch-icon-167x167.png" %}'>
+        <link rel="apple-touch-icon" sizes="152x152" href='{% static "frontend/govuk/assets/images/govuk-apple-touch-icon-152x152.png" %}'>
+        <link rel="apple-touch-icon" href='{% static "frontend/govuk/assets/images/govuk-apple-touch-icon.png" %}'>
+
+        {% block head %}
+            <link href='{% static "govuk-frontend/govuk/all.css" %}' rel="stylesheet">
+        {% endblock head %}
+    </head>
+
+    <body class="govuk-template__body ">
+        <script>
+        document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
+        </script>
+        {% block body_start %}
+        {% endblock body_start %}
+
+        {% gds_component "skip-link" text="Skip to main content" href="#main-content" %}
+
+        {% block header %}
+            {% gds_header homepageUrl="/" serviceName="Service name" serviceUrl="/" containerClasses="govuk-width-container" %}
+            {% end_gds_header %}
+        {% endblock header %}
+
+        <div class="govuk-width-container ">
+            <main class="govuk-main-wrapper " id="main-content" role="main">
+                {% block content %}
+                    <h1 class="govuk-heading-xl">Default page template</h1>
+                {% endblock content %}
+            </main>
+        </div>
+
+        {% block footer %}
+            {% gds_footer %}
+            {% end_gds_footer %}
+        {% endblock footer %}
+
+        {% block body_end %}
+            <script src='{% static "govuk-frontend/all.js" %}''></script>
+            <script>window.GOVUKFrontend.initAll()</script>
+        {% endblock body_end %}
+    </body>
+
+</html>

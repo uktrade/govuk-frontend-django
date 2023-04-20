@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% load govuk_frontend_django %}
+{% block content %}
+    {% gds_table columns=user_columns rows=object_list firstCellIsHeader=True %}
+    {% gds_pagination page_obj %}
+{% endblock content %}
