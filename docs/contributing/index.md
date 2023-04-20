@@ -23,5 +23,5 @@ Documentation for this project is written in markdown and is generated using [mk
 To run the documentation locally, run the following command:
 
 ```bash
-mkdocs serve
+make serve-docs
 ```

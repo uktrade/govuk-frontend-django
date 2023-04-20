@@ -12,4 +12,4 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install mkdocs-material mkdocs-minify-plugin mkdocs-redirects mkdocstrings-python mkdocs-tech-docs-template mkdocs-awesome-pages-plugin pillow cairosvg
-      - run: mkdocs gh-deploy --force
+      - run: mkdocs -f docs/mkdocs.yml gh-deploy --force
