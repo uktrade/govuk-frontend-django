@@ -1,5 +1,9 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.poetry]
-name = "govuk_frontend_django"
+name = "govuk-frontend-django"
 version = "0.1.0"
 description = ""
 authors = [
@@ -35,11 +39,6 @@ pillow = "^9.5.0"
 cairosvg = "^2.7.0"
 mkdocs-tech-docs-template = "^0.0.25"
 mkdocs-awesome-pages-plugin = "^2.8.0"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
 
 [tool.isort]
 profile = "black"
