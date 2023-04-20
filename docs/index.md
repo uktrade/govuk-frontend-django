@@ -8,7 +8,7 @@ hide:
 [:fontawesome-brands-github: GitHub](https://github.com/uktrade/govuk-frontend-django/){ .md-button }
 [:fontawesome-brands-python: PyPI](https://pypi.org/project/govuk-frontend-django/){ .md-button }
 
-The `govuk_frontend_django` package contains django functionality to help when building a GOV.UK website.
+The `govuk_frontend_django` package contains Django functionality to help when building a GOV.UK website.
 
 The main part of this package is the [template tags](./template-tags/index.md) that it offers for use in your templates. These template tags will reduce the amount of markup that you need to maintain in your project.
 
