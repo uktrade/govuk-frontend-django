@@ -42,15 +42,16 @@ Some of the components aren't a simple flat mapping, for these we implement cust
 
 ## Currently unsupported components
 
-The following components are not yet supported:
+Currently we don't support the following components:
 
-- Fields
-    - [Character count](https://design-system.service.gov.uk/components/character-count/)
-    - [Checkboxes](https://design-system.service.gov.uk/components/checkboxes/)
-    - [Date input](https://design-system.service.gov.uk/components/date-input/)
-    - [Fieldset](https://design-system.service.gov.uk/components/fieldset/)
-    - [File upload](https://design-system.service.gov.uk/components/file-upload/)
-    - [Input](https://design-system.service.gov.uk/components/input/)
-    - [Radios](https://design-system.service.gov.uk/components/radios/)
-    - [Select](https://design-system.service.gov.uk/components/select/)
-    - [Textarea](https://design-system.service.gov.uk/components/textarea/)
+- [Character count](https://design-system.service.gov.uk/components/character-count/)
+- [Checkboxes](https://design-system.service.gov.uk/components/checkboxes/)
+- [Date input](https://design-system.service.gov.uk/components/date-input/)
+- [Fieldset](https://design-system.service.gov.uk/components/fieldset/)
+- [File upload](https://design-system.service.gov.uk/components/file-upload/)
+- [Input](https://design-system.service.gov.uk/components/input/)
+- [Radios](https://design-system.service.gov.uk/components/radios/)
+- [Select](https://design-system.service.gov.uk/components/select/)
+- [Textarea](https://design-system.service.gov.uk/components/textarea/)
+
+These are all fields that are best implemented using [Crispy Forms GDS](https://github.com/wildfish/crispy-forms-gds).
