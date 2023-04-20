@@ -1,10 +1,10 @@
-# Accordion
+# Summary list
 
-See: [https://design-system.service.gov.uk/components/accordion/](https://design-system.service.gov.uk/components/accordion/)
+See: [https://design-system.service.gov.uk/components/summary-list/](https://design-system.service.gov.uk/components/summary-list/)
 
 ## Usage
 
-To use the accordion, you need to load the `govuk_frontend_django` template tag library and then use the following tags:
+To use the component you need to load the `govuk_frontend_django` template tag library and then use the following tags:
 
 * `gds_summary_list`
     * `gds_summary_list_card`

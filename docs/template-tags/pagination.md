@@ -4,7 +4,7 @@ See: [https://design-system.service.gov.uk/components/pagination/](https://desig
 
 ## Usage
 
-To use the GDS Pagination, you can use the `gds_pagination` template tag. This tag accepts a `page_obj` argument which should be a Django Paginated Page.
+To use the component, you can use the `gds_pagination` template tag. This tag accepts a `page_obj` argument which should be a Django Paginated Page.
 
 If you are using a Django `ListView`, the `page_obj` argument will be available in the template context.
 

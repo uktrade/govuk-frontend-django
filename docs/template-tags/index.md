@@ -30,8 +30,14 @@ Some of the components aren't a simple flat mapping, for these we implement cust
 
 - [Accordion](./accordion.md)
 - [Breadcrumbs](./breadcrumbs.md)
+- [Cookie banner](./cookie-banner.md)
+- [Error summary](./error-summary.md)
+- [Footer](./footer.md)
 - [Header](./header.md)
 - [Pagination](./pagination.md)
+- [Phase banner](./phase-banner.md)
+- [Summary list](./summary-list.md)
+- [Table](./table.md)
 - [Tabs](./tabs.md)
 
 ## Currently unsupported components
@@ -48,10 +54,3 @@ The following components are not yet supported:
     - [Radios](https://design-system.service.gov.uk/components/radios/)
     - [Select](https://design-system.service.gov.uk/components/select/)
     - [Textarea](https://design-system.service.gov.uk/components/textarea/)
-- Complex components
-    - [Cookie banner](https://design-system.service.gov.uk/components/cookie-banner/)
-    - [Error summary](https://design-system.service.gov.uk/components/error-summary/)
-    - [Footer](https://design-system.service.gov.uk/components/footer/)
-    - [Phase banner](https://design-system.service.gov.uk/components/phase-banner/)
-    - [Summary list](https://design-system.service.gov.uk/components/summary-list/)
-    - [Table](https://design-system.service.gov.uk/components/table/)

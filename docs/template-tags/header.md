@@ -4,7 +4,7 @@ See: [https://design-system.service.gov.uk/components/header/](https://design-sy
 
 ## Usage
 
-To use the header component, you need to load the `govuk_frontend_django` template tag library and then use the `gds_header` and `gds_header_nav_item` tags.
+To use the component, you need to load the `govuk_frontend_django` template tag library and then use the `gds_header` and `gds_header_nav_item` tags.
 
 ### Example:
 

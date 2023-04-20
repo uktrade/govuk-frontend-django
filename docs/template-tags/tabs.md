@@ -4,7 +4,7 @@ See: [https://design-system.service.gov.uk/components/tabs/](https://design-syst
 
 ## Usage
 
-To use the tabs component, you need to load the `govuk_frontend_django` template tag library and then use the `gds_tabs` and `gds_tabs_tab` tags.
+To use the component, you need to load the `govuk_frontend_django` template tag library and then use the `gds_tabs` and `gds_tabs_tab` tags.
 
 ### Example:
 

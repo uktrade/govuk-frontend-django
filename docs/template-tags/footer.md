@@ -4,7 +4,7 @@ See: [https://design-system.service.gov.uk/components/footer/](https://design-sy
 
 ## Usage
 
-To use the footer component, you need to load the `govuk_frontend_django` template tag library and then use the `gds_footer` and `gds_footer_nav_item` tags.
+To use the component, you need to load the `govuk_frontend_django` template tag library and then use the `gds_footer` and `gds_footer_nav_item` tags.
 
 
 ### Example:

@@ -4,7 +4,7 @@ See: [https://design-system.service.gov.uk/components/breadcrumbs/](https://desi
 
 ## Usage
 
-To use the breadcrumbs, you need to load the `govuk_frontend_django` template tag library and then use the `gds_breadcrumb`tag.
+To use the component, you need to load the `govuk_frontend_django` template tag library and then use the `gds_breadcrumb`tag.
 
 There are 2 ways you can use this tag, either by passing through the items to the tag, or by building the items with the `gds_breadcrumb_item` tag.
 

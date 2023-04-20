@@ -4,7 +4,7 @@ See: [https://design-system.service.gov.uk/components/table/](https://design-sys
 
 ## Usage
 
-To use the tabs component, you need to load the `govuk_frontend_django` template tag library and then use the `gds_table` tag.
+To use the component, you need to load the `govuk_frontend_django` template tag library and then use the `gds_table` tag.
 This tag takes the following arguments:
 
 * `columns` - A list of tuples containing the column header, each tuple is made up of 2 parts:

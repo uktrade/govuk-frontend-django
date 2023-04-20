@@ -4,7 +4,7 @@ See: [https://design-system.service.gov.uk/components/accordion/](https://design
 
 ## Usage
 
-To use the accordion, you need to load the `govuk_frontend_django` template tag library and then use the `gds_accordion` and `gds_accordion_item` tags.
+To use the component, you need to load the `govuk_frontend_django` template tag library and then use the `gds_accordion` and `gds_accordion_item` tags.
 
 ### Example:
 
