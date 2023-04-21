@@ -20,7 +20,7 @@ class GovUKWarningText(govuk_frontend_base.GovUKComponent):
 
     text: Optional[str] = None
     html: Optional[str] = None
-    iconFallbackText: Optional[str] = None
+    iconFallbackText: str
 
     _jinja2_template = "govuk_frontend_jinja/components/warning-text/macro.html"
     _macro_name = "govukWarningText"

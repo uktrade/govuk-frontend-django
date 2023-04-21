@@ -22,7 +22,7 @@ packages = [{include = "govuk_frontend_django"}]
 python = "^3.8"
 Django = "^4.1.7"
 jinja2 = "^3.1.2"
-govuk-frontend-jinja = "^2.5.0"
+govuk-frontend-jinja = "2.5.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"

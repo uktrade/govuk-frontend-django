@@ -39,7 +39,6 @@ class GovUKInput(govuk_frontend_base.GovUKComponent):
     type: Optional[str] = None
     inputmode: Optional[str] = None
     value: Optional[str] = None
-    disabled: Optional[bool] = None
     describedBy: Optional[str] = None
     label: govuk_frontend_label.GovUKLabel
     hint: Optional[govuk_frontend_hint.GovUKHint] = None

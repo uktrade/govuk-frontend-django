@@ -31,7 +31,6 @@ class GovUKSelect(govuk_frontend_base.GovUKComponent):
     name: str
     items: List[SelectItems]
     value: Optional[str] = None
-    disabled: Optional[bool] = None
     describedBy: Optional[str] = None
     label: Optional[govuk_frontend_label.GovUKLabel] = None
     hint: Optional[govuk_frontend_hint.GovUKHint] = None
