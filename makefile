@@ -21,6 +21,7 @@ upgrade-components:
 	echo "GOV.UK Frontend Jinja: $(GOVUK_FRONTEND_JINJA_VERSION)"
 	poetry remove govuk_frontend_jinja
 	poetry add govuk_frontend_jinja==$(GOVUK_FRONTEND_JINJA_VERSION)
+	poetry install
 	make clear-generated-components
 	make generate-components GOVUK_FRONTEND_VERSION=$(GOVUK_FRONTEND_VERSION)
 
