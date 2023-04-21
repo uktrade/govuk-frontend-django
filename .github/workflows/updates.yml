@@ -27,29 +27,29 @@ jobs:
       # Get the latest release tag for each repo
       - run: echo GOVUK_FRONTEND_VERSION=$(make get-latest-release-tag REPO=alphagov/govuk-frontend) >> $GITHUB_ENV
       - run: echo GOVUK_FRONTEND_JINJA_VERSION=$(make get-latest-release-tag REPO=LandRegistry/govuk-frontend-jinja) >> $GITHUB_ENV
-      - run: echo GOVUK_FRONTEND_DJANGO_BRANCH_NAME=updates__$(echo $GOVUK_FRONTEND_VERSION | sed 's/\./_/g')__$(echo $GOVUK_FRONTEND_JINJA_VERSION | sed 's/\./_/g') >> $GITHUB_ENV
+      - run: echo GOVUK_FRONTEND_DJANGO_BRANCH_NAME=updates__$(echo ${{ env.GOVUK_FRONTEND_VERSION }} | sed 's/\./_/g')__$(echo ${{ env.GOVUK_FRONTEND_JINJA_VERSION }} | sed 's/\./_/g') >> $GITHUB_ENV
 
       - run: env | grep GOVUK
 
       # Check if the branch already exists
       - name: Check if branch exists
         run: |
-          if git rev-parse --verify $GOVUK_FRONTEND_DJANGO_BRANCH_NAME >/dev/null 2>&1; then
-            echo "Branch $GOVUK_FRONTEND_DJANGO_BRANCH_NAME already exists"
+          if git rev-parse --verify ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} >/dev/null 2>&1; then
+            echo "Branch ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} already exists"
             exit 78
           fi
 
       # If there was a PR opened already, exit
       - name: Check if PR exists
         run: |
-          if gh pr list --state all --base main --head $GOVUK_FRONTEND_DJANGO_BRANCH_NAME | grep -q $GOVUK_FRONTEND_DJANGO_BRANCH_NAME; then
-            echo "PR for $GOVUK_FRONTEND_DJANGO_BRANCH_NAME already exists"
+          if gh pr list --state all --base main --head ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} | grep -q ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}; then
+            echo "PR for ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} already exists"
             exit 78
           fi
 
       # Create a new branch with the GOVUK_FRONTEND_DJANGO_BRANCH_NAME
       - name: Create new branch
-        run: git checkout -b $GOVUK_FRONTEND_DJANGO_BRANCH_NAME
+        run: git checkout -b ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}
 
       - name: Upgrade components
         run: make upgrade-components
@@ -67,10 +67,10 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git add .
-          git commit -m "Updates for GOV.UK Frontend $GOVUK_FRONTEND_VERSION and GOV.UK Frontend Jinja $GOVUK_FRONTEND_JINJA_VERSION"
-          git push --set-upstream origin $GOVUK_FRONTEND_DJANGO_BRANCH_NAME
+          git commit -m "Updates for GOV.UK Frontend ${{ env.GOVUK_FRONTEND_VERSION }} and GOV.UK Frontend Jinja ${{ env.GOVUK_FRONTEND_JINJA_VERSION }}"
+          git push --set-upstream origin ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}
 
       - name: Create pull request
-        run: gh pr create -B main -H $GOVUK_FRONTEND_DJANGO_BRANCH_NAME --title 'Update components' --body 'Created by Github action'
+        run: gh pr create -B main -H ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} --title 'Update components' --body 'Created by Github action'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
