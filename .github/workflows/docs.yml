@@ -11,5 +11,11 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.x
-      - run: pip install mkdocs-material mkdocs-minify-plugin mkdocs-redirects mkdocstrings-python mkdocs-tech-docs-template mkdocs-awesome-pages-plugin pillow cairosvg
-      - run: mkdocs gh-deploy --force
+      - name: Install Poetry
+        run: |
+          pip install -U pip
+          pip install poetry
+          poetry install --with docs
+        env:
+          POETRY_VIRTUALENVS_CREATE: false
+      - run: poetry run mkdocs gh-deploy --force
