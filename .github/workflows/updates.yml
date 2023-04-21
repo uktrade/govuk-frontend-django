@@ -1,7 +1,13 @@
 name: Auto updates
+
 on:
-  schedule:
-    - cron: "*/5 * * * *"
+  push:
+    branches:
+      - "*"
+
+# on:
+#   schedule:
+#     - cron: "*/5 * * * *"
 
 jobs:
   deploy:
