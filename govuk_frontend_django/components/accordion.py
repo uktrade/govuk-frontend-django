@@ -20,7 +20,6 @@ class GovUKAccordion(govuk_frontend_base.GovUKComponent):
 
     id: str
     headingLevel: Optional[int] = None
-    rememberExpanded: Optional[bool] = None
     hideAllSectionsText: Optional[str] = None
     hideSectionText: Optional[str] = None
     hideSectionAriaLabelText: Optional[str] = None

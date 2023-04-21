@@ -1,0 +1,75 @@
+name: Auto updates
+
+# Run every 3 hours
+on:
+  schedule:
+    - cron: "0 */3 * * *"
+
+jobs:
+  deploy:
+    env:
+      GH_TOKEN: ${{ github.token }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - name: Install Poetry
+        run: |
+          pip install -U pip
+          pip install poetry
+          poetry config virtualenvs.create false
+          poetry install --without docs,dev
+
+      # Get the latest release tag for each repo
+      - run: echo GOVUK_FRONTEND_VERSION=$(make get-latest-release-tag REPO=alphagov/govuk-frontend) >> $GITHUB_ENV
+      - run: echo GOVUK_FRONTEND_JINJA_VERSION=$(make get-latest-release-tag REPO=LandRegistry/govuk-frontend-jinja) >> $GITHUB_ENV
+      - run: echo GOVUK_FRONTEND_DJANGO_BRANCH_NAME=updates__$(echo ${{ env.GOVUK_FRONTEND_VERSION }} | sed 's/\./_/g')__$(echo ${{ env.GOVUK_FRONTEND_JINJA_VERSION }} | sed 's/\./_/g') >> $GITHUB_ENV
+
+      - name: Git fetch all
+        run: git fetch --all
+
+      # Check if the branch already exists
+      - name: Check if branch "origin/${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}" exists (not using git rev-parse)
+        run: |
+          if git ls-remote --heads origin ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} | grep -q ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}; then
+            echo "Branch origin/${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} already exists"
+            exit 78
+          fi
+
+      # If there was a PR opened already, exit
+      - name: Check if PR exists
+        run: |
+          if gh pr list --state all --base main --head ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} | grep -q ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}; then
+            echo "PR for ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} already exists"
+            exit 78
+          fi
+
+      # Create a new branch with the GOVUK_FRONTEND_DJANGO_BRANCH_NAME
+      - name: Create new branch
+        run: git checkout -b ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}
+
+      - name: Upgrade components
+        run: make upgrade-components
+
+      # If there were no changes, quit the job
+      - name: Check for changes
+        run: |
+          if [[ -z $(git status --porcelain) ]]; then
+            echo "No changes to commit"
+            exit 78
+          fi
+
+      - name: Commit changes
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "Updates"
+          git push --set-upstream origin ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}
+
+      - name: Create pull request
+        run: gh pr create -B main -H ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} --title 'Updates for GOV.UK Frontend ${{ env.GOVUK_FRONTEND_VERSION }} and GOV.UK Frontend Jinja ${{ env.GOVUK_FRONTEND_JINJA_VERSION }}' --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,11 +1,17 @@
 import os
-from typing import Any, Dict, List, Tuple, TypedDict
+import sys
+from typing import Any, Dict, List, Optional, Tuple, TypedDict
 
 import govuk_frontend_jinja
 import requests
 import yaml
 
 from govuk_frontend_django import components
+
+if not len(sys.argv) > 1:
+    raise Exception("Please provide a GOV>UK Frontend version e.g. v4.5.0")
+
+GOVUK_FRONTEND_VERSION = sys.argv[1]
 
 jinja_path = govuk_frontend_jinja.__path__[0]
 govuk_frontend_path = components.__path__[0]
@@ -115,8 +121,9 @@ class ComponentParams(TypedDict):
     YAML: dict
 
 
-def build_dataclasses_from_component_yaml(component_hyphenated: str) -> dict:
-    govuk_frontend_component_yml_url = f"https://raw.githubusercontent.com/alphagov/govuk-frontend/main/src/govuk/components/{component_hyphenated}/{component_hyphenated}.yaml"
+def build_dataclasses_from_component_yaml(component_hyphenated: str, version: Optional[str] = None) -> dict:
+    branch_or_tag = version or "main"
+    govuk_frontend_component_yml_url = f"https://raw.githubusercontent.com/alphagov/govuk-frontend/{branch_or_tag}/src/govuk/components/{component_hyphenated}/{component_hyphenated}.yaml"
     # Grab the YAML file
     r = requests.get(govuk_frontend_component_yml_url)
     r.raise_for_status()
@@ -256,7 +263,7 @@ def build_dataclasses_from_component_yaml(component_hyphenated: str) -> dict:
     return dataclasses
 
 
-def build_component(component_hyphenated: str):
+def build_component(component_hyphenated: str, version: Optional[str] = None):
     """Generate Python code for each component
 
     e.g. "govuk_frontend_jinja/components/accordion/macro.html" -> "govuk_frontend_django/components/accordion.py"
@@ -283,7 +290,10 @@ def build_component(component_hyphenated: str):
 
     gds_url = f"https://design-system.service.gov.uk/components/{component_hyphenated}/"
 
-    dataclasses = build_dataclasses_from_component_yaml(component_hyphenated)
+    dataclasses = build_dataclasses_from_component_yaml(
+        component_hyphenated=component_hyphenated,
+        version=version,
+    )
 
     with open(filename, "w") as f:
         f.write(python_imports)
@@ -330,4 +340,4 @@ def build_component(component_hyphenated: str):
 
 
 for component_hyphenated in os.listdir(jinja_path + "/templates/components"):
-    build_component(component_hyphenated)
+    build_component(component_hyphenated, version=GOVUK_FRONTEND_VERSION)
