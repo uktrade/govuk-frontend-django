@@ -21,9 +21,8 @@ jobs:
         run: |
           pip install -U pip
           pip install poetry
+          poetry config virtualenvs.create false
           poetry install --without docs,dev
-        env:
-          POETRY_VIRTUALENVS_CREATE: false
 
       # Create a new branch with the name "updates_YYYY_MM_DD"
       - name: Create new branch
