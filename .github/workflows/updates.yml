@@ -27,11 +27,27 @@ jobs:
       # Get the latest release tag for each repo
       - run: export GOVUK_FRONTEND_VERSION=$(make get-latest-release-tag REPO=alphagov/govuk-frontend)
       - run: export GOVUK_FRONTEND_JINJA_VERSION=$(make get-latest-release-tag REPO=LandRegistry/govuk-frontend-jinja)
-      - run: export BRANCH_NAME=updates_$(echo $GOVUK_FRONTEND_VERSION | sed 's/\./_/g')_$(echo $GOVUK_FRONTEND_JINJA_VERSION | sed 's/\./_/g')
+      - run: export GOVUK_FRONTEND_DJANGO_BRANCH_NAME=updates__$(echo $GOVUK_FRONTEND_VERSION | sed 's/\./_/g')__$(echo $GOVUK_FRONTEND_JINJA_VERSION | sed 's/\./_/g')
 
-      # Create a new branch with the BRANCH_NAME
+      # Check if the branch already exists
+      - name: Check if branch exists
+        run: |
+          if git rev-parse --verify $GOVUK_FRONTEND_DJANGO_BRANCH_NAME >/dev/null 2>&1; then
+            echo "Branch $GOVUK_FRONTEND_DJANGO_BRANCH_NAME already exists"
+            exit 78
+          fi
+
+      # If there was a PR opened already, exit
+      - name: Check if PR exists
+        run: |
+          if gh pr list --base main --head $GOVUK_FRONTEND_DJANGO_BRANCH_NAME | grep -q $GOVUK_FRONTEND_DJANGO_BRANCH_NAME; then
+            echo "PR for $GOVUK_FRONTEND_DJANGO_BRANCH_NAME already exists"
+            exit 78
+          fi
+
+      # Create a new branch with the GOVUK_FRONTEND_DJANGO_BRANCH_NAME
       - name: Create new branch
-        run: git checkout -b $BRANCH_NAME
+        run: git checkout -b $GOVUK_FRONTEND_DJANGO_BRANCH_NAME
 
       - name: Upgrade components
         run: make upgrade-components
@@ -50,9 +66,9 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git add .
           git commit -m "Updates for GOV.UK Frontend $GOVUK_FRONTEND_VERSION and GOV.UK Frontend Jinja $GOVUK_FRONTEND_JINJA_VERSION"
-          git push --set-upstream origin $BRANCH_NAME
+          git push --set-upstream origin $GOVUK_FRONTEND_DJANGO_BRANCH_NAME
 
       - name: Create pull request
-        run: gh pr create -B main -H $BRANCH_NAME --title 'Update components' --body 'Created by Github action'
+        run: gh pr create -B main -H $GOVUK_FRONTEND_DJANGO_BRANCH_NAME --title 'Update components' --body 'Created by Github action'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
