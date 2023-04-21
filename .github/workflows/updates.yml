@@ -25,9 +25,9 @@ jobs:
           poetry install --without docs,dev
 
       # Get the latest release tag for each repo
-      - run: export GOVUK_FRONTEND_VERSION=$(make get-latest-release-tag REPO=alphagov/govuk-frontend)
-      - run: export GOVUK_FRONTEND_JINJA_VERSION=$(make get-latest-release-tag REPO=LandRegistry/govuk-frontend-jinja)
-      - run: export GOVUK_FRONTEND_DJANGO_BRANCH_NAME=updates__$(echo $GOVUK_FRONTEND_VERSION | sed 's/\./_/g')__$(echo $GOVUK_FRONTEND_JINJA_VERSION | sed 's/\./_/g')
+      - run: echo make get-latest-release-tag REPO=alphagov/govuk-frontend >> $GOVUK_FRONTEND_VERSION
+      - run: echo make get-latest-release-tag REPO=LandRegistry/govuk-frontend-jinja >> $GOVUK_FRONTEND_JINJA_VERSION
+      - run: echo updates__$(echo $GOVUK_FRONTEND_VERSION | sed 's/\./_/g')__$(echo $GOVUK_FRONTEND_JINJA_VERSION | sed 's/\./_/g' >> $GOVUK_FRONTEND_DJANGO_BRANCH_NAME
 
       - run: env | grep GOVUK
 
@@ -42,7 +42,7 @@ jobs:
       # If there was a PR opened already, exit
       - name: Check if PR exists
         run: |
-          if gh pr list --base main --head $GOVUK_FRONTEND_DJANGO_BRANCH_NAME | grep -q $GOVUK_FRONTEND_DJANGO_BRANCH_NAME; then
+          if gh pr list --state all --base main --head $GOVUK_FRONTEND_DJANGO_BRANCH_NAME | grep -q $GOVUK_FRONTEND_DJANGO_BRANCH_NAME; then
             echo "PR for $GOVUK_FRONTEND_DJANGO_BRANCH_NAME already exists"
             exit 78
           fi
