@@ -45,6 +45,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git add .
           git commit -m "Update components"
+          git push --set-upstream origin updates_$(date +'%Y_%m_%d')
 
       - name: Create pull request
         run: gh pr create -B main -H updates_$(date +'%Y_%m_%d') --title 'Update components' --body 'Created by Github action'
