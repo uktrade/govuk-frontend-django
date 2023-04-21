@@ -29,6 +29,8 @@ jobs:
       - run: export GOVUK_FRONTEND_JINJA_VERSION=$(make get-latest-release-tag REPO=LandRegistry/govuk-frontend-jinja)
       - run: export GOVUK_FRONTEND_DJANGO_BRANCH_NAME=updates__$(echo $GOVUK_FRONTEND_VERSION | sed 's/\./_/g')__$(echo $GOVUK_FRONTEND_JINJA_VERSION | sed 's/\./_/g')
 
+      - run: env | grep GOVUK
+
       # Check if the branch already exists
       - name: Check if branch exists
         run: |
