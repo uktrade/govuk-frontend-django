@@ -25,9 +25,9 @@ jobs:
           poetry install --without docs,dev
 
       # Get the latest release tag for each repo
-      - run: echo make get-latest-release-tag REPO=alphagov/govuk-frontend >> $GOVUK_FRONTEND_VERSION
-      - run: echo make get-latest-release-tag REPO=LandRegistry/govuk-frontend-jinja >> $GOVUK_FRONTEND_JINJA_VERSION
-      - run: echo updates__$(echo $GOVUK_FRONTEND_VERSION | sed 's/\./_/g')__$(echo $GOVUK_FRONTEND_JINJA_VERSION | sed 's/\./_/g' >> $GOVUK_FRONTEND_DJANGO_BRANCH_NAME
+      - run: echo GOVUK_FRONTEND_VERSION=$(make get-latest-release-tag REPO=alphagov/govuk-frontend) >> $GITHUB_ENV
+      - run: echo GOVUK_FRONTEND_JINJA_VERSION=$(make get-latest-release-tag REPO=LandRegistry/govuk-frontend-jinja) >> $GITHUB_ENV
+      - run: echo GOVUK_FRONTEND_DJANGO_BRANCH_NAME=updates__$(echo $GOVUK_FRONTEND_VERSION | sed 's/\./_/g')__$(echo $GOVUK_FRONTEND_JINJA_VERSION | sed 's/\./_/g') >> $GITHUB_ENV
 
       - run: env | grep GOVUK
 
