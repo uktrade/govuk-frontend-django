@@ -31,11 +31,14 @@ jobs:
 
       - run: env | grep GOVUK
 
+      - name: Git fetch all
+        run: git fetch --all
+
       # Check if the branch already exists
-      - name: Check if branch exists
+      - name: Check if branch "origin/${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}" exists (not using git rev-parse)
         run: |
-          if git rev-parse --verify ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} >/dev/null 2>&1; then
-            echo "Branch ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} already exists"
+          if git ls-remote --heads origin ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} | grep -q ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}; then
+            echo "Branch origin/${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} already exists"
             exit 78
           fi
 
