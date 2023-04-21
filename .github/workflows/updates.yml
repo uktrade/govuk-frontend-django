@@ -39,7 +39,7 @@ jobs:
         run: |
           if git ls-remote --heads origin ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} | grep -q ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}; then
             echo "Branch origin/${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} already exists"
-            exit 0
+            exit 78
           fi
 
       # If there was a PR opened already, exit
@@ -47,7 +47,7 @@ jobs:
         run: |
           if gh pr list --state all --base main --head ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} | grep -q ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}; then
             echo "PR for ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} already exists"
-            exit 0
+            exit 78
           fi
 
       # Create a new branch with the GOVUK_FRONTEND_DJANGO_BRANCH_NAME
@@ -62,7 +62,7 @@ jobs:
         run: |
           if [[ -z $(git status --porcelain) ]]; then
             echo "No changes to commit"
-            exit 0
+            exit 78
           fi
 
       - name: Commit changes
