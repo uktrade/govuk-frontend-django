@@ -51,7 +51,7 @@ jobs:
         run: git checkout -b ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}
 
       - name: Upgrade components
-        run: make upgrade-components
+        run: make upgrade-components GOVUK_FRONTEND_VERSION=${{ env.GOVUK_FRONTEND_VERSION }} GOVUK_FRONTEND_JINJA_VERSION=${{ env.GOVUK_FRONTEND_JINJA_VERSION }}
 
       # If there were no changes, quit the job
       - name: Check for changes
