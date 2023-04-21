@@ -1,0 +1,41 @@
+name: Auto updates
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      # Create a new branch with the name "updates_YYYY_MM_DD"
+      - name: Create new branch
+        run: git checkout -b updates_$(date +'%Y_%m_%d')
+
+      - name: Upgrade components
+        run: make upgrade-components
+
+      # If there were no changes, quit the job
+      - name: Check for changes
+        run: |
+          if [[ -z $(git status --porcelain) ]]; then
+            echo "No changes to commit"
+            exit 78
+          fi
+
+      - name: Commit changes
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "Update components"
+
+      - name: Create pull request
+        run: gh pr create -B main -H updates_$(date +'%Y_%m_%d') --title 'Update components' --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
