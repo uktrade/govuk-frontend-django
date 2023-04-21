@@ -24,9 +24,14 @@ jobs:
           poetry config virtualenvs.create false
           poetry install --without docs,dev
 
-      # Create a new branch with the name "updates_YYYY_MM_DD"
+      # Get the latest release tag for each repo
+      - run: export GOVUK_FRONTEND_VERSION=$(make get-latest-release-tag REPO=alphagov/govuk-frontend)
+      - run: export GOVUK_FRONTEND_JINJA_VERSION=$(make get-latest-release-tag REPO=LandRegistry/govuk-frontend-jinja)
+      - run: export BRANCH_NAME=updates_$(echo $GOVUK_FRONTEND_VERSION | sed 's/\./_/g')_$(echo $GOVUK_FRONTEND_JINJA_VERSION | sed 's/\./_/g')
+
+      # Create a new branch with the BRANCH_NAME
       - name: Create new branch
-        run: git checkout -b updates_$(date +'%Y_%m_%d')
+        run: git checkout -b $BRANCH_NAME
 
       - name: Upgrade components
         run: make upgrade-components
@@ -44,10 +49,10 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git add .
-          git commit -m "Update components"
-          git push --set-upstream origin updates_$(date +'%Y_%m_%d')
+          git commit -m "Updates for GOV.UK Frontend $GOVUK_FRONTEND_VERSION and GOV.UK Frontend Jinja $GOVUK_FRONTEND_JINJA_VERSION"
+          git push --set-upstream origin $BRANCH_NAME
 
       - name: Create pull request
-        run: gh pr create -B main -H updates_$(date +'%Y_%m_%d') --title 'Update components' --body 'Created by Github action'
+        run: gh pr create -B main -H $BRANCH_NAME --title 'Update components' --body 'Created by Github action'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
