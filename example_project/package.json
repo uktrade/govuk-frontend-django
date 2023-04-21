@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "govuk-frontend": "^4.4.0",
-    "node-sass": "^7.0.3"
+    "node-sass": "^8.0.0"
   },
   "scripts": {
     "build": "node-sass --include-path node_modules --output-style compressed --source-map true --source-map-contents true static/css/styles.scss static/css/styles.css",
