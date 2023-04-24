@@ -53,6 +53,7 @@ jobs:
           fi
 
       - name: DEBUG
+        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION != "True" }}
         run: echo ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION }}
 
       # # Create a new branch with the GOVUK_FRONTEND_DJANGO_BRANCH_NAME
