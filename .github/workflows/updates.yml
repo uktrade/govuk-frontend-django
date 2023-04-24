@@ -1,20 +1,14 @@
 name: Auto updates
 
-# # Run every 3 hours
-# on:
-#   schedule:
-#     - cron: "0 */3 * * *"
-
+# Run every 3 hours
 on:
-  push:
-    branches:
-      - "*"
+  schedule:
+    - cron: "0 */3 * * *"
 
 jobs:
   deploy:
     env:
       GH_TOKEN: ${{ github.token }}
-      # GITHUB_TOKEN: ${{ github.token }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
