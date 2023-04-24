@@ -14,5 +14,5 @@ To use the component, you need to load the `govuk_frontend_django` template tag 
 ...
 {% gds_phase_banner text="Phase banner text" tag=phase_tag %}
     {% gds_component "tag" text="Tag content" %}
-{% end_gds_phase_banner %}
+{% endgds_phase_banner %}
 ```

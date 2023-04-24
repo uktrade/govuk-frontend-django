@@ -16,6 +16,6 @@ To use the component, you need to load the `govuk_frontend_django` template tag 
     {% gds_error_summary_error_list_item href="/" text="Error item 1" %}
     {% gds_error_summary_error_list_item href="/" %}
         Error 2
-    {% end_gds_error_summary_error_list_item %}
-{% end_gds_error_summary %}
+    {% endgds_error_summary_error_list_item %}
+{% endgds_error_summary %}
 ```

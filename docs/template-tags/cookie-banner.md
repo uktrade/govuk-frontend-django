@@ -21,8 +21,8 @@ You can define HTML using the `set` tag and then use the `html` parameter of the
         <p class="govuk-body">Message 1 content</p>
         {% gds_cookie_banner_message_action text="Action 1" %}
         {% gds_cookie_banner_message_action text="Action 2" %}
-    {% end_gds_cookie_banner_message %}
+    {% endgds_cookie_banner_message %}
     {% gds_cookie_banner_message headingText="Message 2 heading" text="Message 2 content" %}
     {% gds_cookie_banner_message headingText="Message 3 heading" html=message_3_html %}
-{% end_gds_cookie_banner %}
+{% endgds_cookie_banner %}
 ```

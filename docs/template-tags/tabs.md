@@ -14,12 +14,12 @@ To use the component, you need to load the `govuk_frontend_django` template tag 
 {% gds_tabs id="tabs-1" title="Tab title" %}
     {% gds_tabs_tab id="tab-1" label="Tab 1" %}
         <strong>Test 1</strong>
-    {% end_gds_tabs_tab %}
+    {% endgds_tabs_tab %}
     {% gds_tabs_tab id="tab-2" label="Tab 2" %}
         <strong>Test 2</strong>
-    {% end_gds_tabs_tab %}
+    {% endgds_tabs_tab %}
     {% gds_tabs_tab id="tab-3" label="Tab 3" %}
         <strong>Test 3</strong>
-    {% end_gds_tabs_tab %}
-{% end_gds_tabs %}
+    {% endgds_tabs_tab %}
+{% endgds_tabs %}
 ```

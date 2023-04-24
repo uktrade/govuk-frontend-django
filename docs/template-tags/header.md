@@ -14,7 +14,7 @@ To use the component, you need to load the `govuk_frontend_django` template tag 
 {% gds_header homepageUrl="/" productName="Some product" serviceName="Service name" serviceUrl="/" %}
     {% gds_header_nav_item href="/" %}
         Nav item 1
-    {% end_gds_header_nav_item %}
+    {% endgds_header_nav_item %}
     {% gds_header_nav_item href="/" text="Nav item 2" %}
-{% end_gds_header %}
+{% endgds_header %}
 ```

@@ -30,7 +30,7 @@ You should create your own `base.html` template that extends this one, this will
     {% gds_header homepageUrl="/" serviceName="GOV.UK Frontend Django example project" serviceUrl="/" containerClasses="govuk-width-container" %}
         {% gds_header_nav_item href="/" text="Components" %}
         {% gds_header_nav_item href="/" text="User list" %}
-    {% end_gds_header %}
+    {% endgds_header %}
 {% endblock header %}
 ```
 

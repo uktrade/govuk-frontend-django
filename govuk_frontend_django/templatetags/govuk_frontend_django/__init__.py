@@ -198,7 +198,7 @@ def gds_register_tag(
                     for end_if_not_contain in end_if_not_contains
                 ]
             ):
-                nodelist = parser.parse((f"end_{name}",))
+                nodelist = parser.parse((f"end{name}",))
                 parser.delete_first_token()
 
         return node_cls(

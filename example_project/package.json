@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "govuk-frontend": "^4.4.0",
+    "govuk-frontend": "4.5.0",
     "node-sass": "^8.0.0"
   },
   "scripts": {

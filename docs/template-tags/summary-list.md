@@ -30,9 +30,9 @@ To use the component you need to load the `govuk_frontend_django` template tag l
             {% gds_summary_list_card_actions_item text="Action 1" href="/" %}
             {% gds_summary_list_card_actions_item href="/" %}
                 Action 2
-            {% end_gds_summary_list_card_actions_item %}
-        {% end_gds_summary_list_card_actions %}
-    {% end_gds_summary_list_card %}
+            {% endgds_summary_list_card_actions_item %}
+        {% endgds_summary_list_card_actions %}
+    {% endgds_summary_list_card %}
     {% gds_summary_list_row %}
         {% gds_summary_list_row_key text="Key 1" %}
         {% gds_summary_list_row_value text="Value 1" %}
@@ -40,22 +40,22 @@ To use the component you need to load the `govuk_frontend_django` template tag l
             {% gds_summary_list_row_actions_item text="Action 1" href="/" %}
             {% gds_summary_list_row_actions_item href="/" %}
                 Action 2
-            {% end_gds_summary_list_row_actions_item %}
-        {% end_gds_summary_list_row_actions %}
-    {% end_gds_summary_list_row %}
+            {% endgds_summary_list_row_actions_item %}
+        {% endgds_summary_list_row_actions %}
+    {% endgds_summary_list_row %}
     {% gds_summary_list_row %}
         {% gds_summary_list_row_key %}
             Key 2
-        {% end_gds_summary_list_row_key %}
+        {% endgds_summary_list_row_key %}
         {% gds_summary_list_row_value %}
             Value 2
-        {% end_gds_summary_list_row_value %}
+        {% endgds_summary_list_row_value %}
         {% gds_summary_list_row_actions %}
             {% gds_summary_list_row_actions_item text="Action 1" href="/" %}
             {% gds_summary_list_row_actions_item href="/" %}
                 Action 2
-            {% end_gds_summary_list_row_actions_item %}
-        {% end_gds_summary_list_row_actions %}
-    {% end_gds_summary_list_row %}
-{% end_gds_summary_list %}
+            {% endgds_summary_list_row_actions_item %}
+        {% endgds_summary_list_row_actions %}
+    {% endgds_summary_list_row %}
+{% endgds_summary_list %}
 ```

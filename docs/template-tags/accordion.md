@@ -14,9 +14,9 @@ To use the component, you need to load the `govuk_frontend_django` template tag 
 {% gds_accordion id="accordion-1" %}
     {% gds_accordion_item heading="Heading 1" summary="Summary 1" %}
         Some <strong>HTML</strong> content
-    {% end_gds_accordion_item %}
+    {% endgds_accordion_item %}
     {% gds_accordion_item heading="Heading 2" summary="Summary 2" %}
         Some more <strong>HTML</strong> content
-    {% end_gds_accordion_item %}
-{% end_gds_accordion %}
+    {% endgds_accordion_item %}
+{% endgds_accordion %}
 ```

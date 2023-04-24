@@ -18,7 +18,7 @@ There are 2 ways you can use this tag, either by passing through the items to th
     {% gds_breadcrumb_item text="Item 2" href="/" %}
     {% gds_breadcrumb_item text="Item 3" href="/" %}
     {% gds_breadcrumb_item text="Item 4" href="/" %}
-{% end_gds_breadcrumbs %}
+{% endgds_breadcrumbs %}
 ```
 
 **OR** by building a list of `BreadcrumbsItems` and passing it through the context.
