@@ -52,37 +52,33 @@ jobs:
             echo GOVUK_FRONTEND_DJANGO_SKIP_GENERATION=True >> $GITHUB_ENV
           fi
 
-      - name: DEBUG
+      # Create a new branch with the GOVUK_FRONTEND_DJANGO_BRANCH_NAME
+      - name: Create new branch
         if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION != 'True' }}
-        run: echo ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION }}
+        run: git checkout -b ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}
 
-      # # Create a new branch with the GOVUK_FRONTEND_DJANGO_BRANCH_NAME
-      # - name: Create new branch
-      #   if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION }} != "True"
-      #   run: git checkout -b ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}
+      - name: Upgrade components
+        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION != 'True' }}
+        run: make upgrade-components GOVUK_FRONTEND_VERSION=${{ env.GOVUK_FRONTEND_VERSION }} GOVUK_FRONTEND_JINJA_VERSION=${{ env.GOVUK_FRONTEND_JINJA_VERSION }}
 
-      # - name: Upgrade components
-      #   if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION }} != "True"
-      #   run: make upgrade-components GOVUK_FRONTEND_VERSION=${{ env.GOVUK_FRONTEND_VERSION }} GOVUK_FRONTEND_JINJA_VERSION=${{ env.GOVUK_FRONTEND_JINJA_VERSION }}
+      # If there were no changes, quit the job
+      - name: Check for changes
+        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION != 'True' }}
+        run: |
+          if [[ -z $(git status --porcelain) ]]; then
+            echo "No changes to commit"
+            exit 78
+          fi
 
-      # # If there were no changes, quit the job
-      # - name: Check for changes
-      #   if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION }} != "True"
-      #   run: |
-      #     if [[ -z $(git status --porcelain) ]]; then
-      #       echo "No changes to commit"
-      #       exit 78
-      #     fi
+      - name: Commit changes
+        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION != 'True' }}
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "Updates"
+          git push --set-upstream origin ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}
 
-      # - name: Commit changes
-      #   if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION }} != "True"
-      #   run: |
-      #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      #     git config --global user.name "github-actions[bot]"
-      #     git add .
-      #     git commit -m "Updates"
-      #     git push --set-upstream origin ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}
-
-      # - name: Create pull request
-      #   if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION }} != "True"
-      #   run: gh pr create -B main -H ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} --title 'Updates for GOV.UK Frontend ${{ env.GOVUK_FRONTEND_VERSION }} and GOV.UK Frontend Jinja ${{ env.GOVUK_FRONTEND_JINJA_VERSION }}' --body 'Created by Github action'
+      - name: Create pull request
+        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION != 'True' }}
+        run: gh pr create -B main -H ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} --title 'Updates for GOV.UK Frontend ${{ env.GOVUK_FRONTEND_VERSION }} and GOV.UK Frontend Jinja ${{ env.GOVUK_FRONTEND_JINJA_VERSION }}' --body 'Created by Github action'
