@@ -1,20 +1,14 @@
 name: Auto updates
 
-# # Run every 3 hours
-# on:
-#   schedule:
-#     - cron: "0 */3 * * *"
-
+# Run every 3 hours
 on:
-  push:
-    branches:
-      - "*"
+  schedule:
+    - cron: "0 */3 * * *"
 
 jobs:
   deploy:
     env:
       GH_TOKEN: ${{ github.token }}
-      # GITHUB_TOKEN: ${{ github.token }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -54,16 +48,16 @@ jobs:
 
       # Create a new branch with the GOVUK_FRONTEND_DJANGO_BRANCH_NAME
       - name: Create new branch
-        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION }} != "True"
+        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION != 'True' }}
         run: git checkout -b ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}
 
       - name: Upgrade components
-        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION }} != "True"
+        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION != 'True' }}
         run: make upgrade-components GOVUK_FRONTEND_VERSION=${{ env.GOVUK_FRONTEND_VERSION }} GOVUK_FRONTEND_JINJA_VERSION=${{ env.GOVUK_FRONTEND_JINJA_VERSION }}
 
       # If there were no changes, quit the job
       - name: Check for changes
-        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION }} != "True"
+        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION != 'True' }}
         run: |
           if [[ -z $(git status --porcelain) ]]; then
             echo "No changes to commit"
@@ -71,7 +65,7 @@ jobs:
           fi
 
       - name: Commit changes
-        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION }} != "True"
+        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION != 'True' }}
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
@@ -80,5 +74,5 @@ jobs:
           git push --set-upstream origin ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }}
 
       - name: Create pull request
-        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION }} != "True"
+        if: ${{ env.GOVUK_FRONTEND_DJANGO_SKIP_GENERATION != 'True' }}
         run: gh pr create -B main -H ${{ env.GOVUK_FRONTEND_DJANGO_BRANCH_NAME }} --title 'Updates for GOV.UK Frontend ${{ env.GOVUK_FRONTEND_VERSION }} and GOV.UK Frontend Jinja ${{ env.GOVUK_FRONTEND_JINJA_VERSION }}' --body 'Created by Github action'
