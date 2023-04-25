@@ -29,6 +29,7 @@ class FieldNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
         component_kwargs.pop("field")
+        self.clear()
         return component_kwargs
 
 
@@ -62,7 +63,7 @@ class CheckboxesNode(FieldNode):
                 if item.value in self.checkbox_conditional_items:
                     item.conditional = self.checkbox_conditional_items[item.value]
                 component_kwargs["items"].append(item.__dict__)
-
+        self.clear()
         return component_kwargs
 
 
@@ -84,7 +85,7 @@ class CheckboxConditionalNode(GovUKComponentNode):
             component_kwargs["html"] = rendered_contents
 
         del component_kwargs["value"]
-
+        self.clear()
         return component_kwargs
 
 

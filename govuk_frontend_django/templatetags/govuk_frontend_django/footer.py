@@ -27,33 +27,29 @@ class FooterNode(GovUKComponentNode):
 
         component_kwargs["navigation"]: List[FooterNavigation] = [
             node
-            for node in self.get_nodes_by_type_and_resolve(
-                node_type=FooterNavigationNode,
-                context=context,
+            for node in self.get_sub_dataclasses_by_type(
+                dataclass_cls=FooterNavigation,
                 many=True,
             )
         ]
 
-        meta = self.get_nodes_by_type_and_resolve(
-            node_type=FooterMetaNode,
-            context=context,
+        meta = self.get_sub_dataclasses_by_type(
+            dataclass_cls=FooterMeta,
             many=False,
         )
         if not meta:
             meta = FooterMeta(items=[]).__dict__
         component_kwargs["meta"] = meta
 
-        component_kwargs["contentLicence"] = self.get_nodes_by_type_and_resolve(
-            node_type=FooterContentlicenceNode,
-            context=context,
+        component_kwargs["contentLicence"] = self.get_sub_dataclasses_by_type(
+            dataclass_cls=FooterContentlicence,
             many=False,
         )
-        component_kwargs["copyright"] = self.get_nodes_by_type_and_resolve(
-            node_type=FooterCopyrightNode,
-            context=context,
+        component_kwargs["copyright"] = self.get_sub_dataclasses_by_type(
+            dataclass_cls=FooterCopyright,
             many=False,
         )
-
+        self.clear()
         return component_kwargs
 
 
@@ -72,13 +68,12 @@ class FooterNavigationNode(GovUKComponentNode):
 
         component_kwargs["items"]: List[FooterNavigationItems] = [
             node
-            for node in self.get_nodes_by_type_and_resolve(
-                node_type=FooterNavigationItemNode,
-                context=context,
+            for node in self.get_sub_dataclasses_by_type(
+                dataclass_cls=FooterNavigationItems,
                 many=True,
             )
         ]
-
+        self.clear()
         return component_kwargs
 
 
@@ -98,7 +93,7 @@ class FooterNavigationItemNode(GovUKComponentNode):
         rendered_contents = self.nodelist.render(context).strip()
         if rendered_contents and "html" not in component_kwargs:
             component_kwargs["html"] = rendered_contents
-
+        self.clear()
         return component_kwargs
 
 
@@ -118,9 +113,8 @@ class FooterMetaNode(GovUKComponentNode):
 
         component_kwargs["items"]: List[FooterMetaItems] = [
             node
-            for node in self.get_nodes_by_type_and_resolve(
-                node_type=FooterMetaItemNode,
-                context=context,
+            for node in self.get_sub_dataclasses_by_type(
+                dataclass_cls=FooterMetaItems,
                 many=True,
             )
         ]
@@ -128,7 +122,7 @@ class FooterMetaNode(GovUKComponentNode):
         rendered_contents = self.nodelist.render(context).strip()
         if rendered_contents and "html" not in component_kwargs:
             component_kwargs["html"] = rendered_contents
-
+        self.clear()
         return component_kwargs
 
 
@@ -148,7 +142,7 @@ class FooterMetaItemNode(GovUKComponentNode):
         rendered_contents = self.nodelist.render(context).strip()
         if rendered_contents and "html" not in component_kwargs:
             component_kwargs["html"] = rendered_contents
-
+        self.clear()
         return component_kwargs
 
 
@@ -169,7 +163,7 @@ class FooterContentlicenceNode(GovUKComponentNode):
         rendered_contents = self.nodelist.render(context).strip()
         if rendered_contents and "html" not in component_kwargs:
             component_kwargs["html"] = rendered_contents
-
+        self.clear()
         return component_kwargs
 
 
@@ -190,7 +184,7 @@ class FooterCopyrightNode(GovUKComponentNode):
         rendered_contents = self.nodelist.render(context).strip()
         if rendered_contents and "html" not in component_kwargs:
             component_kwargs["html"] = rendered_contents
-
+        self.clear()
         return component_kwargs
 
 

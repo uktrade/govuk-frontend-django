@@ -13,24 +13,190 @@ from django.template.base import (
     Token,
     token_kwargs,
 )
+from django.template.context import RequestContext
 from django.template.defaulttags import ForNode, IfNode
 
 from govuk_frontend_django.components.base import GovUKComponent
+from govuk_frontend_django.components.header import HeaderNavigation
 
 register = template.Library()
 
 ResolvedComponent = Union[GovUKComponent, Tuple[GovUKComponent, "GovUKComponentNode"]]
 
 
-class ComponentIfNode(IfNode):
-    ...
+class ResolvingNode(Node):
+    resolved_nodelist: Optional[List[Node]] = None
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.sub_dataclasses: List[GovUKComponent] = []
+
+    def clear(self):
+        self.sub_dataclasses = []
+
+    def resolve(
+        self,
+        context: RequestContext,
+    ):
+        nodelist = getattr(self, "nodelist", NodeList())
+
+        for node in nodelist:
+            if isinstance(node, GovUKComponentNode):
+                self.sub_dataclasses.append(
+                    node.resolve_dataclass(
+                        context,
+                        as_dict=False,
+                    )
+                )
+                self.sub_dataclasses.extend(node.sub_dataclasses)
+                continue
+
+            if isinstance(node, IfNode):
+                node = ComponentIfNode(conditions_nodelists=node.conditions_nodelists)
+
+            if isinstance(node, ForNode):
+                node = ComponentForNode(
+                    loopvars=node.loopvars,
+                    sequence=node.sequence,
+                    is_reversed=node.is_reversed,
+                    nodelist_loop=node.nodelist_loop,
+                    nodelist_empty=node.nodelist_empty,
+                )
+
+            if hasattr(node, "resolve"):
+                node.resolve(context)
+            if hasattr(node, "sub_dataclasses"):
+                self.sub_dataclasses.extend(node.sub_dataclasses)
+
+    def get_sub_dataclasses_by_type(
+        self,
+        dataclass_cls: Type[GovUKComponent],
+        many=True,
+    ) -> Union[GovUKComponent, List[GovUKComponent]]:
+        if not hasattr(self, "sub_dataclasses"):
+            return []
+
+        sub_dataclasses = [
+            dc.__dict__ for dc in self.sub_dataclasses if isinstance(dc, dataclass_cls)
+        ]
+
+        if not many:
+            return sub_dataclasses[0] if sub_dataclasses else []
+        return sub_dataclasses
 
 
-class ComponentForNode(ForNode):
-    ...
+class ComponentIfNode(ResolvingNode, IfNode):
+    """
+    Custom IfNode that will only resolve the nodelist if the condition is True.
+    """
+
+    def resolve(self, context: RequestContext, **kwargs):
+        """
+        See: IfNode.render
+        """
+        self.sub_dataclasses = []
+
+        for condition, nodelist in self.conditions_nodelists:
+            if condition is not None:  # if / elif clause
+                try:
+                    match = condition.eval(context)
+                except template.VariableDoesNotExist:
+                    match = None
+            else:  # else clause
+                match = True
+
+            if match:
+                for node in nodelist:
+                    if hasattr(node, "resolve_dataclass"):
+                        self.sub_dataclasses.append(
+                            node.resolve_dataclass(context, as_dict=False)
+                        )
+
+        print("IF SUB DATACLASSES", self.sub_dataclasses)
+
+        return super().resolve(context)
 
 
-class GovUKComponentNode(Node):
+class ComponentForNode(ResolvingNode, ForNode):
+    """
+    Custom ForNode that will resolve the nodelist as per the loop.
+    """
+
+    def resolve(self, context: RequestContext, **kwargs):
+        """
+        See: ForNode.render
+        """
+        self.nodelist = NodeList()
+
+        if "forloop" in context:
+            parentloop = context["forloop"]
+        else:
+            parentloop = {}
+        with context.push():
+            values = self.sequence.resolve(context, ignore_failures=True)
+            if values is None:
+                values = []
+            if not hasattr(values, "__len__"):
+                values = list(values)
+            len_values = len(values)
+            if len_values < 1:
+                return self.nodelist_empty.render(context)
+            if self.is_reversed:
+                values = reversed(values)
+            num_loopvars = len(self.loopvars)
+            unpack = num_loopvars > 1
+            # Create a forloop value in the context.  We'll update counters on each
+            # iteration just below.
+            loop_dict = context["forloop"] = {"parentloop": parentloop}
+            for i, item in enumerate(values):
+                # Shortcuts for current loop iteration number.
+                loop_dict["counter0"] = i
+                loop_dict["counter"] = i + 1
+                # Reverse counter iteration numbers.
+                loop_dict["revcounter"] = len_values - i
+                loop_dict["revcounter0"] = len_values - i - 1
+                # Boolean values designating first and last times through loop.
+                loop_dict["first"] = i == 0
+                loop_dict["last"] = i == len_values - 1
+
+                pop_context = False
+                if unpack:
+                    # If there are multiple loop variables, unpack the item into
+                    # them.
+                    try:
+                        len_item = len(item)
+                    except TypeError:  # not an iterable
+                        len_item = 1
+                    # Check loop variable count before unpacking
+                    if num_loopvars != len_item:
+                        raise ValueError(
+                            "Need {} values to unpack in for loop; got {}. ".format(
+                                num_loopvars, len_item
+                            ),
+                        )
+                    unpacked_vars = dict(zip(self.loopvars, item))
+                    pop_context = True
+                    context.update(unpacked_vars)
+                else:
+                    context[self.loopvars[0]] = item
+
+                for node in self.nodelist_loop:
+                    if hasattr(node, "resolve_dataclass"):
+                        self.sub_dataclasses.append(
+                            node.resolve_dataclass(context, as_dict=False)
+                        )
+                    self.nodelist.append(node.render_annotated(context))
+
+                if pop_context:
+                    # Pop the loop variables pushed on to the context to avoid
+                    # the context ending up in an inconsistent state when other
+                    # tags (e.g., include and with) push data to context.
+                    context.pop()
+
+        return super().resolve(context)
+
+
+class GovUKComponentNode(ResolvingNode):
     dataclass_cls: Type[dataclass]
 
     def __init__(
@@ -44,54 +210,39 @@ class GovUKComponentNode(Node):
         if dataclass_cls:
             self.dataclass_cls = dataclass_cls
         self.resolved_kwargs = {}
+        self.resolved_dataclass = None
+        super().__init__()
 
-    def resolve(self, context):
-        # Add any SetNodes to the context
-        for node in self.nodelist.get_nodes_by_type(SetNode):
-            node.resolve(context)
+    def resolve(self, context: RequestContext):
+        super().resolve(context)
 
-        if not self.resolved_kwargs:
-            self.resolved_kwargs = {
-                key: val.resolve(context) for key, val in self.extra_context.items()
-            }
+        # if not self.resolved_kwargs:
+        self.resolved_kwargs = {
+            key: val.resolve(context) for key, val in self.extra_context.items()
+        }
 
-    def build_component_kwargs(self, context):
+    def build_component_kwargs(self, context: RequestContext):
         self.resolve(context)
-        return self.resolved_kwargs.copy()
+        component_kwargs = self.resolved_kwargs.copy()
+        return component_kwargs
 
-    def resolve_dataclass(self, context, as_dict=True) -> Union[GovUKComponent, Dict]:
-        resolved_dataclass = self.dataclass_cls(**self.build_component_kwargs(context))
+    def resolve_dataclass(
+        self, context: RequestContext, as_dict=True
+    ) -> Union[GovUKComponent, Dict]:
+        # if not self.resolved_dataclass:
+        self.resolved_dataclass = self.dataclass_cls(
+            **self.build_component_kwargs(context)
+        )
         if as_dict:
-            return resolved_dataclass.__dict__
-        return resolved_dataclass
+            return self.resolved_dataclass.__dict__
+        return self.resolved_dataclass
 
-    def render(self, context):
+    def render(self, context: RequestContext) -> str | GovUKComponent:
         super().render(context)
         resolved_dataclass = self.resolve_dataclass(context, as_dict=False)
         if hasattr(resolved_dataclass, "render"):
             return resolved_dataclass.render()
         return ""
-
-    def get_nodes_by_type_and_resolve(
-        self,
-        node_type: Type["GovUKComponentNode"],
-        context,
-        many: bool = True,
-        include_node: bool = False,
-        **kwargs,
-    ) -> Union[ResolvedComponent, List[ResolvedComponent]]:
-        resolved_dataclasses = []
-        for node in self.nodelist.get_nodes_by_type(node_type):
-            resolved_dataclass = node.resolve_dataclass(context, **kwargs)
-            if include_node:
-                resolved_dataclasses.append((resolved_dataclass, node))
-            else:
-                resolved_dataclasses.append(resolved_dataclass)
-            if not many:
-                break
-        if not many and resolved_dataclasses:
-            return resolved_dataclasses[0]
-        return resolved_dataclasses
 
 
 FIELD_COMPONENTS = [
@@ -159,10 +310,10 @@ class SetNode(Node):
         self.nodelist = nodelist
         self.asvar = asvar
 
-    def resolve(self, context):
+    def resolve(self, context: RequestContext):
         context[self.asvar] = self.nodelist.render(context)
 
-    def render(self, context):
+    def render(self, context: RequestContext):
         self.resolve(context)
         return ""
 

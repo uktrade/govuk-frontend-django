@@ -23,13 +23,13 @@ class BreadcrumbsNode(GovUKComponentNode):
         if "items" not in self.resolved_kwargs:
             component_kwargs["items"]: List[BreadcrumbsItems] = [
                 node
-                for node in self.get_nodes_by_type_and_resolve(
-                    node_type=BreadcrumbsItemsNode,
-                    context=context,
+                for node in self.get_sub_dataclasses_by_type(
+                    dataclass_cls=BreadcrumbsItems,
                     many=True,
                 )
             ]
 
+        self.clear()
         return component_kwargs
 
 

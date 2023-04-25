@@ -20,13 +20,12 @@ class TabsNode(GovUKComponentNode):
 
         component_kwargs["items"]: List[TabsItems] = [
             node
-            for node in self.get_nodes_by_type_and_resolve(
-                node_type=TabsTabNode,
-                context=context,
+            for node in self.get_sub_dataclasses_by_type(
+                dataclass_cls=TabsItems,
                 many=True,
             )
         ]
-
+        self.clear()
         return component_kwargs
 
 
@@ -44,7 +43,7 @@ class TabsTabNode(GovUKComponentNode):
         component_kwargs = super().build_component_kwargs(context)
 
         component_kwargs["panel"] = TextAndHtml(html=self.nodelist.render(context))
-
+        self.clear()
         return component_kwargs
 
 

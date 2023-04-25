@@ -18,15 +18,15 @@ class HeaderNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        component_kwargs["navigation"]: List[TabsItems] = [
-            node
-            for node in self.get_nodes_by_type_and_resolve(
-                node_type=HeaderNavItemNode,
-                context=context,
+        component_kwargs["navigation"]: List[HeaderNavigation] = [
+            dc
+            for dc in self.get_sub_dataclasses_by_type(
+                dataclass_cls=HeaderNavigation,
                 many=True,
             )
         ]
-
+        print("HEADER NAVIGATION", component_kwargs["navigation"])
+        self.clear()
         return component_kwargs
 
 
@@ -46,6 +46,7 @@ class HeaderNavItemNode(GovUKComponentNode):
         href = component_kwargs["href"]
         component_kwargs["active"] = bool(href == context["request"].path)
 
+        self.clear()
         return component_kwargs
 
 

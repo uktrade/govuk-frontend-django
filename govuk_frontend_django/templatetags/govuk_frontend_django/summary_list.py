@@ -31,7 +31,7 @@ class SummaryListCardActionsItemsNode(GovUKComponentNode):
         rendered_contents = self.nodelist.render(context).strip()
         if rendered_contents and "html" not in component_kwargs:
             component_kwargs["html"] = rendered_contents
-
+        self.clear()
         return component_kwargs
 
 
@@ -51,13 +51,12 @@ class SummaryListCardActionsNode(GovUKComponentNode):
 
         component_kwargs["items"] = [
             node
-            for node in self.get_nodes_by_type_and_resolve(
-                node_type=SummaryListCardActionsItemsNode,
-                context=context,
+            for node in self.get_sub_dataclasses_by_type(
+                dataclass_cls=SummaryListCardActionsItems,
                 many=True,
             )
         ]
-
+        self.clear()
         return component_kwargs
 
 
@@ -77,7 +76,7 @@ class SummaryListCardTitleNode(GovUKComponentNode):
         rendered_contents = self.nodelist.render(context).strip()
         if rendered_contents and "html" not in component_kwargs:
             component_kwargs["html"] = rendered_contents
-
+        self.clear()
         return component_kwargs
 
 
@@ -95,17 +94,15 @@ class SummaryListCardNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        component_kwargs["title"] = self.get_nodes_by_type_and_resolve(
-            node_type=SummaryListCardTitleNode,
-            context=context,
+        component_kwargs["title"] = self.get_sub_dataclasses_by_type(
+            dataclass_cls=SummaryListCardTitle,
             many=False,
         )
-        component_kwargs["actions"] = self.get_nodes_by_type_and_resolve(
-            node_type=SummaryListCardActionsNode,
-            context=context,
+        component_kwargs["actions"] = self.get_sub_dataclasses_by_type(
+            dataclass_cls=SummaryListCardActions,
             many=False,
         )
-
+        self.clear()
         return component_kwargs
 
 
@@ -125,7 +122,7 @@ class SummaryListRowsValueNode(GovUKComponentNode):
         rendered_contents = self.nodelist.render(context).strip()
         if rendered_contents and "html" not in component_kwargs:
             component_kwargs["html"] = rendered_contents
-
+        self.clear()
         return component_kwargs
 
 
@@ -146,7 +143,7 @@ class SummaryListRowsActionsItemNode(GovUKComponentNode):
         rendered_contents = self.nodelist.render(context).strip()
         if rendered_contents and "html" not in component_kwargs:
             component_kwargs["html"] = rendered_contents
-
+        self.clear()
         return component_kwargs
 
 
@@ -166,13 +163,12 @@ class SummaryListRowsActionsNode(GovUKComponentNode):
 
         component_kwargs["items"] = [
             node
-            for node in self.get_nodes_by_type_and_resolve(
-                node_type=SummaryListRowsActionsItemNode,
-                context=context,
+            for node in self.get_sub_dataclasses_by_type(
+                dataclass_cls=SummaryListRowsActionsItem,
                 many=True,
             )
         ]
-
+        self.clear()
         return component_kwargs
 
 
@@ -192,7 +188,7 @@ class SummaryListRowsKeyNode(GovUKComponentNode):
         rendered_contents = self.nodelist.render(context).strip()
         if rendered_contents and "html" not in component_kwargs:
             component_kwargs["html"] = rendered_contents
-
+        self.clear()
         return component_kwargs
 
 
@@ -210,24 +206,21 @@ class SummaryListRowNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        component_kwargs["key"] = self.get_nodes_by_type_and_resolve(
-            node_type=SummaryListRowsKeyNode,
-            context=context,
+        component_kwargs["key"] = self.get_sub_dataclasses_by_type(
+            dataclass_cls=SummaryListRowsKey,
             many=False,
         )
 
-        component_kwargs["value"] = self.get_nodes_by_type_and_resolve(
-            node_type=SummaryListRowsValueNode,
-            context=context,
+        component_kwargs["value"] = self.get_sub_dataclasses_by_type(
+            dataclass_cls=SummaryListRowsValue,
             many=False,
         )
 
-        component_kwargs["actions"] = self.get_nodes_by_type_and_resolve(
-            node_type=SummaryListRowsActionsNode,
-            context=context,
+        component_kwargs["actions"] = self.get_sub_dataclasses_by_type(
+            dataclass_cls=SummaryListRowsActions,
             many=False,
         )
-
+        self.clear()
         return component_kwargs
 
 
@@ -244,21 +237,20 @@ class SummaryListNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        component_kwargs["card"] = self.get_nodes_by_type_and_resolve(
-            node_type=SummaryListCardNode,
-            context=context,
+        component_kwargs["card"] = self.get_sub_dataclasses_by_type(
+            dataclass_cls=SummaryListCard,
             many=False,
         )
 
         component_kwargs["rows"] = [
             node
-            for node in self.get_nodes_by_type_and_resolve(
-                node_type=SummaryListRowNode,
-                context=context,
+            for node in self.get_sub_dataclasses_by_type(
+                dataclass_cls=SummaryListRow,
                 many=True,
             )
         ]
 
+        self.clear()
         return component_kwargs
 
 

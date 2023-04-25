@@ -20,13 +20,13 @@ class AccordionNode(GovUKComponentNode):
 
         component_kwargs["items"]: List[AccordionItem] = [
             node
-            for node in self.get_nodes_by_type_and_resolve(
-                node_type=AccordionItemNode,
-                context=context,
+            for node in self.get_sub_dataclasses_by_type(
+                dataclass_cls=AccordionItem,
                 many=True,
             )
         ]
 
+        self.clear()
         return component_kwargs
 
 
@@ -47,6 +47,7 @@ class AccordionItemNode(GovUKComponentNode):
         component_kwargs["summary"] = TextAndHtml(text=component_kwargs["summary"])
         component_kwargs["content"] = TextAndHtml(html=self.nodelist.render(context))
 
+        self.clear()
         return component_kwargs
 
 
