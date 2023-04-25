@@ -18,11 +18,15 @@ class AccordionNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        accordion_items: List[AccordionItem] = []
-        for node in self.get_nodes_by_type(AccordionItemNode):
-            accordion_items.append(node.resolve_dataclass(context))
+        component_kwargs["items"]: List[AccordionItem] = [
+            node
+            for node in self.get_nodes_by_type_and_resolve(
+                node_type=AccordionItemNode,
+                context=context,
+                many=True,
+            )
+        ]
 
-        component_kwargs["items"] = accordion_items
         return component_kwargs
 
 

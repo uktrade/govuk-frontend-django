@@ -1,7 +1,7 @@
 import importlib
 import pathlib
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Type, Union
+from typing import Dict, List, Optional, Tuple, Type, Union
 
 from django import template
 from django.forms import BoundField
@@ -13,10 +13,21 @@ from django.template.base import (
     Token,
     token_kwargs,
 )
+from django.template.defaulttags import ForNode, IfNode
 
 from govuk_frontend_django.components.base import GovUKComponent
 
 register = template.Library()
+
+ResolvedComponent = Union[GovUKComponent, Tuple[GovUKComponent, "GovUKComponentNode"]]
+
+
+class ComponentIfNode(IfNode):
+    ...
+
+
+class ComponentForNode(ForNode):
+    ...
 
 
 class GovUKComponentNode(Node):
@@ -61,16 +72,26 @@ class GovUKComponentNode(Node):
             return resolved_dataclass.render()
         return ""
 
-    def get_node_by_type_and_resolve(
+    def get_nodes_by_type_and_resolve(
         self,
         node_type: Type["GovUKComponentNode"],
         context,
+        many: bool = True,
+        include_node: bool = False,
         **kwargs,
-    ) -> Optional[GovUKComponent]:
+    ) -> Union[ResolvedComponent, List[ResolvedComponent]]:
+        resolved_dataclasses = []
         for node in self.nodelist.get_nodes_by_type(node_type):
             resolved_dataclass = node.resolve_dataclass(context, **kwargs)
-            return resolved_dataclass
-        return None
+            if include_node:
+                resolved_dataclasses.append((resolved_dataclass, node))
+            else:
+                resolved_dataclasses.append(resolved_dataclass)
+            if not many:
+                break
+        if not many and resolved_dataclasses:
+            return resolved_dataclasses[0]
+        return resolved_dataclasses
 
 
 FIELD_COMPONENTS = [

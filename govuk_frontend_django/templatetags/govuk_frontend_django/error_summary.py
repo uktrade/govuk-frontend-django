@@ -20,10 +20,14 @@ class ErrorSummaryNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        error_list: List[ErrorSummaryErrorlist] = []
-        for node in self.nodelist.get_nodes_by_type(ErrorSummaryErrorListItemNode):
-            error_list.append(node.resolve_dataclass(context))
-        component_kwargs["errorList"] = error_list
+        component_kwargs["errorList"]: List[ErrorSummaryErrorlist] = [
+            node
+            for node in self.get_nodes_by_type_and_resolve(
+                node_type=ErrorSummaryErrorListItemNode,
+                context=context,
+                many=True,
+            )
+        ]
 
         return component_kwargs
 

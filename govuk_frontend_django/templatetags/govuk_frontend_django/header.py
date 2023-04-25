@@ -18,11 +18,15 @@ class HeaderNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        nav_items: List[TabsItems] = []
-        for node in self.get_nodes_by_type(HeaderNavItemNode):
-            nav_items.append(node.resolve_dataclass(context))
+        component_kwargs["navigation"]: List[TabsItems] = [
+            node
+            for node in self.get_nodes_by_type_and_resolve(
+                node_type=HeaderNavItemNode,
+                context=context,
+                many=True,
+            )
+        ]
 
-        component_kwargs["navigation"] = nav_items
         return component_kwargs
 
 

@@ -39,8 +39,13 @@ class CheckboxesNode(FieldNode):
         component_kwargs = super().build_component_kwargs(context)
 
         self.checkbox_conditional_items: Dict[str, CheckboxesConditional] = {}
-        for node in self.get_nodes_by_type(CheckboxConditionalNode):
-            checkbox_conditional_item = node.resolve_dataclass(context)
+        for resolved_dataclass, node in self.get_nodes_by_type_and_resolve(
+            node_type=CheckboxConditionalNode,
+            context=context,
+            many=True,
+            include_node=True,
+        ):
+            checkbox_conditional_item = resolved_dataclass
             conditional_value = node.resolved_kwargs["value"]
             self.checkbox_conditional_items[
                 conditional_value

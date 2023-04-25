@@ -21,11 +21,14 @@ class BreadcrumbsNode(GovUKComponentNode):
         component_kwargs = super().build_component_kwargs(context)
 
         if "items" not in self.resolved_kwargs:
-            breadcrum_items: List[BreadcrumbsItems] = []
-            for node in self.get_nodes_by_type(BreadcrumbsItemsNode):
-                breadcrum_items.append(node.resolve_dataclass(context))
-
-            component_kwargs["items"] = breadcrum_items
+            component_kwargs["items"]: List[BreadcrumbsItems] = [
+                node
+                for node in self.get_nodes_by_type_and_resolve(
+                    node_type=BreadcrumbsItemsNode,
+                    context=context,
+                    many=True,
+                )
+            ]
 
         return component_kwargs
 
