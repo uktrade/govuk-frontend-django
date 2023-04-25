@@ -39,8 +39,10 @@ class GovUKCharacterCount(govuk_frontend_base.GovUKComponent):
     textareaDescriptionText: Optional[str] = None
     charactersUnderLimitText: Optional[Any] = None
     charactersAtLimitText: Optional[str] = None
+    charactersOverLimitText: Optional[Any] = None
     wordsUnderLimitText: Optional[Any] = None
     wordsAtLimitText: Optional[str] = None
+    wordsOverLimitText: Optional[Any] = None
 
     _jinja2_template = "govuk_frontend_jinja/components/character-count/macro.html"
     _macro_name = "govukCharacterCount"
