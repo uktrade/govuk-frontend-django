@@ -25,7 +25,6 @@ class HeaderNode(GovUKComponentNode):
                 many=True,
             )
         ]
-        print("HEADER NAVIGATION", component_kwargs["navigation"])
         self.clear()
         return component_kwargs
 

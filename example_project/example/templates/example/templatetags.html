@@ -25,7 +25,7 @@
         {% gds_accordion_item heading="Button" summary="The button component" %}
             {% gds_component "button" text="Save me" %}
         {% endgds_accordion_item %}
-        {% comment %} {% gds_accordion_item heading="Checkboxes" summary="The checkboxes component" %}
+        {% gds_accordion_item heading="Checkboxes" summary="The checkboxes component" %}
             {% set email_html %}
                 <p class="govuk-body">Conditional email content</p>
             {% endset %}
@@ -39,7 +39,7 @@
                     <p class="govuk-body">Conditional text content</p>
                 {% endgds_checkbox_conditional %}
             {% endgds_checkboxes %}
-        {% endgds_accordion_item %} {% endcomment %}
+        {% endgds_accordion_item %}
         {% gds_accordion_item heading="Cookie banner" summary="The cookie banner component" %}
             {% set message_3_html %}
                 <p class="govuk-body">Message 3 content</p>

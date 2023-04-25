@@ -16,7 +16,7 @@ from django.template.base import (
 from django.template.context import RequestContext
 from django.template.defaulttags import ForNode, IfNode
 
-from govuk_frontend_django.components.base import GovUKComponent
+from govuk_frontend_django.components.base import CheckboxesConditional, GovUKComponent
 from govuk_frontend_django.components.header import HeaderNavigation
 
 register = template.Library()
@@ -89,9 +89,6 @@ class ResolvingNode(Node):
 
         if not include_node:
             sub_dataclasses = [dc for dc, _ in sub_dataclasses]
-
-        print("CAM CAMC ACMA ")
-        print(sub_dataclasses)
 
         if not many:
             return sub_dataclasses[0] if sub_dataclasses else []
