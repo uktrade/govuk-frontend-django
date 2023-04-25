@@ -94,6 +94,8 @@ class ComponentIfNode(ResolvingNode, IfNode):
         """
         See: IfNode.render
         """
+        super().resolve(context)
+
         self.sub_dataclasses = []
 
         for condition, nodelist in self.conditions_nodelists:
@@ -111,10 +113,6 @@ class ComponentIfNode(ResolvingNode, IfNode):
                         self.sub_dataclasses.append(
                             node.resolve_dataclass(context, as_dict=False)
                         )
-
-        print("IF SUB DATACLASSES", self.sub_dataclasses)
-
-        return super().resolve(context)
 
 
 class ComponentForNode(ResolvingNode, ForNode):
