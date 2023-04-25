@@ -21,7 +21,8 @@ from govuk_frontend_django.components.header import HeaderNavigation
 
 register = template.Library()
 
-ResolvedComponent = Union[GovUKComponent, Tuple[GovUKComponent, "GovUKComponentNode"]]
+SubDataclassWithNode = Tuple[GovUKComponent, "GovUKComponentNode"]
+SubDataclassWithOrWithoutNode = Union[GovUKComponent, SubDataclassWithNode]
 
 
 class ResolvingNode(Node):
@@ -29,7 +30,7 @@ class ResolvingNode(Node):
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.sub_dataclasses: List[GovUKComponent] = []
+        self.sub_dataclasses: List[SubDataclassWithNode] = []
 
     def clear(self):
         self.sub_dataclasses = []
@@ -43,9 +44,9 @@ class ResolvingNode(Node):
         for node in nodelist:
             if isinstance(node, GovUKComponentNode):
                 self.sub_dataclasses.append(
-                    node.resolve_dataclass(
-                        context,
-                        as_dict=False,
+                    (
+                        node.resolve_dataclass(context, as_dict=False),
+                        node,
                     )
                 )
                 self.sub_dataclasses.extend(node.sub_dataclasses)
@@ -71,14 +72,26 @@ class ResolvingNode(Node):
     def get_sub_dataclasses_by_type(
         self,
         dataclass_cls: Type[GovUKComponent],
-        many=True,
-    ) -> Union[GovUKComponent, List[GovUKComponent]]:
+        many: bool = True,
+        include_node: bool = False,
+    ) -> Union[SubDataclassWithOrWithoutNode, List[SubDataclassWithOrWithoutNode]]:
         if not hasattr(self, "sub_dataclasses"):
             return []
 
         sub_dataclasses = [
-            dc.__dict__ for dc in self.sub_dataclasses if isinstance(dc, dataclass_cls)
+            (
+                dc[0].__dict__,
+                dc[1],
+            )
+            for dc in self.sub_dataclasses
+            if isinstance(dc[0], dataclass_cls)
         ]
+
+        if not include_node:
+            sub_dataclasses = [dc for dc, _ in sub_dataclasses]
+
+        print("CAM CAMC ACMA ")
+        print(sub_dataclasses)
 
         if not many:
             return sub_dataclasses[0] if sub_dataclasses else []
@@ -111,7 +124,10 @@ class ComponentIfNode(ResolvingNode, IfNode):
                 for node in nodelist:
                     if hasattr(node, "resolve_dataclass"):
                         self.sub_dataclasses.append(
-                            node.resolve_dataclass(context, as_dict=False)
+                            (
+                                node.resolve_dataclass(context, as_dict=False),
+                                node,
+                            )
                         )
 
 
@@ -181,7 +197,10 @@ class ComponentForNode(ResolvingNode, ForNode):
                 for node in self.nodelist_loop:
                     if hasattr(node, "resolve_dataclass"):
                         self.sub_dataclasses.append(
-                            node.resolve_dataclass(context, as_dict=False)
+                            (
+                                node.resolve_dataclass(context, as_dict=False),
+                                node,
+                            )
                         )
                     self.nodelist.append(node.render_annotated(context))
 

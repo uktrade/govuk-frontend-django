@@ -20,13 +20,12 @@ class PhaseBannerNode(GovUKComponentNode):
         nodes_to_hide = []
 
         component_kwargs["tag"] = None
-        for node in self.get_sub_dataclasses_by_type(
+        component_kwargs["tag"], tag_node = self.get_sub_dataclasses_by_type(
             dataclass_cls=GovUKTag,
-            many=True,
-        ):
-            component_kwargs["tag"] = node
-            nodes_to_hide.append(node)
-            break
+            many=False,
+            include_node=True,
+        )
+        nodes_to_hide.append(tag_node)
 
         for node_to_hide in nodes_to_hide:
             self.nodelist.remove(node_to_hide)

@@ -106,9 +106,9 @@
                 {% if True %}
                     {% gds_header_nav_item href="/" text="Truthy nav link" %}
                 {% endif %}
-                {% comment %} {% if False %}
+                {% if False %}
                     {% gds_header_nav_item href="/" text="Falsey nav link" %}
-                {% endif %} {% endcomment %}
+                {% endif %}
                 {% for nav_link in nav_links %}
                     {% gds_header_nav_item href=nav_link.1 text=nav_link.0 %}
                 {% endfor %}
@@ -132,11 +132,11 @@
         {% gds_accordion_item heading="Panel" summary="The panel component" %}
             {% gds_component "panel" titleText="Panel title" text="Panel content" %}
         {% endgds_accordion_item %}
-        {% comment %} {% gds_accordion_item heading="Phase banner" summary="The phase banner component" %}
+        {% gds_accordion_item heading="Phase banner" summary="The phase banner component" %}
             {% gds_phase_banner text="Phase banner text" tag=phase_tag %}
                 {% gds_component "tag" text="Tag content" %}
             {% endgds_phase_banner %}
-        {% endgds_accordion_item %} {% endcomment %}
+        {% endgds_accordion_item %}
         {% gds_accordion_item heading="Skip link" summary="The skip link component" %}
             <p class="govuk-body">The skip link is a hidden component</p>
             {% gds_component "skip-link" text="Skip to main content" %}
