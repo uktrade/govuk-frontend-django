@@ -16,8 +16,7 @@ from django.template.base import (
 from django.template.context import RequestContext
 from django.template.defaulttags import ForNode, IfNode
 
-from govuk_frontend_django.components.base import CheckboxesConditional, GovUKComponent
-from govuk_frontend_django.components.header import HeaderNavigation
+from govuk_frontend_django.components.base import GovUKComponent
 
 register = template.Library()
 
