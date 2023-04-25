@@ -45,6 +45,10 @@ class HeaderNavItemNode(GovUKComponentNode):
         href = component_kwargs["href"]
         component_kwargs["active"] = bool(href == context["request"].path)
 
+        rendered_contents = self.nodelist.render(context).strip()
+        if rendered_contents and "html" not in component_kwargs:
+            component_kwargs["html"] = rendered_contents
+
         self.clear()
         return component_kwargs
 
