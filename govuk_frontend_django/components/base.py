@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from typing import Any, ClassVar, Dict, List, Optional, Union
 
-from django.forms.utils import RenderableMixin
 from django.utils.safestring import mark_safe
 from jinja2 import (
     ChoiceLoader,
@@ -14,13 +13,31 @@ from jinja2 import (
 Attributes = Dict[str, Any]
 
 
+class RenderableMixin:
+    def get_context(self):
+        raise NotImplementedError(
+            "Subclasses of RenderableMixin must provide a get_context() method."
+        )
+
+    def render(self, template_name=None, context=None, renderer=None):
+        raise NotImplementedError(
+            "Subclasses of RenderableMixin must provide a render() method."
+        )
+
+    __str__ = render
+    __html__ = render
+
+
 @dataclass(kw_only=True)
 class GovUKComponent(RenderableMixin):
     classes: Optional[str] = None
     attributes: Optional[Attributes] = None
 
-    _jinja2_template: ClassVar[str]
-    _macro_name: ClassVar[str]
+    def set_jinja2_template(self, jinja2_template):
+        self._jinja2_template = jinja2_template
+
+    def set_macro_name(self, macro_name):
+        self._macro_name = macro_name
 
     def build_jinja_template(self):
         return "".join(

@@ -29,6 +29,8 @@ black = "^23.3.0"
 pyyaml = "^6.0"
 isort = "^5.12.0"
 autoflake = "^2.0.2"
+mypy = "^1.2.0"
+django-stubs = "^1.16.0"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs-material = "^9.1.5"
@@ -42,3 +44,9 @@ mkdocs-awesome-pages-plugin = "^2.8.0"
 
 [tool.isort]
 profile = "black"
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+
+[tool.django-stubs]
+django_settings_module = "settings"

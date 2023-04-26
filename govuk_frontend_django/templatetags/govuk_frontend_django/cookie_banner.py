@@ -21,11 +21,14 @@ class CookieBannerNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        messages: List[CookieBannerMessages] = []
-        for node in self.nodelist.get_nodes_by_type(CookieBannerMessageNode):
-            messages.append(node.resolve_dataclass(context))
-        component_kwargs["messages"] = messages
-
+        component_kwargs["messages"] = [
+            node
+            for node in self.get_sub_dataclasses_by_type(
+                dataclass_cls=CookieBannerMessages,
+                many=True,
+            )
+        ]
+        self.clear()
         return component_kwargs
 
 
@@ -42,15 +45,18 @@ class CookieBannerMessageNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        actions: List[CookieBannerMessagesActions] = []
-        for node in self.nodelist.get_nodes_by_type(CookieBannerMessageActionNode):
-            actions.append(node.resolve_dataclass(context))
-        component_kwargs["actions"] = actions
+        component_kwargs["actions"] = [
+            node
+            for node in self.get_sub_dataclasses_by_type(
+                dataclass_cls=CookieBannerMessagesActions,
+                many=True,
+            )
+        ]
 
         rendered_contents = self.nodelist.render(context).strip()
         if rendered_contents and "html" not in self.extra_context:
             component_kwargs["html"] = rendered_contents
-
+        self.clear()
         return component_kwargs
 
 
@@ -67,7 +73,7 @@ class CookieBannerMessageActionNode(GovUKComponentNode):
 
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
-
+        self.clear()
         return component_kwargs
 
 

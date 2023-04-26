@@ -45,3 +45,8 @@ push-pypi-test:
 
 push-pypi:
 	poetry publish
+
+# Formatting/Linting
+
+mypy:
+	poetry run mypy govuk_frontend_django

@@ -5,6 +5,7 @@ from typing import Any, Dict
 from django import forms
 from django.contrib.auth import get_user_model
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import ListView
 
 from govuk_frontend_django.components.accordion import GovUKAccordion
@@ -100,6 +101,24 @@ def components_view(request):
             ("email", "Email"),
         ],
         model_table_rows=User.objects.all(),
+        nav_links=[
+            (
+                "Link 1",
+                reverse("templatetags"),
+            ),
+            (
+                "Link 2",
+                reverse("templatetags"),
+            ),
+            (
+                "Link 3",
+                reverse("templatetags"),
+            ),
+            (
+                "Link 4",
+                reverse("templatetags"),
+            ),
+        ],
     )
 
     return render(request, "example/templatetags.html", context)

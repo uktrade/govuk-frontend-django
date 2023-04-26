@@ -18,11 +18,14 @@ class TabsNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        tabs: List[TabsItems] = []
-        for node in self.get_nodes_by_type(TabsTabNode):
-            tabs.append(node.resolve_dataclass(context))
-
-        component_kwargs["items"] = tabs
+        component_kwargs["items"] = [
+            node
+            for node in self.get_sub_dataclasses_by_type(
+                dataclass_cls=TabsItems,
+                many=True,
+            )
+        ]
+        self.clear()
         return component_kwargs
 
 
@@ -40,7 +43,7 @@ class TabsTabNode(GovUKComponentNode):
         component_kwargs = super().build_component_kwargs(context)
 
         component_kwargs["panel"] = TextAndHtml(html=self.nodelist.render(context))
-
+        self.clear()
         return component_kwargs
 
 

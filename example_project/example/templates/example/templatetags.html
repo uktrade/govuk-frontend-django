@@ -101,6 +101,18 @@
                 {% gds_header_nav_item href="/" text="Nav item 2" %}
                 {% gds_header_nav_item href="/components/" text="Components" %}
             {% endgds_header %}
+            OR
+            {% gds_header homepageUrl="/" productName="Some product" serviceName="Service name" serviceUrl="/" %}
+                {% if True %}
+                    {% gds_header_nav_item href="/" text="Truthy nav link" %}
+                {% endif %}
+                {% if False %}
+                    {% gds_header_nav_item href="/" text="Falsey nav link" %}
+                {% endif %}
+                {% for nav_link in nav_links %}
+                    {% gds_header_nav_item href=nav_link.1 text=nav_link.0 %}
+                {% endfor %}
+            {% endgds_header %}
         {% endgds_accordion_item %}
         {% gds_accordion_item heading="Hint" summary="The hint component" %}
             {% gds_component "hint" text="Some hint text" %}
@@ -231,10 +243,6 @@
         {% endgds_accordion_item %}
     {% endgds_accordion %}
 
-
-    {% comment %} TO FIX: {% endcomment %}
-    {% comment %} {% gds_component "summary-list" %} {% endcomment %}
-    {% comment %} {% gds_component "table" %} {% endcomment %}
 
     {% comment %} FIELDS: {% endcomment %}
     {% comment %} {% gds_component "character-count" %} {% endcomment %}
