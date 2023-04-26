@@ -32,3 +32,11 @@ INSTALLED_APPS = [
     "govuk_frontend_django",
 ]
 ```
+
+## Compatibility table
+
+Below is a list of the versions of this package and the versions of the GOV.UK Frontend that they are compatible with.
+
+| Package Version | GOV.UK Frontend Version |
+| --------------- | ----------------------- |
+| 0.2.0           | 4.5.0                   |
