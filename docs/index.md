@@ -39,4 +39,5 @@ Below is a list of the versions of this package and the versions of the GOV.UK F
 
 | Package Version | GOV.UK Frontend Version |
 | --------------- | ----------------------- |
-| 0.2.0           | 4.5.0                   |
+| 0.2.0           | v4.5.0                  |
+| 0.3.0           | v4.6.0                  |

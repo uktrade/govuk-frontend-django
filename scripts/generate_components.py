@@ -9,7 +9,7 @@ import yaml
 from govuk_frontend_django import components
 
 if not len(sys.argv) > 1:
-    raise Exception("Please provide a GOV>UK Frontend version e.g. v4.5.0")
+    raise Exception("Please provide a GOV>UK Frontend version e.g. v4.6.0")
 
 GOVUK_FRONTEND_VERSION = sys.argv[1]
 
@@ -121,7 +121,9 @@ class ComponentParams(TypedDict):
     YAML: dict
 
 
-def build_dataclasses_from_component_yaml(component_hyphenated: str, version: Optional[str] = None) -> dict:
+def build_dataclasses_from_component_yaml(
+    component_hyphenated: str, version: Optional[str] = None
+) -> dict:
     branch_or_tag = version or "main"
     govuk_frontend_component_yml_url = f"https://raw.githubusercontent.com/alphagov/govuk-frontend/{branch_or_tag}/src/govuk/components/{component_hyphenated}/{component_hyphenated}.yaml"
     # Grab the YAML file
