@@ -21,7 +21,7 @@ class CookieBannerNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        component_kwargs["messages"]: List[CookieBannerMessages] = [
+        component_kwargs["messages"] = [
             node
             for node in self.get_sub_dataclasses_by_type(
                 dataclass_cls=CookieBannerMessages,
@@ -45,7 +45,7 @@ class CookieBannerMessageNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        component_kwargs["actions"]: List[CookieBannerMessagesActions] = [
+        component_kwargs["actions"] = [
             node
             for node in self.get_sub_dataclasses_by_type(
                 dataclass_cls=CookieBannerMessagesActions,

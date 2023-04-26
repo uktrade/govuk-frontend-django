@@ -18,7 +18,7 @@ class TabsNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        component_kwargs["items"]: List[TabsItems] = [
+        component_kwargs["items"] = [
             node
             for node in self.get_sub_dataclasses_by_type(
                 dataclass_cls=TabsItems,

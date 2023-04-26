@@ -1,11 +1,14 @@
-from typing import Dict
+from dataclasses import is_dataclass
+from typing import Any, Dict
 
 from django import template
 from django.forms import BoundField
+from django.template.context import Context
 
 from govuk_frontend_django.components.base import CheckboxesConditional
 from govuk_frontend_django.components.checkboxes import CheckboxesItems, GovUKCheckboxes
 from govuk_frontend_django.templatetags.govuk_frontend_django import (
+    DataclassDict,
     GovUKComponentNode,
     gds_register_tag,
 )
@@ -14,7 +17,7 @@ register = template.Library()
 
 
 class FieldNode(GovUKComponentNode):
-    def resolve(self, context):
+    def resolve(self, context: Context):
         super().resolve(context)
         self.bound_field: BoundField = self.resolved_kwargs["field"]
         self.resolved_kwargs["name"] = self.bound_field.name
@@ -26,7 +29,7 @@ class FieldNode(GovUKComponentNode):
             }
         }
 
-    def build_component_kwargs(self, context):
+    def build_component_kwargs(self, context: Context):
         component_kwargs = super().build_component_kwargs(context)
         component_kwargs.pop("field")
         return component_kwargs
@@ -35,15 +38,18 @@ class FieldNode(GovUKComponentNode):
 class CheckboxesNode(FieldNode):
     dataclass_cls = GovUKCheckboxes
 
-    def build_component_kwargs(self, context):
+    def build_component_kwargs(self, context: Context):
         component_kwargs = super().build_component_kwargs(context)
 
-        self.checkbox_conditional_items: Dict[str, CheckboxesConditional] = {}
-        for checkbox_conditional_item, node in self.get_sub_dataclasses_by_type(
+        self.checkbox_conditional_items: Dict[Any, DataclassDict] = {}
+        for checkbox_conditional_item, node in self.get_sub_dataclasses_by_type(  # type: ignore
             dataclass_cls=CheckboxesConditional,
             many=True,
             include_node=True,
         ):
+            assert isinstance(node, GovUKComponentNode)
+            assert isinstance(checkbox_conditional_item, Dict)
+
             conditional_value = node.resolved_kwargs["value"]
             self.checkbox_conditional_items[
                 conditional_value
@@ -55,10 +61,10 @@ class CheckboxesNode(FieldNode):
             for choice in self.bound_field.field.choices:
                 item = CheckboxesItems(
                     value=choice[0],
-                    text=choice[1],
+                    text=choice[1],  # type: ignore
                 )
                 if item.value in self.checkbox_conditional_items:
-                    item.conditional = self.checkbox_conditional_items[item.value]
+                    item.conditional = self.checkbox_conditional_items[item.value]  # type: ignore
                 component_kwargs["items"].append(item.__dict__)
 
         self.clear()

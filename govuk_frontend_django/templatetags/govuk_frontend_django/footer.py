@@ -25,7 +25,7 @@ class FooterNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        component_kwargs["navigation"]: List[FooterNavigation] = [
+        component_kwargs["navigation"] = [
             node
             for node in self.get_sub_dataclasses_by_type(
                 dataclass_cls=FooterNavigation,
@@ -66,7 +66,7 @@ class FooterNavigationNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        component_kwargs["items"]: List[FooterNavigationItems] = [
+        component_kwargs["items"] = [
             node
             for node in self.get_sub_dataclasses_by_type(
                 dataclass_cls=FooterNavigationItems,
@@ -111,7 +111,7 @@ class FooterMetaNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        component_kwargs["items"]: List[FooterMetaItems] = [
+        component_kwargs["items"] = [
             node
             for node in self.get_sub_dataclasses_by_type(
                 dataclass_cls=FooterMetaItems,

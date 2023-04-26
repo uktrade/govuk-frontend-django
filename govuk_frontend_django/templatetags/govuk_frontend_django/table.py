@@ -27,19 +27,21 @@ def gds_table(columns: List[Tuple[str, str]], rows: QuerySet | List[Dict], **kwa
         ```
     """
 
-    if isinstance(rows, QuerySet):
+    if isinstance(rows, list):
+        rows_as_list = rows
+    else:
         fields = [column[0] for column in columns]
-        rows = rows.values(*fields)
+        rows_as_list = rows.values(*fields)  # type: ignore
 
     table_head: List[TableHead] = []
     for column in columns:
         table_head.append(TableHead(text=column[1]))
 
     table_rows: List[List[TableRows]] = []
-    for row in rows:
+    for row in rows_as_list:
         table_row: List[TableRows] = []
         for column in columns:
-            table_row.append(TableRows(text=row[column[0]]).__dict__)
+            table_row.append(TableRows(text=row[column[0]]).__dict__)  # type: ignore
         table_rows.append(table_row)
 
     return GovUKTable(head=table_head, rows=table_rows, **kwargs)

@@ -18,7 +18,7 @@ class HeaderNode(GovUKComponentNode):
     def build_component_kwargs(self, context):
         component_kwargs = super().build_component_kwargs(context)
 
-        component_kwargs["navigation"]: List[HeaderNavigation] = [
+        component_kwargs["navigation"] = [
             dc
             for dc in self.get_sub_dataclasses_by_type(
                 dataclass_cls=HeaderNavigation,

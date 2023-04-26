@@ -54,26 +54,26 @@ def gds_pagination(page_obj: Page):
         previous = PaginationPrevious(
             href=f"?page={page_obj.previous_page_number()}",
             labelText="Previous",
-        ).__dict__
+        ).__dict__  # type: ignore
 
     if page_obj.has_next():
         next = PaginationNext(
             href=f"?page={page_obj.next_page_number()}",
             labelText="Next",
-        ).__dict__
+        ).__dict__  # type: ignore
 
-    for page_number in page_obj.paginator.get_elided_page_range(
+    for page_number in page_obj.paginator.get_elided_page_range(  # type: ignore
         page_obj.number, on_each_side=2, on_ends=1
     ):
         if page_number == "...":
-            pagination_items.append({"ellipsis": True})
+            pagination_items.append({"ellipsis": True})  # type: ignore
         else:
             pagination_items.append(
                 {
                     "number": page_number,
                     "current": page_number == page_obj.number,
                     "href": f"?page={page_number}",
-                }
+                }  # type: ignore
             )
 
     return GovUKPagination(previous=previous, next=next, items=pagination_items)
