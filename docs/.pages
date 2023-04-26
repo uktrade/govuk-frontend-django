@@ -1,4 +1,6 @@
 nav:
   - About: index.md
-  - Contributing: contributing
-  - ...
+  - templates.md
+  - template-tags
+  - python-components.md
+  - contributing

@@ -9,15 +9,12 @@ The main part of this package is the [template tags](./template-tags/index.md) t
 
 This package also contains some helpful [templates](./templates.md) for your project, such as the `govuk_frontend_django/base.html` template which contains the basic structure of a GOV.UK website.
 Packages
+
 ## Getting started
 
 First install the package:
 ```bash
 pip install govuk-frontend-django
-
-# or
-
-poetry add govuk-frontend-django
 ```
 
 In your settings file, add the app to your `INSTALLED_APPS`:
@@ -27,6 +24,15 @@ INSTALLED_APPS = [
     "govuk_frontend_django",
 ]
 ```
+
+Start using the template tags in your templates!
+```django
+{% load govuk_frontend_django %}
+
+{% gds_component "back-link" href="/" %}
+```
+
+[More template tags :fontawesome-solid-arrow-right:](./template-tags/index.md)
 
 ## Compatibility table
 

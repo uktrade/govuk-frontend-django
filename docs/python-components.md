@@ -6,7 +6,9 @@ hide:
 # Python components
 
 !!! note
-    It is better to use the template tags for rendering GOV.UK components. The template tags use the python components under the hood.
+    The recommended way to use GOV.UK components is via the [template tags](./template-tags/index.md). The template tags use the python components under the hood.
+
+    Building the Python components directly can be useful if you want to build out a complex component in python.
 
 The components have been built in a way that allows you to simply pass through a dict as the `kwargs` for the component in the same format that we see in teh Nunjucks template examples on the GDS website.
 

@@ -19,10 +19,6 @@ Packages
 First install the package:
 ```bash
 pip install govuk-frontend-django
-
-# or
-
-poetry add govuk-frontend-django
 ```
 
 In your settings file, add the app to your `INSTALLED_APPS`:
@@ -32,6 +28,15 @@ INSTALLED_APPS = [
     "govuk_frontend_django",
 ]
 ```
+
+Start using the template tags in your templates!
+```django
+{% load govuk_frontend_django %}
+
+{% gds_component "back-link" href="/" %}
+```
+
+[More template tags :fontawesome-solid-arrow-right:](./template-tags/index.md){ .md-button .md-button--primary }
 
 ## Compatibility table
 

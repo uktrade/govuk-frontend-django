@@ -25,3 +25,7 @@ To run the documentation locally, run the following command:
 ```bash
 make serve-docs
 ```
+
+## Submitting a pull request
+
+TODO: Add some guidelines for submitting a pull request

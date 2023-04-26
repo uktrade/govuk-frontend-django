@@ -22,9 +22,10 @@ make generate-components
 
 Note that the generate-componets command will skip over any components that already exist.
 
-If there are new Jinja templates available, update `govuk_frontend_jinja` and run the `generate-components` command again.
+If there are new Jinja templates available, run the following command to update the dependencies and generate the components:
 
 ```bash
-poetry update govuk_frontend_jinja
-make generate-components
+make upgrade-components GOVUK_FRONTEND_VERSION=v4.6.0 GOVUK_FRONTEND_JINJA_VERSION=2.6.0
 ```
+
+This command will upgrade the GOV.UK Frontend Jinja Macros package to the specified version and then generate the components using the component yaml files from the GOV.UK Frontend using the specified version.
