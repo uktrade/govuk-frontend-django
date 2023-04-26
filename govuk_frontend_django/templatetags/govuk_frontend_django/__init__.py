@@ -25,8 +25,6 @@ SubDataclassWithOrWithoutNode = Union[GovUKComponent, SubDataclassWithNode]
 
 
 class ResolvingNode(Node):
-    resolved_nodelist: Optional[List[Node]] = None
-
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.sub_dataclasses: List[SubDataclassWithNode] = []
