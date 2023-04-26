@@ -23,6 +23,7 @@ class GovUKTextarea(govuk_frontend_base.GovUKComponent):
     spellcheck: Optional[bool] = None
     rows: Optional[str] = None
     value: Optional[str] = None
+    disabled: Optional[bool] = None
     describedBy: Optional[str] = None
     label: govuk_frontend_label.GovUKLabel
     hint: Optional[govuk_frontend_hint.GovUKHint] = None

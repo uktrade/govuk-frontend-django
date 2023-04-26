@@ -28,6 +28,7 @@ class GovUKButton(govuk_frontend_base.GovUKComponent):
     href: Optional[str] = None
     preventDoubleClick: Optional[bool] = None
     isStartButton: Optional[bool] = None
+    id: Optional[str] = None
 
     _jinja2_template = "govuk_frontend_jinja/components/button/macro.html"
     _macro_name = "govukButton"
