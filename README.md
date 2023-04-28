@@ -32,7 +32,7 @@ Start using the template tags in your templates!
 {% gds_component "back-link" href="/" %}
 ```
 
-[More template tags :fontawesome-solid-arrow-right:](./template-tags/index.md)
+[More template tags](./template-tags/index.md)
 
 ## Compatibility table
 
