@@ -16,7 +16,10 @@ readme = "README.md"
 homepage = "https://uktrade.github.io/govuk-frontend-django/"
 repository = "https://github.com/uktrade/govuk-frontend-django/"
 documentation = "https://uktrade.github.io/govuk-frontend-django/"
-packages = [{include = "govuk_frontend_django"}]
+packages = [
+    {include = "govuk_frontend_django"},
+    {include = "govuk_frontend_django/py.typed"},
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
