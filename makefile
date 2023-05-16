@@ -30,6 +30,7 @@ upgrade-components:
 
 init-example-project:
 	poetry run python example_project/manage.py migrate
+	poetry run python example_project/manage.py collectstatic
 	poetry run python example_project/manage.py loaddata test_users.json
 
 run-example-project:
