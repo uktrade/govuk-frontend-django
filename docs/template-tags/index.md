@@ -40,6 +40,42 @@ Some of the components aren't a simple flat mapping, for these we implement cust
 - [Table](./table.md)
 - [Tabs](./tabs.md)
 
+### Formatting with djLint
+
+If you use [djLint](https://github.com/Riverside-Healthcare/djLint) to format your templates, you will need to add the following `custom_blocks` to your settings as per the [Custom Blocks documentation](https://www.djlint.com/docs/configuration/#custom-blocks).
+
+```
+gds_accordion,gds_accordion_item,gds_breadcrumbs,gds_checkboxes,gds_checkbox_conditional,gds_cookie_banner,gds_cookie_banner_message,gds_error_summary,gds_error_summary_error_list_item,gds_footer,gds_footer_nav,gds_footer_meta,gds_header
+```
+
+Currently, djLint doesn't support the use of tags acting like either a tag or a block.
+
+For example, in the code below the `gds_error_summary_error_list_item` tag is both used with and without an endtag:
+
+```django
+{% gds_error_summary titleText="Error summary" descriptionText="Some descriptions about the error summary." %}
+    {% gds_error_summary_error_list_item href="/" text="Error item 1" %}
+    {% gds_error_summary_error_list_item href="/" %}
+        Error 2
+    {% endgds_error_summary_error_list_item %}
+{% endgds_error_summary %}
+```
+
+Running djLint over this example will result in poorly formatted templates.
+
+The current workaround for this is to prefix the tag with `inline_` like so:
+
+```django
+{% gds_error_summary titleText="Error summary" descriptionText="Some descriptions about the error summary." %}
+    {% inline_gds_error_summary_error_list_item href="/" text="Error item 1" %}
+    {% gds_error_summary_error_list_item href="/" %}
+        Error 2
+    {% endgds_error_summary_error_list_item %}
+{% endgds_error_summary %}
+```
+
+As you can see, the `gds_error_summary_error_list_item` without an end tag became `inline_gds_error_summary_error_list_item`. This workaround isn't ideal.
+
 ## Currently unsupported components
 
 Currently we don't support the following components:
