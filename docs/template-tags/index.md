@@ -50,7 +50,7 @@ gds_accordion,gds_accordion_item,gds_breadcrumbs,gds_checkboxes,gds_checkbox_con
 
 Currently, djLint doesn't support the use of tags acting like either a tag or a block.
 
-For example, in the code below the `gds_error_summary_error_list_item` tag is both used with and without an endtag:
+For example, in the code below the `gds_error_summary_error_list_item` tag is both used with and without an end tag:
 
 ```django
 {% gds_error_summary titleText="Error summary" descriptionText="Some descriptions about the error summary." %}
