@@ -10,234 +10,236 @@
             {% gds_component "back-link" href="/" %}
         {% endgds_accordion_item %}
         {% gds_accordion_item heading="Breadcrumbs" summary="The breadcrumbs component" %}
-            {% inline_gds_breadcrumbs items=breadcrumb_items %}
+            {% gds_breadcrumbs_inline items=breadcrumb_items %}
             <p class="govuk-body">OR</p>
             {% gds_breadcrumbs %}
                 {% set breadcrumb_item_4 %}
-                    Item 4{% endset %}
-                    {% gds_breadcrumb_item text="Item 1" href="/" %}
-                    {% gds_breadcrumb_item text="Item 2" href="/" %}
-                    {% gds_breadcrumb_item text="Item 3" href="/" %}
-                    {% gds_breadcrumb_item href="/" html=breadcrumb_item_4 %}
-                {% endgds_breadcrumbs %}
-            {% endgds_accordion_item %}
-            {% gds_accordion_item heading="Button" summary="The button component" %}
-                {% gds_component "button" text="Save me" %}
-            {% endgds_accordion_item %}
-            {% gds_accordion_item heading="Checkboxes" summary="The checkboxes component" %}
-                {% set email_html %}
-                    <p class="govuk-body">Conditional email content</p>
+                    Item 4
                 {% endset %}
-                {% set phone_html %}
-                    <p class="govuk-body">Conditional phone content</p>
-                {% endset %}
-                {% gds_checkboxes field=form.contact %}
-                    {% inline_gds_checkbox_conditional value="email" html=email_html %}
-                    {% inline_gds_checkbox_conditional value="phone" html=phone_html %}
-                    {% gds_checkbox_conditional value="text" %}
-                        <p class="govuk-body">Conditional text content</p>
-                    {% endgds_checkbox_conditional %}
-                {% endgds_checkboxes %}
-            {% endgds_accordion_item %}
-            {% gds_accordion_item heading="Cookie banner" summary="The cookie banner component" %}
-                {% set message_3_html %}
-                    <p class="govuk-body">Message 3 content</p>
-                {% endset %}
-                {% gds_cookie_banner %}
-                    {% gds_cookie_banner_message headingText="Message 1 heading" %}
-                        <p class="govuk-body">Message 1 content</p>
-                        {% inline_gds_cookie_banner_message_action text="Action 1" %}
-                        {% inline_gds_cookie_banner_message_action text="Action 2" %}
-                    {% endgds_cookie_banner_message %}
-                    {% gds_cookie_banner_message headingText="Message 2 heading" text="Message 2 content" %}
-                        {% gds_cookie_banner_message headingText="Message 3 heading" html=message_3_html %}
-                        {% endgds_cookie_banner %}
-                    {% endgds_accordion_item %}
-                    {% gds_accordion_item heading="Details" summary="The details component" %}
-                        {% gds_component "details" summaryText="Click me to see some hidden text" text="Some hidden text" %}
-                    {% endgds_accordion_item %}
-                    {% gds_accordion_item heading="Error message" summary="The error message component" %}
-                        {% gds_component "error-message" text="An error message" %}
-                    {% endgds_accordion_item %}
-                    {% gds_accordion_item heading="Error summary" summary="The error summary component" %}
-                        {% gds_error_summary titleText="Error summary" descriptionText="Some descriptions about the error summary." %}
-                            {% inline_gds_error_summary_error_list_item href="/" text="Error item 1" %}
-                            {% gds_error_summary_error_list_item href="/" %}
-                                Error 2
-                            {% endgds_error_summary_error_list_item %}
-                        {% endgds_error_summary %}
-                    {% endgds_accordion_item %}
-                    {% gds_accordion_item heading="Footer" summary="The Footer component" %}
-                        {% gds_footer %}
-                            {% gds_footer_nav title="Services and information" width="two-thirds" columns=2 %}
-                                {% gds_footer_nav_item href="/" text="Footer nav item 1" %}
-                                    {% gds_footer_nav_item href="/" text="Footer nav item 2" %}
-                                        {% gds_footer_nav_item href="/" text="Footer nav item 3" %}
-                                        {% endgds_footer_nav %}
-                                        {% gds_footer_nav title="Departments and policy" width="one-third" %}
-                                            {% gds_footer_nav_item href="/" text="Footer nav item 4" %}
-                                                {% gds_footer_nav_item href="/" text="Footer nav item 5" %}
-                                                    {% gds_footer_nav_item href="/" text="Footer nav item 6" %}
-                                                    {% endgds_footer_nav %}
-                                                    {% gds_footer_meta %}
-                                                        {% gds_footer_meta_item href="/" text="Meta item 1" %}
-                                                            {% gds_footer_meta_item href="/" text="Meta item 2" %}
-                                                                {% gds_footer_meta_item href="/" text="Meta item 3" %}
-                                                                    {% gds_footer_meta_item href="/" text="Meta item 4" %}
-                                                                    {% endgds_footer_meta %}
-                                                                    {% gds_footer_content_licence text="content licence text" %}
-                                                                        {% gds_footer_copyright text="copyright text" %}
-                                                                        {% endgds_footer %}
-                                                                    {% endgds_accordion_item %}
-                                                                    {% gds_accordion_item heading="Header" summary="The header component" %}
-                                                                        {% gds_header homepageUrl="/" productName="Some product" serviceName="Service name" serviceUrl="/" %}
-                                                                            {% gds_header_nav_item href="/" %}
-                                                                                Nav item 1
-                                                                            {% endgds_header_nav_item %}
-                                                                            {% gds_header_nav_item href="/" text="Nav item 2" %}
-                                                                                {% gds_header_nav_item href="/components/" text="Components" %}
-                                                                                {% endgds_header %}
-                                                                                OR
-                                                                                {% gds_header homepageUrl="/" productName="Some product" serviceName="Service name" serviceUrl="/" %}
-                                                                                    {% if True %}
-                                                                                        {% gds_header_nav_item href="/" text="Truthy nav link" %}
-                                                                                        {% endif %}
-                                                                                        {% if False %}
-                                                                                            {% gds_header_nav_item href="/" text="Falsey nav link" %}
-                                                                                            {% endif %}
-                                                                                            {% for nav_link in nav_links %}
-                                                                                                {% gds_header_nav_item href=nav_link.1 text=nav_link.0 %}
-                                                                                                {% endfor %}
-                                                                                            {% endgds_header %}
-                                                                                        {% endgds_accordion_item %}
-                                                                                        {% gds_accordion_item heading="Hint" summary="The hint component" %}
-                                                                                            {% gds_component "hint" text="Some hint text" %}
-                                                                                        {% endgds_accordion_item %}
-                                                                                        {% gds_accordion_item heading="Inset text" summary="The inset text component" %}
-                                                                                            {% gds_component "inset-text" text="Some inset text" %}
-                                                                                        {% endgds_accordion_item %}
-                                                                                        {% gds_accordion_item heading="Label" summary="The label component" %}
-                                                                                            {% gds_component "label" text="A label" %}
-                                                                                        {% endgds_accordion_item %}
-                                                                                        {% gds_accordion_item heading="Notification banner" summary="The notification banner component" %}
-                                                                                            {% gds_component "notification-banner" text="Notification banner" %}
-                                                                                        {% endgds_accordion_item %}
-                                                                                        {% gds_accordion_item heading="Pagination" summary="The pagination component" %}
-                                                                                            {% gds_pagination page_obj %}
-                                                                                        {% endgds_accordion_item %}
-                                                                                        {% gds_accordion_item heading="Panel" summary="The panel component" %}
-                                                                                            {% gds_component "panel" titleText="Panel title" text="Panel content" %}
-                                                                                        {% endgds_accordion_item %}
-                                                                                        {% gds_accordion_item heading="Phase banner" summary="The phase banner component" %}
-                                                                                            {% gds_phase_banner text="Phase banner text" tag=phase_tag %}
-                                                                                            {% gds_component "tag" text="Tag content" %}
-                                                                                        {% endgds_phase_banner %}
-                                                                                    {% endgds_accordion_item %}
-                                                                                    {% gds_accordion_item heading="Skip link" summary="The skip link component" %}
-                                                                                        <p class="govuk-body">The skip link is a hidden component</p>
-                                                                                        {% gds_component "skip-link" text="Skip to main content" %}
-                                                                                    {% endgds_accordion_item %}
-                                                                                    {% gds_accordion_item heading="Summary list" summary="The summary list component" %}
-                                                                                        {% gds_summary_list %}
-                                                                                        {% gds_summary_list_row %}
-                                                                                        {% gds_summary_list_row_key text="Key 1" %}
-                                                                                        {% gds_summary_list_row_value text="Value 1" %}
-                                                                                    {% endgds_summary_list_row %}
-                                                                                    {% gds_summary_list_row %}
-                                                                                    {% gds_summary_list_row_key %}
-                                                                                    Key 2
-                                                                                {% endgds_summary_list_row_key %}
-                                                                                {% gds_summary_list_row_value %}
-                                                                                Value 2
-                                                                            {% endgds_summary_list_row_value %}
-                                                                        {% endgds_summary_list_row %}
-                                                                    {% endgds_summary_list %}
-                                                                    {% gds_summary_list %}
-                                                                    {% gds_summary_list_row %}
-                                                                    {% gds_summary_list_row_key text="Key 1" %}
-                                                                    {% gds_summary_list_row_value text="Value 1" %}
-                                                                    {% gds_summary_list_row_actions %}
-                                                                    {% gds_summary_list_row_actions_item text="Action 1" href="/" %}
-                                                                    {% gds_summary_list_row_actions_item href="/" %}
-                                                                    Action 2
-                                                                {% endgds_summary_list_row_actions_item %}
-                                                            {% endgds_summary_list_row_actions %}
-                                                        {% endgds_summary_list_row %}
-                                                        {% gds_summary_list_row %}
-                                                        {% gds_summary_list_row_key %}
-                                                        Key 2
-                                                    {% endgds_summary_list_row_key %}
-                                                    {% gds_summary_list_row_value %}
-                                                    Value 2
-                                                {% endgds_summary_list_row_value %}
-                                                {% gds_summary_list_row_actions %}
-                                                {% gds_summary_list_row_actions_item text="Action 1" href="/" %}
-                                                {% gds_summary_list_row_actions_item href="/" %}
-                                                Action 2
-                                            {% endgds_summary_list_row_actions_item %}
-                                        {% endgds_summary_list_row_actions %}
-                                    {% endgds_summary_list_row %}
-                                {% endgds_summary_list %}
-                                {% gds_summary_list %}
-                                {% gds_summary_list_card %}
-                                {% gds_summary_list_card_title text="This is a summary list card title" %}
-                                {% gds_summary_list_card_actions %}
-                                {% gds_summary_list_card_actions_item text="Action 1" href="/" %}
-                                {% gds_summary_list_card_actions_item href="/" %}
-                                Action 2
-                            {% endgds_summary_list_card_actions_item %}
-                        {% endgds_summary_list_card_actions %}
-                    {% endgds_summary_list_card %}
-                    {% gds_summary_list_row %}
-                    {% gds_summary_list_row_key text="Key 1" %}
-                    {% gds_summary_list_row_value text="Value 1" %}
+                {% gds_breadcrumb_item text="Item 1" href="/" %}
+                {% gds_breadcrumb_item text="Item 2" href="/" %}
+                {% gds_breadcrumb_item text="Item 3" href="/" %}
+                {% gds_breadcrumb_item href="/" html=breadcrumb_item_4 %}
+            {% endgds_breadcrumbs %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Button" summary="The button component" %}
+            {% gds_component "button" text="Save me" %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Checkboxes" summary="The checkboxes component" %}
+            {% set email_html %}
+                <p class="govuk-body">Conditional email content</p>
+            {% endset %}
+            {% set phone_html %}
+                <p class="govuk-body">Conditional phone content</p>
+            {% endset %}
+            {% gds_checkboxes field=form.contact %}
+                {% gds_checkbox_conditional_inline value="email" html=email_html %}
+                {% gds_checkbox_conditional_inline value="phone" html=phone_html %}
+                {% gds_checkbox_conditional value="text" %}
+                    <p class="govuk-body">Conditional text content</p>
+                {% endgds_checkbox_conditional %}
+            {% endgds_checkboxes %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Cookie banner" summary="The cookie banner component" %}
+            {% set message_3_html %}
+                <p class="govuk-body">Message 3 content</p>
+            {% endset %}
+            {% gds_cookie_banner %}
+                {% gds_cookie_banner_message headingText="Message 1 heading" %}
+                    <p class="govuk-body">Message 1 content</p>
+                    {% gds_cookie_banner_message_action_inline text="Action 1" %}
+                    {% gds_cookie_banner_message_action_inline text="Action 2" %}
+                {% endgds_cookie_banner_message %}
+                {% gds_cookie_banner_message_inline headingText="Message 2 heading" text="Message 2 content" %}
+                {% gds_cookie_banner_message_inline headingText="Message 3 heading" html=message_3_html %}
+            {% endgds_cookie_banner %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Details" summary="The details component" %}
+            {% gds_component "details" summaryText="Click me to see some hidden text" text="Some hidden text" %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Error message" summary="The error message component" %}
+            {% gds_component "error-message" text="An error message" %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Error summary" summary="The error summary component" %}
+            {% gds_error_summary titleText="Error summary" descriptionText="Some descriptions about the error summary." %}
+                {% gds_error_summary_error_list_item_inline href="/" text="Error item 1" %}
+                {% gds_error_summary_error_list_item href="/" %}
+                    Error 2
+                {% endgds_error_summary_error_list_item %}
+            {% endgds_error_summary %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Footer" summary="The Footer component" %}
+            {% gds_footer %}
+                {% gds_footer_nav title="Services and information" width="two-thirds" columns=2 %}
+                    {% gds_footer_nav_item href="/" text="Footer nav item 1" %}
+                    {% gds_footer_nav_item href="/" text="Footer nav item 2" %}
+                    {% gds_footer_nav_item href="/" text="Footer nav item 3" %}
+                {% endgds_footer_nav %}
+                {% gds_footer_nav title="Departments and policy" width="one-third" %}
+                    {% gds_footer_nav_item href="/" text="Footer nav item 4" %}
+                    {% gds_footer_nav_item href="/" text="Footer nav item 5" %}
+                    {% gds_footer_nav_item href="/" text="Footer nav item 6" %}
+                {% endgds_footer_nav %}
+                {% gds_footer_meta %}
+                    {% gds_footer_meta_item href="/" text="Meta item 1" %}
+                    {% gds_footer_meta_item href="/" text="Meta item 2" %}
+                    {% gds_footer_meta_item href="/" text="Meta item 3" %}
+                    {% gds_footer_meta_item href="/" text="Meta item 4" %}
+                {% endgds_footer_meta %}
+                {% gds_footer_content_licence text="content licence text" %}
+                {% gds_footer_copyright text="copyright text" %}
+            {% endgds_footer %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Header" summary="The header component" %}
+            {% gds_header homepageUrl="/" productName="Some product" serviceName="Service name" serviceUrl="/" %}
+                {% gds_header_nav_item href="/" %}
+                    Nav item 1
+                {% endgds_header_nav_item %}
+                {% gds_header_nav_item_inline href="/" text="Nav item 2" %}
+                {% gds_header_nav_item_inline href="/components/" text="Components" %}
+            {% endgds_header %}
+            OR
+            {% gds_header homepageUrl="/" productName="Some product" serviceName="Service name" serviceUrl="/" %}
+                {% if True %}
+                    {% gds_header_nav_item_inline href="/" text="Truthy nav link" %}
+                {% endif %}
+                {% if False %}
+                    {% gds_header_nav_item_inline href="/" text="Falsey nav link" %}
+                {% endif %}
+                {% for nav_link in nav_links %}
+                    {% gds_header_nav_item_inline href=nav_link.1 text=nav_link.0 %}
+                {% endfor %}
+            {% endgds_header %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Hint" summary="The hint component" %}
+            {% gds_component "hint" text="Some hint text" %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Inset text" summary="The inset text component" %}
+            {% gds_component "inset-text" text="Some inset text" %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Label" summary="The label component" %}
+            {% gds_component "label" text="A label" %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Notification banner" summary="The notification banner component" %}
+            {% gds_component "notification-banner" text="Notification banner" %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Pagination" summary="The pagination component" %}
+            {% gds_pagination page_obj %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Panel" summary="The panel component" %}
+            {% gds_component "panel" titleText="Panel title" text="Panel content" %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Phase banner" summary="The phase banner component" %}
+            {% gds_phase_banner text="Phase banner text" tag=phase_tag %}
+                {% gds_component "tag" text="Tag content" %}
+            {% endgds_phase_banner %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Skip link" summary="The skip link component" %}
+            <p class="govuk-body">The skip link is a hidden component</p>
+            {% gds_component "skip-link" text="Skip to main content" %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Summary list" summary="The summary list component" %}
+            {% gds_summary_list %}
+                {% gds_summary_list_row %}
+                    {% gds_summary_list_row_key_inline text="Key 1" %}
+                    {% gds_summary_list_row_value_inline text="Value 1" %}
+                {% endgds_summary_list_row %}
+                {% gds_summary_list_row %}
+                    {% gds_summary_list_row_key %}
+                        Key 2
+                    {% endgds_summary_list_row_key %}
+                    {% gds_summary_list_row_value %}
+                        Value 2
+                    {% endgds_summary_list_row_value %}
+                {% endgds_summary_list_row %}
+            {% endgds_summary_list %}
+            {% gds_summary_list %}
+                {% gds_summary_list_row %}
+                    {% gds_summary_list_row_key_inline text="Key 1" %}
+                    {% gds_summary_list_row_value_inline text="Value 1" %}
                     {% gds_summary_list_row_actions %}
-                    {% gds_summary_list_row_actions_item text="Action 1" href="/" %}
-                    {% gds_summary_list_row_actions_item href="/" %}
-                    Action 2
-                {% endgds_summary_list_row_actions_item %}
-            {% endgds_summary_list_row_actions %}
-        {% endgds_summary_list_row %}
-        {% gds_summary_list_row %}
-        {% gds_summary_list_row_key %}
-        Key 2
-    {% endgds_summary_list_row_key %}
-    {% gds_summary_list_row_value %}
-    Value 2
-{% endgds_summary_list_row_value %}
-{% gds_summary_list_row_actions %}
-{% gds_summary_list_row_actions_item text="Action 1" href="/" %}
-{% gds_summary_list_row_actions_item href="/" %}
-Action 2
-{% endgds_summary_list_row_actions_item %}
-{% endgds_summary_list_row_actions %}
-{% endgds_summary_list_row %}
-{% endgds_summary_list %}
-{% endgds_accordion_item %}
-{% gds_accordion_item heading="Tabs" summary="The tabs component" %}
-    {% gds_tabs id="tabs-1" title="Tab title" %}
-    {% gds_tabs_tab id="tab-1" label="Tab 1" %}
-    <strong>Test 1</strong>
-{% endgds_tabs_tab %}
-{% gds_tabs_tab id="tab-2" label="Tab 2" %}
-<strong>Test 2</strong>
-{% endgds_tabs_tab %}
-{% gds_tabs_tab id="tab-3" label="Tab 3" %}
-<strong>Test 3</strong>
-{% endgds_tabs_tab %}
-{% endgds_tabs %}
-{% endgds_accordion_item %}
-{% gds_accordion_item heading="Table" summary="The table component" %}
-    {% gds_table columns=table_columns rows=table_rows %}
-    {% gds_table columns=model_table_columns rows=model_table_rows %}
-{% endgds_accordion_item %}
-{% gds_accordion_item heading="Tag" summary="The tag component" %}
-    {% gds_component "tag" text="Tag content" %}
-{% endgds_accordion_item %}
-{% gds_accordion_item heading="Warning text" summary="The warning text component" %}
-    {% gds_component "warning-text" text="This is a warning" iconFallbackText="" %}
-{% endgds_accordion_item %}
-{% endgds_accordion %}
+                        {% gds_summary_list_row_actions_item_inline text="Action 1" href="/" %}
+                        {% gds_summary_list_row_actions_item href="/" %}
+                            Action 2
+                        {% endgds_summary_list_row_actions_item %}
+                    {% endgds_summary_list_row_actions %}
+                {% endgds_summary_list_row %}
+                {% gds_summary_list_row %}
+                    {% gds_summary_list_row_key %}
+                        Key 2
+                    {% endgds_summary_list_row_key %}
+                    {% gds_summary_list_row_value %}
+                        Value 2
+                    {% endgds_summary_list_row_value %}
+                    {% gds_summary_list_row_actions %}
+                        {% gds_summary_list_row_actions_item_inline text="Action 1" href="/" %}
+                        {% gds_summary_list_row_actions_item href="/" %}
+                            Action 2
+                        {% endgds_summary_list_row_actions_item %}
+                    {% endgds_summary_list_row_actions %}
+                {% endgds_summary_list_row %}
+            {% endgds_summary_list %}
+            {% gds_summary_list %}
+                {% gds_summary_list_card %}
+                    {% gds_summary_list_card_title text="This is a summary list card title" %}
+                    {% gds_summary_list_card_actions %}
+                        {% gds_summary_list_card_actions_item_inline text="Action 1" href="/" %}
+                        {% gds_summary_list_card_actions_item href="/" %}
+                            Action 2
+                        {% endgds_summary_list_card_actions_item %}
+                    {% endgds_summary_list_card_actions %}
+                {% endgds_summary_list_card %}
+                {% gds_summary_list_row %}
+                    {% gds_summary_list_row_key_inline text="Key 1" %}
+                    {% gds_summary_list_row_value_inline text="Value 1" %}
+                    {% gds_summary_list_row_actions %}
+                        {% gds_summary_list_row_actions_item_inline text="Action 1" href="/" %}
+                        {% gds_summary_list_row_actions_item href="/" %}
+                            Action 2
+                        {% endgds_summary_list_row_actions_item %}
+                    {% endgds_summary_list_row_actions %}
+                {% endgds_summary_list_row %}
+                {% gds_summary_list_row %}
+                    {% gds_summary_list_row_key %}
+                        Key 2
+                    {% endgds_summary_list_row_key %}
+                    {% gds_summary_list_row_value %}
+                        Value 2
+                    {% endgds_summary_list_row_value %}
+                    {% gds_summary_list_row_actions %}
+                        {% gds_summary_list_row_actions_item_inline text="Action 1" href="/" %}
+                        {% gds_summary_list_row_actions_item href="/" %}
+                            Action 2
+                        {% endgds_summary_list_row_actions_item %}
+                    {% endgds_summary_list_row_actions %}
+                {% endgds_summary_list_row %}
+            {% endgds_summary_list %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Tabs" summary="The tabs component" %}
+            {% gds_tabs id="tabs-1" title="Tab title" %}
+                {% gds_tabs_tab id="tab-1" label="Tab 1" %}
+                    <strong>Test 1</strong>
+                {% endgds_tabs_tab %}
+                {% gds_tabs_tab id="tab-2" label="Tab 2" %}
+                    <strong>Test 2</strong>
+                {% endgds_tabs_tab %}
+                {% gds_tabs_tab id="tab-3" label="Tab 3" %}
+                    <strong>Test 3</strong>
+                {% endgds_tabs_tab %}
+            {% endgds_tabs %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Table" summary="The table component" %}
+            {% gds_table columns=table_columns rows=table_rows %}
+            {% gds_table columns=model_table_columns rows=model_table_rows %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Tag" summary="The tag component" %}
+            {% gds_component "tag" text="Tag content" %}
+        {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Warning text" summary="The warning text component" %}
+            {% gds_component "warning-text" text="This is a warning" iconFallbackText="" %}
+        {% endgds_accordion_item %}
+    {% endgds_accordion %}
+{% endblock %}
 {% comment %} FIELDS: {% endcomment %}
 {% comment %} {% gds_component "character-count" %} {% endcomment %}
 {% comment %} {% gds_component "checkboxes" %} {% endcomment %}
@@ -248,4 +250,3 @@ Action 2
 {% comment %} {% gds_component "radios" %} {% endcomment %}
 {% comment %} {% gds_component "select" %} {% endcomment %}
 {% comment %} {% gds_component "textarea" %} {% endcomment %}
-{% endblock %}

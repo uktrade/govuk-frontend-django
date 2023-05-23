@@ -45,7 +45,7 @@ Some of the components aren't a simple flat mapping, for these we implement cust
 If you use [djLint](https://github.com/Riverside-Healthcare/djLint) to format your templates, you will need to add the following `custom_blocks` to your settings as per the [Custom Blocks documentation](https://www.djlint.com/docs/configuration/#custom-blocks).
 
 ```
-gds_accordion,gds_accordion_item,gds_breadcrumbs,gds_checkboxes,gds_checkbox_conditional,gds_cookie_banner,gds_cookie_banner_message,gds_error_summary,gds_error_summary_error_list_item,gds_footer,gds_footer_nav,gds_footer_meta,gds_header
+gds_accordion,gds_accordion_item,gds_breadcrumbs,gds_checkboxes,gds_checkbox_conditional,gds_cookie_banner,gds_cookie_banner_message,gds_error_summary,gds_error_summary_error_list_item,gds_footer,gds_footer_nav,gds_footer_meta,gds_header,gds_header_nav_item,gds_phase_banner,gds_summary_list,gds_summary_list_row,gds_summary_list_row_key,gds_summary_list_row_value,gds_summary_list_row_actions,gds_summary_list_row_actions_item,gds_summary_list_card,gds_summary_list_card_actions,gds_summary_list_card_actions_item,gds_tabs,gds_tabs_tab
 ```
 
 Currently, djLint doesn't support the use of tags acting like either a tag or a block.
@@ -63,18 +63,18 @@ For example, in the code below the `gds_error_summary_error_list_item` tag is bo
 
 Running djLint over this example will result in poorly formatted templates.
 
-The current workaround for this is to prefix the tag with `inline_` like so:
+The current workaround for this is to suffix the tag with `_inline` like so:
 
 ```django
 {% gds_error_summary titleText="Error summary" descriptionText="Some descriptions about the error summary." %}
-    {% inline_gds_error_summary_error_list_item href="/" text="Error item 1" %}
+    {% gds_error_summary_error_list_item_inline href="/" text="Error item 1" %}
     {% gds_error_summary_error_list_item href="/" %}
         Error 2
     {% endgds_error_summary_error_list_item %}
 {% endgds_error_summary %}
 ```
 
-As you can see, the `gds_error_summary_error_list_item` without an end tag became `inline_gds_error_summary_error_list_item`. This workaround isn't ideal.
+As you can see, the `gds_error_summary_error_list_item` without an end tag became `gds_error_summary_error_list_item_inline`. This workaround isn't ideal.
 
 ## Currently unsupported components
 

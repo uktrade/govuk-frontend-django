@@ -10,8 +10,8 @@
     {% url "templatetags" as templatetags_url %}
     {% url "user-listing" as users_url %}
     {% gds_header homepageUrl="/" serviceName="GOV.UK Frontend Django example project" serviceUrl="/" containerClasses="govuk-width-container" %}
-        {% inline_gds_header_nav_item href=templatetags_url text="Template tags" %}
-        {% inline_gds_header_nav_item href=users_url text="User list" %}
+        {% gds_header_nav_item_inline href=templatetags_url text="Template tags" %}
+        {% gds_header_nav_item_inline href=users_url text="User list" %}
     {% endgds_header %}
 {% endblock header %}
 {% block body_end %}
