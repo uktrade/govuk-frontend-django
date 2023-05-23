@@ -34,6 +34,7 @@ isort = "^5.12.0"
 autoflake = "^2.0.2"
 mypy = "^1.2.0"
 django-stubs = "^1.16.0"
+djlint = "^1.28.0"
 
 [tool.poetry.group.docs.dependencies]
 mkdocs-material = "^9.1.5"
@@ -53,3 +54,10 @@ plugins = ["mypy_django_plugin.main"]
 
 [tool.django-stubs]
 django_settings_module = "settings"
+
+[tool.djlint]
+profile="django"
+indent="4"
+ignore="H021,H006"
+exclude="node_modules,staticfiles,static"
+custom_blocks="gds_accordion,gds_accordion_item,gds_breadcrumbs,gds_checkboxes,gds_checkbox_conditional,gds_cookie_banner,gds_cookie_banner_message,gds_error_summary,gds_error_summary_error_list_item,gds_footer,gds_footer_nav,gds_footer_meta,gds_header,gds_header_nav_item,gds_phase_banner,gds_summary_list,gds_summary_list_row,gds_summary_list_row_key,gds_summary_list_row_value,gds_summary_list_row_actions,gds_summary_list_row_actions_item,gds_summary_list_card,gds_summary_list_card_actions,gds_summary_list_card_actions_item,gds_tabs,gds_tabs_tab"

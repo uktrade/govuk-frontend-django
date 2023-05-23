@@ -408,6 +408,7 @@ def gds_register_tag(
         )
 
     library.tag(name=name, compile_function=template_tag)
+    library.tag(name=name + "_inline", compile_function=template_tag)
 
 
 # Loop over python files in this directory and update the register object

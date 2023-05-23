@@ -51,3 +51,6 @@ push-pypi:
 
 mypy:
 	poetry run mypy govuk_frontend_django
+
+djlint:
+	poetry run djlint example_project --reformat

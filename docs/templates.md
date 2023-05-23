@@ -11,7 +11,7 @@ Below are a list of templates that you can use in your Django project.
 
 See: [GDS base template](https://design-system.service.gov.uk/styles/page-template/)
 
-`govuk_frontend_django/base.html`
+[`govuk_frontend_django/base.html`](https://github.com/uktrade/govuk-frontend-django/blob/main/govuk_frontend_django/templates/govuk_frontend_django/base.html)
 
 You should create your own `base.html` template that extends this one, this will give you one location to add your own CSS and JS.
 
@@ -33,6 +33,20 @@ You should create your own `base.html` template that extends this one, this will
     {% endgds_header %}
 {% endblock header %}
 ```
+
+### Using the base template in your project
+
+- Install the GOV.UK Frontend add to static files with assets.
+- Create a new `base.html` file as per the example above.
+- Any templates that extend from the new `base.html` can define their own `content` block to supply the page content.
+- Blocks that are available:
+  - `{% block title %}` - The contents of the HTML Head `<title></title>` tag
+  - `{% block head %}` - A place to add your extra `<head>` content (Stylesheets, Scripts, etc.)
+  - `{% block body_start %}` - A place for markup/content that comes as early in the `<body>` as possible
+  - `{% block header %}` - A place for the page header markup
+  - `{% block content %}` - A place for the page content that appears inside the `<main>` tag
+  - `{% block footer %}` - A place for the page footer markup
+  - `{% block body_end %}` - A place to add markup/content that comes at the end of the `<body>` (loading javascript files)
 
 ## 404 template
 

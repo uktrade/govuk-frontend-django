@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 {% load govuk_frontend_django %}
-
 {% block content %}
     <h1 class="govuk-heading-l">Template tags for GDS components</h1>
-
     {% gds_accordion id="accordion-1" %}
         {% gds_accordion_item heading="Accordion" summary="The accordion component" %}
             <p class="govuk-body">This is an accordion!</p>
@@ -12,10 +10,12 @@
             {% gds_component "back-link" href="/" %}
         {% endgds_accordion_item %}
         {% gds_accordion_item heading="Breadcrumbs" summary="The breadcrumbs component" %}
-            {% gds_breadcrumbs items=breadcrumb_items %}
+            {% gds_breadcrumbs_inline items=breadcrumb_items %}
             <p class="govuk-body">OR</p>
             {% gds_breadcrumbs %}
-                {% set breadcrumb_item_4 %}Item 4{% endset %}
+                {% set breadcrumb_item_4 %}
+                    Item 4
+                {% endset %}
                 {% gds_breadcrumb_item text="Item 1" href="/" %}
                 {% gds_breadcrumb_item text="Item 2" href="/" %}
                 {% gds_breadcrumb_item text="Item 3" href="/" %}
@@ -33,8 +33,8 @@
                 <p class="govuk-body">Conditional phone content</p>
             {% endset %}
             {% gds_checkboxes field=form.contact %}
-                {% gds_checkbox_conditional value="email" html=email_html %}
-                {% gds_checkbox_conditional value="phone" html=phone_html %}
+                {% gds_checkbox_conditional_inline value="email" html=email_html %}
+                {% gds_checkbox_conditional_inline value="phone" html=phone_html %}
                 {% gds_checkbox_conditional value="text" %}
                     <p class="govuk-body">Conditional text content</p>
                 {% endgds_checkbox_conditional %}
@@ -47,11 +47,11 @@
             {% gds_cookie_banner %}
                 {% gds_cookie_banner_message headingText="Message 1 heading" %}
                     <p class="govuk-body">Message 1 content</p>
-                    {% gds_cookie_banner_message_action text="Action 1" %}
-                    {% gds_cookie_banner_message_action text="Action 2" %}
+                    {% gds_cookie_banner_message_action_inline text="Action 1" %}
+                    {% gds_cookie_banner_message_action_inline text="Action 2" %}
                 {% endgds_cookie_banner_message %}
-                {% gds_cookie_banner_message headingText="Message 2 heading" text="Message 2 content" %}
-                {% gds_cookie_banner_message headingText="Message 3 heading" html=message_3_html %}
+                {% gds_cookie_banner_message_inline headingText="Message 2 heading" text="Message 2 content" %}
+                {% gds_cookie_banner_message_inline headingText="Message 3 heading" html=message_3_html %}
             {% endgds_cookie_banner %}
         {% endgds_accordion_item %}
         {% gds_accordion_item heading="Details" summary="The details component" %}
@@ -62,7 +62,7 @@
         {% endgds_accordion_item %}
         {% gds_accordion_item heading="Error summary" summary="The error summary component" %}
             {% gds_error_summary titleText="Error summary" descriptionText="Some descriptions about the error summary." %}
-                {% gds_error_summary_error_list_item href="/" text="Error item 1" %}
+                {% gds_error_summary_error_list_item_inline href="/" text="Error item 1" %}
                 {% gds_error_summary_error_list_item href="/" %}
                     Error 2
                 {% endgds_error_summary_error_list_item %}
@@ -75,20 +75,17 @@
                     {% gds_footer_nav_item href="/" text="Footer nav item 2" %}
                     {% gds_footer_nav_item href="/" text="Footer nav item 3" %}
                 {% endgds_footer_nav %}
-
                 {% gds_footer_nav title="Departments and policy" width="one-third" %}
                     {% gds_footer_nav_item href="/" text="Footer nav item 4" %}
                     {% gds_footer_nav_item href="/" text="Footer nav item 5" %}
                     {% gds_footer_nav_item href="/" text="Footer nav item 6" %}
                 {% endgds_footer_nav %}
-
                 {% gds_footer_meta %}
                     {% gds_footer_meta_item href="/" text="Meta item 1" %}
                     {% gds_footer_meta_item href="/" text="Meta item 2" %}
                     {% gds_footer_meta_item href="/" text="Meta item 3" %}
                     {% gds_footer_meta_item href="/" text="Meta item 4" %}
                 {% endgds_footer_meta %}
-
                 {% gds_footer_content_licence text="content licence text" %}
                 {% gds_footer_copyright text="copyright text" %}
             {% endgds_footer %}
@@ -98,19 +95,19 @@
                 {% gds_header_nav_item href="/" %}
                     Nav item 1
                 {% endgds_header_nav_item %}
-                {% gds_header_nav_item href="/" text="Nav item 2" %}
-                {% gds_header_nav_item href="/components/" text="Components" %}
+                {% gds_header_nav_item_inline href="/" text="Nav item 2" %}
+                {% gds_header_nav_item_inline href="/components/" text="Components" %}
             {% endgds_header %}
             OR
             {% gds_header homepageUrl="/" productName="Some product" serviceName="Service name" serviceUrl="/" %}
                 {% if True %}
-                    {% gds_header_nav_item href="/" text="Truthy nav link" %}
+                    {% gds_header_nav_item_inline href="/" text="Truthy nav link" %}
                 {% endif %}
                 {% if False %}
-                    {% gds_header_nav_item href="/" text="Falsey nav link" %}
+                    {% gds_header_nav_item_inline href="/" text="Falsey nav link" %}
                 {% endif %}
                 {% for nav_link in nav_links %}
-                    {% gds_header_nav_item href=nav_link.1 text=nav_link.0 %}
+                    {% gds_header_nav_item_inline href=nav_link.1 text=nav_link.0 %}
                 {% endfor %}
             {% endgds_header %}
         {% endgds_accordion_item %}
@@ -144,8 +141,8 @@
         {% gds_accordion_item heading="Summary list" summary="The summary list component" %}
             {% gds_summary_list %}
                 {% gds_summary_list_row %}
-                    {% gds_summary_list_row_key text="Key 1" %}
-                    {% gds_summary_list_row_value text="Value 1" %}
+                    {% gds_summary_list_row_key_inline text="Key 1" %}
+                    {% gds_summary_list_row_value_inline text="Value 1" %}
                 {% endgds_summary_list_row %}
                 {% gds_summary_list_row %}
                     {% gds_summary_list_row_key %}
@@ -158,10 +155,10 @@
             {% endgds_summary_list %}
             {% gds_summary_list %}
                 {% gds_summary_list_row %}
-                    {% gds_summary_list_row_key text="Key 1" %}
-                    {% gds_summary_list_row_value text="Value 1" %}
+                    {% gds_summary_list_row_key_inline text="Key 1" %}
+                    {% gds_summary_list_row_value_inline text="Value 1" %}
                     {% gds_summary_list_row_actions %}
-                        {% gds_summary_list_row_actions_item text="Action 1" href="/" %}
+                        {% gds_summary_list_row_actions_item_inline text="Action 1" href="/" %}
                         {% gds_summary_list_row_actions_item href="/" %}
                             Action 2
                         {% endgds_summary_list_row_actions_item %}
@@ -175,7 +172,7 @@
                         Value 2
                     {% endgds_summary_list_row_value %}
                     {% gds_summary_list_row_actions %}
-                        {% gds_summary_list_row_actions_item text="Action 1" href="/" %}
+                        {% gds_summary_list_row_actions_item_inline text="Action 1" href="/" %}
                         {% gds_summary_list_row_actions_item href="/" %}
                             Action 2
                         {% endgds_summary_list_row_actions_item %}
@@ -186,17 +183,17 @@
                 {% gds_summary_list_card %}
                     {% gds_summary_list_card_title text="This is a summary list card title" %}
                     {% gds_summary_list_card_actions %}
-                        {% gds_summary_list_card_actions_item text="Action 1" href="/" %}
+                        {% gds_summary_list_card_actions_item_inline text="Action 1" href="/" %}
                         {% gds_summary_list_card_actions_item href="/" %}
                             Action 2
                         {% endgds_summary_list_card_actions_item %}
                     {% endgds_summary_list_card_actions %}
                 {% endgds_summary_list_card %}
                 {% gds_summary_list_row %}
-                    {% gds_summary_list_row_key text="Key 1" %}
-                    {% gds_summary_list_row_value text="Value 1" %}
+                    {% gds_summary_list_row_key_inline text="Key 1" %}
+                    {% gds_summary_list_row_value_inline text="Value 1" %}
                     {% gds_summary_list_row_actions %}
-                        {% gds_summary_list_row_actions_item text="Action 1" href="/" %}
+                        {% gds_summary_list_row_actions_item_inline text="Action 1" href="/" %}
                         {% gds_summary_list_row_actions_item href="/" %}
                             Action 2
                         {% endgds_summary_list_row_actions_item %}
@@ -210,7 +207,7 @@
                         Value 2
                     {% endgds_summary_list_row_value %}
                     {% gds_summary_list_row_actions %}
-                        {% gds_summary_list_row_actions_item text="Action 1" href="/" %}
+                        {% gds_summary_list_row_actions_item_inline text="Action 1" href="/" %}
                         {% gds_summary_list_row_actions_item href="/" %}
                             Action 2
                         {% endgds_summary_list_row_actions_item %}
@@ -242,17 +239,14 @@
             {% gds_component "warning-text" text="This is a warning" iconFallbackText="" %}
         {% endgds_accordion_item %}
     {% endgds_accordion %}
-
-
-    {% comment %} FIELDS: {% endcomment %}
-    {% comment %} {% gds_component "character-count" %} {% endcomment %}
-    {% comment %} {% gds_component "checkboxes" %} {% endcomment %}
-    {% comment %} {% gds_component "date-input" %} {% endcomment %}
-    {% comment %} {% gds_component "fieldset" %} {% endcomment %}
-    {% comment %} {% gds_component "file-upload" %} {% endcomment %}
-    {% comment %} {% gds_component "input" %} {% endcomment %}
-    {% comment %} {% gds_component "radios" %} {% endcomment %}
-    {% comment %} {% gds_component "select" %} {% endcomment %}
-    {% comment %} {% gds_component "textarea" %} {% endcomment %}
-
 {% endblock %}
+{% comment %} FIELDS: {% endcomment %}
+{% comment %} {% gds_component "character-count" %} {% endcomment %}
+{% comment %} {% gds_component "checkboxes" %} {% endcomment %}
+{% comment %} {% gds_component "date-input" %} {% endcomment %}
+{% comment %} {% gds_component "fieldset" %} {% endcomment %}
+{% comment %} {% gds_component "file-upload" %} {% endcomment %}
+{% comment %} {% gds_component "input" %} {% endcomment %}
+{% comment %} {% gds_component "radios" %} {% endcomment %}
+{% comment %} {% gds_component "select" %} {% endcomment %}
+{% comment %} {% gds_component "textarea" %} {% endcomment %}
