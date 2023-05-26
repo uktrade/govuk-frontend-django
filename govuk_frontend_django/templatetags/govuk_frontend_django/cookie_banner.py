@@ -8,14 +8,14 @@ from govuk_frontend_django.components.cookie_banner import (
     GovUKCookieBanner,
 )
 from govuk_frontend_django.templatetags.govuk_frontend_django import (
-    GovUKComponentNode,
+    GovUkComponentNode,
     gds_register_tag,
 )
 
 register = template.Library()
 
 
-class CookieBannerNode(GovUKComponentNode):
+class CookieBannerNode(GovUkComponentNode):
     dataclass_cls = GovUKCookieBanner
 
     def build_component_kwargs(self, context):
@@ -39,7 +39,7 @@ gds_register_tag(
 )
 
 
-class CookieBannerMessageNode(GovUKComponentNode):
+class CookieBannerMessageNode(GovUkComponentNode):
     dataclass_cls = CookieBannerMessages
 
     def build_component_kwargs(self, context):
@@ -68,7 +68,7 @@ gds_register_tag(
 )
 
 
-class CookieBannerMessageActionNode(GovUKComponentNode):
+class CookieBannerMessageActionNode(GovUkComponentNode):
     dataclass_cls = CookieBannerMessagesActions
 
     def build_component_kwargs(self, context):

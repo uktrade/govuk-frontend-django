@@ -7,14 +7,14 @@ from govuk_frontend_django.components.breadcrumbs import (
     GovUKBreadcrumbs,
 )
 from govuk_frontend_django.templatetags.govuk_frontend_django import (
-    GovUKComponentNode,
+    GovUkComponentNode,
     gds_register_tag,
 )
 
 register = template.Library()
 
 
-class BreadcrumbsNode(GovUKComponentNode):
+class BreadcrumbsNode(GovUkComponentNode):
     dataclass_cls = GovUKBreadcrumbs
 
     def build_component_kwargs(self, context):
@@ -41,7 +41,7 @@ gds_register_tag(
 )
 
 
-class BreadcrumbsItemsNode(GovUKComponentNode):
+class BreadcrumbsItemsNode(GovUkComponentNode):
     dataclass_cls = BreadcrumbsItems
 
 

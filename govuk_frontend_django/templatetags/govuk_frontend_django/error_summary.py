@@ -7,14 +7,14 @@ from govuk_frontend_django.components.error_summary import (
     GovUKErrorSummary,
 )
 from govuk_frontend_django.templatetags.govuk_frontend_django import (
-    GovUKComponentNode,
+    GovUkComponentNode,
     gds_register_tag,
 )
 
 register = template.Library()
 
 
-class ErrorSummaryNode(GovUKComponentNode):
+class ErrorSummaryNode(GovUkComponentNode):
     dataclass_cls = GovUKErrorSummary
 
     def build_component_kwargs(self, context):
@@ -38,7 +38,7 @@ gds_register_tag(
 )
 
 
-class ErrorSummaryErrorListItemNode(GovUKComponentNode):
+class ErrorSummaryErrorListItemNode(GovUkComponentNode):
     dataclass_cls = ErrorSummaryErrorlist
 
     def build_component_kwargs(self, context):

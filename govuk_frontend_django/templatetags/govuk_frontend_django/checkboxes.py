@@ -9,14 +9,14 @@ from govuk_frontend_django.components.base import CheckboxesConditional
 from govuk_frontend_django.components.checkboxes import CheckboxesItems, GovUKCheckboxes
 from govuk_frontend_django.templatetags.govuk_frontend_django import (
     DataclassDict,
-    GovUKComponentNode,
+    GovUkComponentNode,
     gds_register_tag,
 )
 
 register = template.Library()
 
 
-class FieldNode(GovUKComponentNode):
+class FieldNode(GovUkComponentNode):
     def resolve(self, context: Context):
         super().resolve(context)
         self.bound_field: BoundField = self.resolved_kwargs["field"]
@@ -47,7 +47,7 @@ class CheckboxesNode(FieldNode):
             many=True,
             include_node=True,
         ):
-            assert isinstance(node, GovUKComponentNode)
+            assert isinstance(node, GovUkComponentNode)
             assert isinstance(checkbox_conditional_item, Dict)
 
             conditional_value = node.resolved_kwargs["value"]
@@ -78,7 +78,7 @@ gds_register_tag(
 )
 
 
-class CheckboxConditionalNode(GovUKComponentNode):
+class CheckboxConditionalNode(GovUkComponentNode):
     dataclass_cls = CheckboxesConditional
 
     def build_component_kwargs(self, context):

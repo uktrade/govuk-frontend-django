@@ -4,14 +4,14 @@ from govuk_frontend_django.components.base import GovUKComponent
 from govuk_frontend_django.components.phase_banner import GovUKPhaseBanner
 from govuk_frontend_django.components.tag import GovUKTag
 from govuk_frontend_django.templatetags.govuk_frontend_django import (
-    GovUKComponentNode,
+    GovUkComponentNode,
     gds_register_tag,
 )
 
 register = template.Library()
 
 
-class PhaseBannerNode(GovUKComponentNode):
+class PhaseBannerNode(GovUkComponentNode):
     dataclass_cls = GovUKPhaseBanner
 
     def build_component_kwargs(self, context):

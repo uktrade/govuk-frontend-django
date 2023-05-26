@@ -15,14 +15,14 @@ from govuk_frontend_django.components.summary_list import (
     SummaryListCardTitle,
 )
 from govuk_frontend_django.templatetags.govuk_frontend_django import (
-    GovUKComponentNode,
+    GovUkComponentNode,
     gds_register_tag,
 )
 
 register = template.Library()
 
 
-class SummaryListCardActionsItemsNode(GovUKComponentNode):
+class SummaryListCardActionsItemsNode(GovUkComponentNode):
     dataclass_cls = SummaryListCardActionsItems
 
     def build_component_kwargs(self, context):
@@ -43,7 +43,7 @@ gds_register_tag(
 )
 
 
-class SummaryListCardActionsNode(GovUKComponentNode):
+class SummaryListCardActionsNode(GovUkComponentNode):
     dataclass_cls = SummaryListCardActions
 
     def build_component_kwargs(self, context):
@@ -67,7 +67,7 @@ gds_register_tag(
 )
 
 
-class SummaryListCardTitleNode(GovUKComponentNode):
+class SummaryListCardTitleNode(GovUkComponentNode):
     dataclass_cls = SummaryListCardTitle
 
     def build_component_kwargs(self, context):
@@ -88,7 +88,7 @@ gds_register_tag(
 )
 
 
-class SummaryListCardNode(GovUKComponentNode):
+class SummaryListCardNode(GovUkComponentNode):
     dataclass_cls = SummaryListCard
 
     def build_component_kwargs(self, context):
@@ -113,7 +113,7 @@ gds_register_tag(
 )
 
 
-class SummaryListRowsValueNode(GovUKComponentNode):
+class SummaryListRowsValueNode(GovUkComponentNode):
     dataclass_cls = SummaryListRowsValue
 
     def build_component_kwargs(self, context):
@@ -134,7 +134,7 @@ gds_register_tag(
 )
 
 
-class SummaryListRowsActionsItemNode(GovUKComponentNode):
+class SummaryListRowsActionsItemNode(GovUkComponentNode):
     dataclass_cls = SummaryListRowsActionsItem
 
     def build_component_kwargs(self, context):
@@ -155,7 +155,7 @@ gds_register_tag(
 )
 
 
-class SummaryListRowsActionsNode(GovUKComponentNode):
+class SummaryListRowsActionsNode(GovUkComponentNode):
     dataclass_cls = SummaryListRowsActions
 
     def build_component_kwargs(self, context):
@@ -179,7 +179,7 @@ gds_register_tag(
 )
 
 
-class SummaryListRowsKeyNode(GovUKComponentNode):
+class SummaryListRowsKeyNode(GovUkComponentNode):
     dataclass_cls = SummaryListRowsKey
 
     def build_component_kwargs(self, context):
@@ -200,7 +200,7 @@ gds_register_tag(
 )
 
 
-class SummaryListRowNode(GovUKComponentNode):
+class SummaryListRowNode(GovUkComponentNode):
     dataclass_cls = SummaryListRow
 
     def build_component_kwargs(self, context):
@@ -231,7 +231,7 @@ gds_register_tag(
 )
 
 
-class SummaryListNode(GovUKComponentNode):
+class SummaryListNode(GovUkComponentNode):
     dataclass_cls = GovUKSummaryList
 
     def build_component_kwargs(self, context):

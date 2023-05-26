@@ -5,14 +5,14 @@ from django import template
 from govuk_frontend_django.components.accordion import GovUKAccordion
 from govuk_frontend_django.components.base import AccordionItem, TextAndHtml
 from govuk_frontend_django.templatetags.govuk_frontend_django import (
-    GovUKComponentNode,
+    GovUkComponentNode,
     gds_register_tag,
 )
 
 register = template.Library()
 
 
-class AccordionNode(GovUKComponentNode):
+class AccordionNode(GovUkComponentNode):
     dataclass_cls = GovUKAccordion
 
     def build_component_kwargs(self, context):
@@ -37,7 +37,7 @@ gds_register_tag(
 )
 
 
-class AccordionItemNode(GovUKComponentNode):
+class AccordionItemNode(GovUkComponentNode):
     dataclass_cls = AccordionItem
 
     def build_component_kwargs(self, context):

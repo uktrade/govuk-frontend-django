@@ -5,14 +5,14 @@ from django import template
 from govuk_frontend_django.components.header import GovUKHeader, HeaderNavigation
 from govuk_frontend_django.components.tabs import TabsItems
 from govuk_frontend_django.templatetags.govuk_frontend_django import (
-    GovUKComponentNode,
+    GovUkComponentNode,
     gds_register_tag,
 )
 
 register = template.Library()
 
 
-class HeaderNode(GovUKComponentNode):
+class HeaderNode(GovUkComponentNode):
     dataclass_cls = GovUKHeader
 
     def build_component_kwargs(self, context):
@@ -36,7 +36,7 @@ gds_register_tag(
 )
 
 
-class HeaderNavItemNode(GovUKComponentNode):
+class HeaderNavItemNode(GovUkComponentNode):
     dataclass_cls = HeaderNavigation
 
     def build_component_kwargs(self, context):

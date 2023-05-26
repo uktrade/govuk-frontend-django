@@ -1,7 +1,18 @@
 import importlib
 import pathlib
 from dataclasses import dataclass, is_dataclass
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Type, Union, cast
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    Type,
+    Union,
+    cast,
+    deprecated,
+)
 
 from django import template
 from django.forms import BoundField
@@ -44,7 +55,7 @@ class ResolvingNode(Node):
         nodelist = getattr(self, "nodelist", NodeList())
 
         for node in nodelist:
-            if isinstance(node, GovUKComponentNode):
+            if isinstance(node, GovUkComponentNode):
                 dcls = node.resolve_dataclass(context, as_dict=False)
                 assert is_dataclass(dcls)
 
@@ -124,7 +135,7 @@ class ComponentIfNode(ResolvingNode, IfNode):
             if match:
                 for node in nodelist:
                     if hasattr(node, "resolve_dataclass"):
-                        assert isinstance(node, GovUKComponentNode)
+                        assert isinstance(node, GovUkComponentNode)
 
                         dcls = node.resolve_dataclass(context, as_dict=False)
                         assert is_dataclass(dcls)
@@ -203,7 +214,7 @@ class ComponentForNode(ResolvingNode, ForNode):
 
                 for node in self.nodelist_loop:
                     if hasattr(node, "resolve_dataclass"):
-                        assert isinstance(node, GovUKComponentNode)
+                        assert isinstance(node, GovUkComponentNode)
 
                         dcls = node.resolve_dataclass(context, as_dict=False)
                         assert is_dataclass(dcls)
@@ -222,7 +233,7 @@ class ComponentForNode(ResolvingNode, ForNode):
         return super().resolve(context)
 
 
-class GovUKComponentNode(ResolvingNode):
+class GovUkComponentNode(ResolvingNode):
     dataclass_cls: Type["DataclassInstance"]
 
     def __init__(
@@ -270,6 +281,11 @@ class GovUKComponentNode(ResolvingNode):
             assert isinstance(resolved_dataclass, GovUKComponent)
             return resolved_dataclass.render()
         return ""
+
+
+@deprecated("Use GovUkComponentNode instead.")
+class GovUKComponentNode(GovUkComponentNode):
+    ...
 
 
 FIELD_COMPONENTS = [
@@ -320,7 +336,7 @@ def gds_component(parser: Parser, token: Token):
     module = importlib.import_module(module_name)
     dataclass_cls = getattr(module, "COMPONENT")
 
-    return GovUKComponentNode(
+    return GovUkComponentNode(
         nodelist=NodeList(),
         extra_context=extra_context,
         dataclass_cls=dataclass_cls,
@@ -378,7 +394,7 @@ def gds_component_template(jinja2_template: str, macro_name: str, **kwargs):
 def gds_register_tag(
     library: template.Library,
     name: str,
-    node_cls: Type[GovUKComponentNode],
+    node_cls: Type[GovUkComponentNode],
     has_end_tag: bool = True,
     end_if_not_contains: Optional[List[str]] = None,
 ):
