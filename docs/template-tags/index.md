@@ -2,8 +2,291 @@
 
 See: [https://design-system.service.gov.uk/components/](https://design-system.service.gov.uk/components/) for more information on the GDS components.
 
+## The gds_component_data tag
+The `gds_component_data` templatetag allows you to render any component that has been implemented in the `govuk_frontend_django` package. The only arg taken is the hyphenated name for the component (e.g. "back-link" for the Back Link component). To define the tag data simple add an end tag `endgds_component_data` and the contents of the wrapper should be the Nunjucks dictionary which you can copy directly from the [Components site](https://design-system.service.gov.uk/components/).
+
+Note: variables can still be used, but you need to wrap them in `{{ variable_name }}`.
+
+
+### Examples:
+
+[https://design-system.service.gov.uk/components/back-link/](https://design-system.service.gov.uk/components/back-link/)
+```django
+{% gds_component_data "back-link" %}
+    {
+        text: "Back",
+        href: "#"
+    }
+{% endgds_component_data %}
+```
+
+[https://design-system.service.gov.uk/components/button/](https://design-system.service.gov.uk/components/button/)
+```django
+{% gds_component_data "button" %}
+    {
+        text: "Save and continue"
+    }
+{% endgds_component_data %}
+```
+
+[https://design-system.service.gov.uk/components/tabs/](https://design-system.service.gov.uk/components/tabs/)
+```django
+{% set pastDayHtml %}{% spaceless %}
+    <h2 class="govuk-heading-l">Past day</h2>
+    {% gds_component_data "table" %}
+        {
+            head: [
+                {
+                    text: "Case manager"
+                },
+                {
+                    text: "Cases opened"
+                },
+                {
+                    text: "Cases closed"
+                }
+            ],
+            rows: [
+                [
+                    {
+                        text: "David Francis"
+                    },
+                    {
+                        text: "3"
+                    },
+                    {
+                        text: "0"
+                    }
+                ],
+                [
+                    {
+                        text: "Paul Farmer"
+                    },
+                    {
+                        text: "1"
+                    },
+                    {
+                        text: "0"
+                    }
+                ],
+                [
+                    {
+                        text: "Rita Patel"
+                    },
+                    {
+                        text: "2"
+                    },
+                    {
+                        text: "0"
+                    }
+                ]
+            ]
+        }
+    {% endgds_component_data %}
+{% endspaceless %}{% endset %}
+
+{% set pastWeekHtml %}{% spaceless %}
+    <h2 class="govuk-heading-l">Past week</h2>
+    {% gds_component_data "table" %}
+        {
+            head: [
+                {
+                    text: "Case manager"
+                },
+                {
+                    text: "Cases opened"
+                },
+                {
+                    text: "Cases closed"
+                }
+            ],
+            rows: [
+                [
+                    {
+                        text: "David Francis"
+                    },
+                    {
+                        text: "24"
+                    },
+                    {
+                        text: "18"
+                    }
+                ],
+                [
+                    {
+                        text: "Paul Farmer"
+                    },
+                    {
+                        text: "16"
+                    },
+                    {
+                        text: "20"
+                    }
+                ],
+                [
+                    {
+                        text: "Rita Patel"
+                    },
+                    {
+                        text: "24"
+                    },
+                    {
+                        text: "27"
+                    }
+                ]
+            ]
+        }
+    {% endgds_component_data %}
+{% endspaceless %}{% endset %}
+
+{% set pastMonthHtml %}{% spaceless %}
+    <h2 class="govuk-heading-l">Past month</h2>
+    {% gds_component_data "table" %}
+        {
+            head: [
+                {
+                    text: "Case manager"
+                },
+                {
+                    text: "Cases opened"
+                },
+                {
+                    text: "Cases closed"
+                }
+            ],
+            rows: [
+                [
+                    {
+                        text: "David Francis"
+                    },
+                    {
+                        text: "98"
+                    },
+                    {
+                        text: "95"
+                    }
+                ],
+                [
+                    {
+                        text: "Paul Farmer"
+                    },
+                    {
+                        text: "122"
+                    },
+                    {
+                        text: "131"
+                    }
+                ],
+                [
+                    {
+                        text: "Rita Patel"
+                    },
+                    {
+                        text: "126"
+                    },
+                    {
+                        text: "142"
+                    }
+                ]
+            ]
+        }
+    {% endgds_component_data %}
+{% endspaceless %}{% endset %}
+
+{% set pastYearHtml %}{% spaceless %}
+    <h2 class="govuk-heading-l">Past year</h2>
+    {% gds_component_data "table" %}
+        {
+            head: [
+                {
+                    text: "Case manager"
+                },
+                {
+                    text: "Cases opened"
+                },
+                {
+                    text: "Cases closed"
+                }
+            ],
+            rows: [
+                [
+                    {
+                        text: "David Francis"
+                    },
+                    {
+                        text: "1380"
+                    },
+                    {
+                        text: "1472"
+                    }
+                ],
+                [
+                    {
+                        text: "Paul Farmer"
+                    },
+                    {
+                        text: "1129"
+                    },
+                    {
+                        text: "1083"
+                    }
+                ],
+                [
+                    {
+                        text: "Rita Patel"
+                    },
+                    {
+                        text: "1539"
+                    },
+                    {
+                        text: "1265"
+                    }
+                ]
+            ]
+        }
+    {% endgds_component_data %}
+{% endspaceless %}{% endset %}
+
+{% gds_component_data "tabs" %}
+    {
+        items: [
+            {
+                label: "Past day",
+                id: "past-day",
+                panel: {
+                    html: '{{ pastDayHtml }}'
+                }
+            },
+            {
+                label: "Past week",
+                id: "past-week",
+                panel: {
+                    html: '{{ pastWeekHtml }}'
+                }
+            },
+            {
+                label: "Past month",
+                id: "past-month",
+                panel: {
+                    html: '{{ pastMonthHtml }}'
+                }
+            },
+            {
+                label: "Past year",
+                id: "past-year",
+                panel: {
+                    html: '{{ pastYearHtml }}'
+                }
+            }
+        ]
+    }
+{% endgds_component_data %}
+```
+
 ## The gds_component tag
-The `gds_component` templatetag allows you to render any component that has been implemented in the `govuk_frontend_django` package. The first arg taken is the hyphenated name for the component (e.g. "back-link" for the Back Link component). The remaining args are passed through as keyword arguments to the component.
+The `gds_component` templatetag is another step removed from the nunjucks code where you pass the data for the component through as args to the tag.
+
+The tag allows you to render any component that has been implemented in the `govuk_frontend_django` package.The first arg taken is the hyphenated name for the component (e.g. "back-link" for the Back Link component). The remaining args are passed through as keyword arguments to the component.
 
 Examples:
 
