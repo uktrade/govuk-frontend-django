@@ -1,18 +1,8 @@
 import importlib
 import pathlib
 from dataclasses import dataclass, is_dataclass
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Dict,
-    List,
-    Optional,
-    Tuple,
-    Type,
-    Union,
-    cast,
-    deprecated,
-)
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Type, Union, cast
+from warnings import warn
 
 from django import template
 from django.forms import BoundField
@@ -283,9 +273,20 @@ class GovUkComponentNode(ResolvingNode):
         return ""
 
 
-@deprecated("Use GovUkComponentNode instead.")
 class GovUKComponentNode(GovUkComponentNode):
-    ...
+    def __init_subclass__(cls, **kwargs):
+        """This throws a deprecation warning on subclassing."""
+        warn(f"{cls.__name__} will be deprecated.", DeprecationWarning, stacklevel=2)
+        super().__init_subclass__(**kwargs)
+
+    def __init__(self, *args, **kwargs):
+        """This throws a deprecation warning on initialization."""
+        warn(
+            f"{self.__class__.__name__} will be deprecated.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
 
 
 FIELD_COMPONENTS = [
