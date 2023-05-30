@@ -2,7 +2,9 @@ import importlib
 import pathlib
 from dataclasses import dataclass, is_dataclass
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Type, Union, cast
+from warnings import warn
 
+import json5
 from django import template
 from django.forms import BoundField
 from django.template.base import (
@@ -44,7 +46,7 @@ class ResolvingNode(Node):
         nodelist = getattr(self, "nodelist", NodeList())
 
         for node in nodelist:
-            if isinstance(node, GovUKComponentNode):
+            if isinstance(node, GovUkComponentNode):
                 dcls = node.resolve_dataclass(context, as_dict=False)
                 assert is_dataclass(dcls)
 
@@ -124,7 +126,7 @@ class ComponentIfNode(ResolvingNode, IfNode):
             if match:
                 for node in nodelist:
                     if hasattr(node, "resolve_dataclass"):
-                        assert isinstance(node, GovUKComponentNode)
+                        assert isinstance(node, GovUkComponentNode)
 
                         dcls = node.resolve_dataclass(context, as_dict=False)
                         assert is_dataclass(dcls)
@@ -203,7 +205,7 @@ class ComponentForNode(ResolvingNode, ForNode):
 
                 for node in self.nodelist_loop:
                     if hasattr(node, "resolve_dataclass"):
-                        assert isinstance(node, GovUKComponentNode)
+                        assert isinstance(node, GovUkComponentNode)
 
                         dcls = node.resolve_dataclass(context, as_dict=False)
                         assert is_dataclass(dcls)
@@ -222,7 +224,7 @@ class ComponentForNode(ResolvingNode, ForNode):
         return super().resolve(context)
 
 
-class GovUKComponentNode(ResolvingNode):
+class GovUkComponentNode(ResolvingNode):
     dataclass_cls: Type["DataclassInstance"]
 
     def __init__(
@@ -272,6 +274,22 @@ class GovUKComponentNode(ResolvingNode):
         return ""
 
 
+class GovUKComponentNode(GovUkComponentNode):
+    def __init_subclass__(cls, **kwargs):
+        """This throws a deprecation warning on subclassing."""
+        warn(f"{cls.__name__} will be deprecated.", DeprecationWarning, stacklevel=2)
+        super().__init_subclass__(**kwargs)
+
+    def __init__(self, *args, **kwargs):
+        """This throws a deprecation warning on initialization."""
+        warn(
+            f"{self.__class__.__name__} will be deprecated.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
+
+
 FIELD_COMPONENTS = [
     "character-count",
     "checkboxes",
@@ -300,6 +318,7 @@ COMPLEX_COMPONENTS = [
 @register.tag
 def gds_component(parser: Parser, token: Token):
     bits = token.split_contents()
+    nodelist = NodeList()
     component_name = bits[1].replace("'", "").replace('"', "")
 
     if component_name in FIELD_COMPONENTS:
@@ -320,8 +339,8 @@ def gds_component(parser: Parser, token: Token):
     module = importlib.import_module(module_name)
     dataclass_cls = getattr(module, "COMPONENT")
 
-    return GovUKComponentNode(
-        nodelist=NodeList(),
+    return GovUkComponentNode(
+        nodelist=nodelist,
         extra_context=extra_context,
         dataclass_cls=dataclass_cls,
     )
@@ -330,6 +349,49 @@ def gds_component(parser: Parser, token: Token):
 @register.simple_tag
 def gds_field_component(field: BoundField, **kwargs):
     return "Not yet implemented"
+
+
+class GovUkComponentDataNode(GovUkComponentNode):
+    def resolve(self, context: Context):
+        rendered = str(self.nodelist.render(context))
+
+        # strip newlines
+        rendered = rendered.replace("\n", "")
+
+        # Try to load as JSON
+        try:
+            # data = json5.loads(rendered)
+            data = json5.loads(rendered)
+        except Exception as e:
+            raise Exception("Could not parse component data as JSON.") from e
+
+        self.resolved_kwargs = data
+
+
+@register.tag
+def gds_component_data(parser: Parser, token: Token):
+    bits = token.split_contents()
+    nodelist = NodeList()
+    component_name = bits[1].replace("'", "").replace('"', "")
+
+    remaining_bits = bits[2:]
+    extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
+
+    # Component dataclass
+    underscored_component_name = component_name.replace("-", "_")
+    module_name = f"govuk_frontend_django.components.{underscored_component_name}"
+    module = importlib.import_module(module_name)
+    dataclass_cls = getattr(module, "COMPONENT")
+
+    # Find end tag:
+    nodelist = parser.parse(("endgds_component_data",))
+    parser.delete_first_token()
+
+    return GovUkComponentDataNode(
+        nodelist=nodelist,
+        extra_context=extra_context,
+        dataclass_cls=dataclass_cls,
+    )
 
 
 class SetNode(Node):
@@ -378,7 +440,7 @@ def gds_component_template(jinja2_template: str, macro_name: str, **kwargs):
 def gds_register_tag(
     library: template.Library,
     name: str,
-    node_cls: Type[GovUKComponentNode],
+    node_cls: Type[GovUkComponentNode],
     has_end_tag: bool = True,
     end_if_not_contains: Optional[List[str]] = None,
 ):

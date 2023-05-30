@@ -12,14 +12,14 @@ from govuk_frontend_django.components.footer import (
     GovUKFooter,
 )
 from govuk_frontend_django.templatetags.govuk_frontend_django import (
-    GovUKComponentNode,
+    GovUkComponentNode,
     gds_register_tag,
 )
 
 register = template.Library()
 
 
-class FooterNode(GovUKComponentNode):
+class FooterNode(GovUkComponentNode):
     dataclass_cls = GovUKFooter
 
     def build_component_kwargs(self, context):
@@ -60,7 +60,7 @@ gds_register_tag(
 )
 
 
-class FooterNavigationNode(GovUKComponentNode):
+class FooterNavigationNode(GovUkComponentNode):
     dataclass_cls = FooterNavigation
 
     def build_component_kwargs(self, context):
@@ -84,7 +84,7 @@ gds_register_tag(
 )
 
 
-class FooterNavigationItemNode(GovUKComponentNode):
+class FooterNavigationItemNode(GovUkComponentNode):
     dataclass_cls = FooterNavigationItems
 
     def build_component_kwargs(self, context):
@@ -105,7 +105,7 @@ gds_register_tag(
 )
 
 
-class FooterMetaNode(GovUKComponentNode):
+class FooterMetaNode(GovUkComponentNode):
     dataclass_cls = FooterMeta
 
     def build_component_kwargs(self, context):
@@ -133,7 +133,7 @@ gds_register_tag(
 )
 
 
-class FooterMetaItemNode(GovUKComponentNode):
+class FooterMetaItemNode(GovUkComponentNode):
     dataclass_cls = FooterMetaItems
 
     def build_component_kwargs(self, context):
@@ -154,7 +154,7 @@ gds_register_tag(
 )
 
 
-class FooterContentlicenceNode(GovUKComponentNode):
+class FooterContentlicenceNode(GovUkComponentNode):
     dataclass_cls = FooterContentlicence
 
     def build_component_kwargs(self, context):
@@ -175,7 +175,7 @@ gds_register_tag(
 )
 
 
-class FooterCopyrightNode(GovUKComponentNode):
+class FooterCopyrightNode(GovUkComponentNode):
     dataclass_cls = FooterCopyright
 
     def build_component_kwargs(self, context):

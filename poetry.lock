@@ -708,7 +708,7 @@ files = [
 name = "json5"
 version = "0.9.14"
 description = "A Python implementation of the JSON5 data format."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 files = [
@@ -1657,4 +1657,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "547354da1bdffa2b1c1589b16a429beecbebe2c7e47d8e345b06c9894b841e05"
+content-hash = "6a38374b985aacd91a7e9aa0b34de7ba96fd54b354a8b404ec21db5ada7ba760"
