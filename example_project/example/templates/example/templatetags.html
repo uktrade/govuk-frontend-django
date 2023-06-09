@@ -154,6 +154,14 @@
                 {% endgds_summary_list_row %}
             {% endgds_summary_list %}
             {% gds_summary_list %}
+                {% for user in users %}
+                    {% gds_summary_list_row %}
+                        {% gds_summary_list_row_key_inline text=user.username %}
+                        {% gds_summary_list_row_value_inline text=user.email %}
+                    {% endgds_summary_list_row %}
+                {% endfor %}
+            {% endgds_summary_list %}
+            {% gds_summary_list %}
                 {% gds_summary_list_row %}
                     {% gds_summary_list_row_key_inline text="Key 1" %}
                     {% gds_summary_list_row_value_inline text="Value 1" %}
