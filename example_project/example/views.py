@@ -101,6 +101,7 @@ def components_view(request):
             ("email", "Email"),
         ],
         model_table_rows=User.objects.all(),
+        users=User.objects.all(),
         nav_links=[
             (
                 "Link 1",

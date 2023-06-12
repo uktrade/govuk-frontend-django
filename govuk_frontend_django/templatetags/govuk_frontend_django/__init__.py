@@ -1,6 +1,6 @@
 import importlib
 import pathlib
-from dataclasses import dataclass, is_dataclass
+from dataclasses import is_dataclass
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Type, Union, cast
 
 from django import template
@@ -34,15 +34,10 @@ class ResolvingNode(Node):
         super().__init__(*args, **kwargs)
         self.sub_dataclasses: List[SubDataclassWithNode] = []
 
-    def clear(self):
+    def clear(self) -> None:
         self.sub_dataclasses = []
 
-    def resolve(
-        self,
-        context: Context,
-    ):
-        nodelist = getattr(self, "nodelist", NodeList())
-
+    def resolve_nodelist(self, nodelist: NodeList, context: Context) -> None:
         for node in nodelist:
             if isinstance(node, GovUKComponentNode):
                 dcls = node.resolve_dataclass(context, as_dict=False)
@@ -69,6 +64,13 @@ class ResolvingNode(Node):
                 node.resolve(context)
             if hasattr(node, "sub_dataclasses"):
                 self.sub_dataclasses.extend(node.sub_dataclasses)
+
+    def resolve(
+        self,
+        context: Context,
+    ) -> None:
+        nodelist = getattr(self, "nodelist", NodeList())
+        self.resolve_nodelist(nodelist, context)
 
     def get_sub_dataclasses_by_type(
         self,
@@ -122,15 +124,7 @@ class ComponentIfNode(ResolvingNode, IfNode):
                 match = True
 
             if match:
-                for node in nodelist:
-                    if hasattr(node, "resolve_dataclass"):
-                        assert isinstance(node, GovUKComponentNode)
-
-                        dcls = node.resolve_dataclass(context, as_dict=False)
-                        assert is_dataclass(dcls)
-
-                        dcls_with_node = cast(SubDataclassWithNode, (dcls, node))
-                        self.sub_dataclasses.append(dcls_with_node)
+                self.resolve_nodelist(nodelist, context)
 
 
 class ComponentForNode(ResolvingNode, ForNode):
@@ -201,17 +195,7 @@ class ComponentForNode(ResolvingNode, ForNode):
 
                 assert isinstance(self.nodelist_loop, NodeList)
 
-                for node in self.nodelist_loop:
-                    if hasattr(node, "resolve_dataclass"):
-                        assert isinstance(node, GovUKComponentNode)
-
-                        dcls = node.resolve_dataclass(context, as_dict=False)
-                        assert is_dataclass(dcls)
-
-                        dcls_with_node = cast(SubDataclassWithNode, (dcls, node))
-                        self.sub_dataclasses.append(dcls_with_node)
-                    node.render_annotated(context)
-                    self.nodelist.append(node)
+                self.resolve_nodelist(self.nodelist_loop, context)
 
                 if pop_context:
                     # Pop the loop variables pushed on to the context to avoid
