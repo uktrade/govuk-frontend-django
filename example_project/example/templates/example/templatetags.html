@@ -154,11 +154,29 @@
                 {% endgds_summary_list_row %}
             {% endgds_summary_list %}
             {% gds_summary_list %}
+                {% if True %}
+                    {% gds_summary_list_row %}
+                        {% gds_summary_list_row_key_inline text="Component" %}
+                        {% gds_summary_list_row_value_inline text="IfNode" %}
+                    {% endgds_summary_list_row %}
+                {% endif %}
+            {% endgds_summary_list %}
+            {% gds_summary_list %}
                 {% for user in users %}
                     {% gds_summary_list_row %}
                         {% gds_summary_list_row_key_inline text=user.username %}
                         {% gds_summary_list_row_value_inline text=user.email %}
                     {% endgds_summary_list_row %}
+                {% endfor %}
+            {% endgds_summary_list %}
+            {% gds_summary_list %}
+                {% for user1 in users %}
+                    {% for user2 in users %}
+                        {% gds_summary_list_row %}
+                            {% gds_summary_list_row_key_inline text=user1.username %}
+                            {% gds_summary_list_row_value_inline text=user2.email %}
+                        {% endgds_summary_list_row %}
+                    {% endfor %}
                 {% endfor %}
             {% endgds_summary_list %}
             {% gds_summary_list %}
