@@ -30,6 +30,8 @@ SubDataclassDictWithOrWithoutNode = Union[DataclassDict, SubDataclassDictWithNod
 
 
 class ResolvingNode(Node):
+    add_sub_components: bool = True
+
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.sub_dataclasses: List[SubDataclassWithNode] = []
@@ -44,7 +46,7 @@ class ResolvingNode(Node):
         nodelist = getattr(self, "nodelist", NodeList())
 
         for node in nodelist:
-            if isinstance(node, GovUKComponentNode):
+            if isinstance(node, GovUKComponentNode) and self.add_sub_components:
                 dcls = node.resolve_dataclass(context, as_dict=False)
                 assert is_dataclass(dcls)
 
@@ -137,6 +139,8 @@ class ComponentForNode(ResolvingNode, ForNode):
     """
     Custom ForNode that will resolve the nodelist as per the loop.
     """
+
+    add_sub_components = False
 
     def resolve(self, context: Context, **kwargs):
         """
