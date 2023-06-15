@@ -6,7 +6,7 @@ build:
 	poetry install
 
 init:
-	$(manage) loaddata fixtures/test_users.json
+	$(manage) loaddata example/fixtures/test_users.json
 
 run:
 	./scripts/run.sh
