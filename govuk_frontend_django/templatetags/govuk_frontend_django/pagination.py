@@ -1,7 +1,8 @@
 from typing import List, Optional
 
 from django import template
-from django.core.paginator import Page
+from django.core.paginator import Page, Paginator
+from django.utils.translation import gettext_lazy as _
 
 from govuk_frontend_django.components.pagination import (
     GovUKPagination,
@@ -11,6 +12,9 @@ from govuk_frontend_django.components.pagination import (
 )
 
 register = template.Library()
+
+# From Paginator.ELLIPSIS
+ELLIPSIS = _("…")
 
 
 @register.simple_tag
@@ -65,15 +69,15 @@ def gds_pagination(page_obj: Page):
     for page_number in page_obj.paginator.get_elided_page_range(  # type: ignore
         page_obj.number, on_each_side=2, on_ends=1
     ):
-        if page_number == "...":
-            pagination_items.append({"ellipsis": True})  # type: ignore
+        if page_number == ELLIPSIS:
+            pagination_items.append(PaginationItems(href=None, ellipsis=True))
         else:
             pagination_items.append(
-                {
-                    "number": page_number,
-                    "current": page_number == page_obj.number,
-                    "href": f"?page={page_number}",
-                }  # type: ignore
+                PaginationItems(
+                    number=page_number,
+                    current=page_number == page_obj.number,
+                    href=f"?page={page_number}",
+                )
             )
 
     return GovUKPagination(previous=previous, next=next, items=pagination_items)
