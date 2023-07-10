@@ -12,6 +12,11 @@ from govuk_frontend_django.components import tag as govuk_frontend_tag
 
 
 @dataclass(kw_only=True)
+class RadiosItemsConditional:
+    html: Optional[str] = None
+
+
+@dataclass(kw_only=True)
 class RadiosItems:
     text: Optional[str] = None
     html: Optional[str] = None
@@ -21,8 +26,7 @@ class RadiosItems:
     hint: Optional[govuk_frontend_hint.GovUKHint] = None
     divider: Optional[str] = None
     checked: Optional[bool] = None
-    conditional: Optional[str] = None
-    conditional.html: Optional[str] = None
+    conditional: Optional[RadiosItemsConditional] = None
     disabled: Optional[bool] = None
     attributes: Optional[govuk_frontend_base.Attributes] = None
 

@@ -138,7 +138,7 @@ def build_dataclasses_from_component_yaml(
             {
                 "name": param["name"],
                 "type": param["type"],
-                "required": param["required"],
+                "required": param.get("required", False),
                 "YAML": param,
             }
             for param in yaml_params
@@ -340,6 +340,11 @@ def build_component(component_hyphenated: str, version: Optional[str] = None):
 # Loop over directories in "govuk_frontend_jinja/components/" where "govuk_frontend_jinja" is a python package
 # and generate Python code for each component
 
-
+IGNORE_COMPONENTS: List[str] = [
+    ".DS_Store",
+]
 for component_hyphenated in os.listdir(jinja_path + "/templates/components"):
+    if component_hyphenated in IGNORE_COMPONENTS:
+        continue
+
     build_component(component_hyphenated, version=GOVUK_FRONTEND_VERSION)
