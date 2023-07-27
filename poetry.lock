@@ -522,13 +522,13 @@ dev = ["flake8", "markdown", "twine", "wheel"]
 
 [[package]]
 name = "govuk-frontend-jinja"
-version = "2.6.0"
+version = "2.7.0"
 description = "GOV.UK Frontend Jinja Macros"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "govuk-frontend-jinja-2.6.0.tar.gz", hash = "sha256:f8a4ae52897352b12c047acccbd9d5830123175f71edb22c93b70893803243c2"},
-    {file = "govuk_frontend_jinja-2.6.0-py3-none-any.whl", hash = "sha256:68d7bc33188e7b62548feb8ff4c0def377eb2bfd698a7dfd90fcc4846e0119eb"},
+    {file = "govuk-frontend-jinja-2.7.0.tar.gz", hash = "sha256:de797f6a1247da50c70677a9b50197e3198e0001dbabe9e17703f33e72818646"},
+    {file = "govuk_frontend_jinja-2.7.0-py3-none-any.whl", hash = "sha256:94ee83e6c766922204c2b26005779cd4a44c2e9d6f1c7d9a0c2868a41785be39"},
 ]
 
 [package.dependencies]
@@ -1580,4 +1580,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "901b8123e076404def280cef3ce1ed0ce46cddd58a7aa58f100da3cba9f7bb3f"
+content-hash = "dabd505c07e0c12995e47be57d3eb0152f0d7e08c2f75d642398ef45d428a86f"
