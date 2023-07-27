@@ -6,7 +6,7 @@ get-latest-release-tag:
 	@gh release list -R $(REPO) | grep "Latest" | awk -F '\t' '{for(i=2; i<=NF; i++) {if($$i~/v?[0-9]+\.[0-9]+\.[0-9]+/) {print $$i; exit}}}'
 
 GOVUK_FRONTEND_VERSION = "v4.7.0"
-GOVUK_FRONTEND_JINJA_VERSION = "2.6.0"
+GOVUK_FRONTEND_JINJA_VERSION = "2.7.0"
 
 generate-components:
 	poetry run python scripts/generate_components.py $(GOVUK_FRONTEND_VERSION)
