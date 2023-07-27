@@ -1,7 +1,8 @@
 name: Auto updates
 
-# Run every 3 hours
+# Run every 3 hours or manually
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 */3 * * *"
 
