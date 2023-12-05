@@ -54,3 +54,8 @@ mypy:
 
 djlint:
 	poetry run djlint example_project --reformat
+
+# Testing
+
+tox:
+	poetry run tox
