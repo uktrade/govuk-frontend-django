@@ -17,8 +17,8 @@ homepage = "https://uktrade.github.io/govuk-frontend-django/"
 repository = "https://github.com/uktrade/govuk-frontend-django/"
 documentation = "https://uktrade.github.io/govuk-frontend-django/"
 packages = [
-    {include = "govuk_frontend_django"},
-    {include = "govuk_frontend_django/py.typed"},
+    { include = "govuk_frontend_django" },
+    { include = "govuk_frontend_django/py.typed" },
 ]
 
 [tool.poetry.dependencies]
@@ -26,6 +26,16 @@ python = "^3.8"
 Django = "^4.1.9"
 jinja2 = "^3.1.2"
 govuk-frontend-jinja = "2.7.0"
+
+[tool.poetry.group.testing]
+optional = true
+
+[tool.poetry.group.testing.dependencies]
+tox = "^4.11.4"
+pytest = "^7.4.3"
+
+[tool.poetry.group.dev]
+optional = true
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
@@ -35,6 +45,9 @@ autoflake = "^2.0.2"
 mypy = "^1.2.0"
 django-stubs = "^1.16.0"
 djlint = "^1.28.0"
+
+[tool.poetry.group.docs]
+optional = true
 
 [tool.poetry.group.docs.dependencies]
 mkdocs-material = "^9.1.5"
@@ -56,8 +69,8 @@ plugins = ["mypy_django_plugin.main"]
 django_settings_module = "settings"
 
 [tool.djlint]
-profile="django"
-indent="4"
-ignore="H021,H006"
-exclude="node_modules,staticfiles,static"
-custom_blocks="gds_accordion,gds_accordion_item,gds_breadcrumbs,gds_checkboxes,gds_checkbox_conditional,gds_cookie_banner,gds_cookie_banner_message,gds_error_summary,gds_error_summary_error_list_item,gds_footer,gds_footer_nav,gds_footer_meta,gds_header,gds_header_nav_item,gds_phase_banner,gds_summary_list,gds_summary_list_row,gds_summary_list_row_key,gds_summary_list_row_value,gds_summary_list_row_actions,gds_summary_list_row_actions_item,gds_summary_list_card,gds_summary_list_card_actions,gds_summary_list_card_actions_item,gds_tabs,gds_tabs_tab"
+profile = "django"
+indent = "4"
+ignore = "H021,H006"
+exclude = "node_modules,staticfiles,static"
+custom_blocks = "gds_accordion,gds_accordion_item,gds_breadcrumbs,gds_checkboxes,gds_checkbox_conditional,gds_cookie_banner,gds_cookie_banner_message,gds_error_summary,gds_error_summary_error_list_item,gds_footer,gds_footer_nav,gds_footer_meta,gds_header,gds_header_nav_item,gds_phase_banner,gds_summary_list,gds_summary_list_row,gds_summary_list_row_key,gds_summary_list_row_value,gds_summary_list_row_actions,gds_summary_list_row_actions_item,gds_summary_list_card,gds_summary_list_card_actions,gds_summary_list_card_actions_item,gds_tabs,gds_tabs_tab"
