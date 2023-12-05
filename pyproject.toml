@@ -27,6 +27,15 @@ Django = "^4.1.9"
 jinja2 = "^3.1.2"
 govuk-frontend-jinja = "2.7.0"
 
+[tool.poetry.group.testing]
+optional = true
+
+[tool.poetry.group.testing.dependencies]
+tox = "^4.11.4"
+
+[tool.poetry.group.dev]
+optional = true
+
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
 pyyaml = "^6.0"
@@ -35,7 +44,9 @@ autoflake = "^2.0.2"
 mypy = "^1.2.0"
 django-stubs = "^1.16.0"
 djlint = "^1.28.0"
-tox = "^4.11.4"
+
+[tool.poetry.group.docs]
+optional = true
 
 [tool.poetry.group.docs.dependencies]
 mkdocs-material = "^9.1.5"
