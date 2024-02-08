@@ -125,7 +125,7 @@ def build_dataclasses_from_component_yaml(
     component_hyphenated: str, version: Optional[str] = None
 ) -> dict:
     branch_or_tag = version or "main"
-    govuk_frontend_component_yml_url = f"https://raw.githubusercontent.com/alphagov/govuk-frontend/{branch_or_tag}/src/govuk/components/{component_hyphenated}/{component_hyphenated}.yaml"
+    govuk_frontend_component_yml_url = f"https://raw.githubusercontent.com/alphagov/govuk-frontend/{branch_or_tag}/packages/govuk-frontend/src/govuk/components/{component_hyphenated}/{component_hyphenated}.yaml"
     # Grab the YAML file
     r = requests.get(govuk_frontend_component_yml_url)
     r.raise_for_status()
