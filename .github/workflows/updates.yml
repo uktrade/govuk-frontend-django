@@ -21,7 +21,7 @@ jobs:
           pip install -U pip
           pip install poetry
           poetry config virtualenvs.create false
-          poetry install --without docs,dev
+          poetry install --with dev --without docs
 
       # Get the latest release tag for each repo
       - run: echo GOVUK_FRONTEND_VERSION=$(make get-latest-release-tag REPO=alphagov/govuk-frontend) >> $GITHUB_ENV
