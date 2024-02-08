@@ -14,6 +14,7 @@ from govuk_frontend_django.components import tag as govuk_frontend_tag
 @dataclass(kw_only=True)
 class PaginationNext:
     text: Optional[str] = None
+    html: Optional[str] = None
     labelText: Optional[str] = None
     href: str
     attributes: Optional[govuk_frontend_base.Attributes] = None
@@ -22,6 +23,7 @@ class PaginationNext:
 @dataclass(kw_only=True)
 class PaginationPrevious:
     text: Optional[str] = None
+    html: Optional[str] = None
     labelText: Optional[str] = None
     href: str
     attributes: Optional[govuk_frontend_base.Attributes] = None
