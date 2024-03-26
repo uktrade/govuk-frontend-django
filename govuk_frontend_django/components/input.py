@@ -12,6 +12,12 @@ from govuk_frontend_django.components import tag as govuk_frontend_tag
 
 
 @dataclass(kw_only=True)
+class InputInputwrapper:
+    classes: Optional[str] = None
+    attributes: Optional[govuk_frontend_base.Attributes] = None
+
+
+@dataclass(kw_only=True)
 class InputSuffix:
     text: Optional[str] = None
     html: Optional[str] = None
@@ -50,6 +56,8 @@ class GovUKInput(govuk_frontend_base.GovUKComponent):
     autocomplete: Optional[str] = None
     pattern: Optional[str] = None
     spellcheck: Optional[bool] = None
+    autocapitalize: Optional[str] = None
+    inputWrapper: Optional[InputInputwrapper] = None
 
     _jinja2_template = "govuk_frontend_jinja/components/input/macro.html"
     _macro_name = "govukInput"

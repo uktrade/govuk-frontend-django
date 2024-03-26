@@ -13,7 +13,7 @@ from govuk_frontend_django.components import tag as govuk_frontend_tag
 
 @dataclass(kw_only=True)
 class RadiosItemsConditional:
-    html: Optional[str] = None
+    html: str
 
 
 @dataclass(kw_only=True)
