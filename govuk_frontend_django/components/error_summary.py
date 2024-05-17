@@ -30,7 +30,7 @@ class GovUKErrorSummary(govuk_frontend_base.GovUKComponent):
     titleHtml: Optional[str] = None
     descriptionText: Optional[str] = None
     descriptionHtml: Optional[str] = None
-    errorList: List[ErrorSummaryErrorlist]
+    errorList: Optional[List[ErrorSummaryErrorlist]] = None
     disableAutoFocus: Optional[bool] = None
 
     _jinja2_template = "govuk_frontend_jinja/components/error-summary/macro.html"
