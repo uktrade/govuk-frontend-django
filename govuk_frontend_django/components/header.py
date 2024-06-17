@@ -28,7 +28,6 @@ class GovUKHeader(govuk_frontend_base.GovUKComponent):
     """
 
     homepageUrl: Optional[str] = None
-    assetsPath: Optional[str] = None
     productName: Optional[str] = None
     serviceName: Optional[str] = None
     serviceUrl: Optional[str] = None
@@ -38,6 +37,7 @@ class GovUKHeader(govuk_frontend_base.GovUKComponent):
     menuButtonLabel: Optional[str] = None
     menuButtonText: Optional[str] = None
     containerClasses: Optional[str] = None
+    useTudorCrown: Optional[bool] = None
 
     _jinja2_template = "govuk_frontend_jinja/components/header/macro.html"
     _macro_name = "govukHeader"
