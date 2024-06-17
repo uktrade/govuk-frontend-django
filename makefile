@@ -28,6 +28,7 @@ upgrade-components:
 	poetry add govuk_frontend_jinja==$(GOVUK_FRONTEND_JINJA_VERSION)
 	make clear-generated-components
 	make generate-components GOVUK_FRONTEND_VERSION=$(GOVUK_FRONTEND_VERSION)
+	make upgrade-example-project GOVUK_FRONTEND_VERSION=$(GOVUK_FRONTEND_VERSION)
 
 # Example project
 
