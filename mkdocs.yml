@@ -29,7 +29,7 @@ plugins:
             docstring_style: google
 
 theme:
-  name: tech_docs_template
+  name: material
   language: en
   features:
     - content.code.copy
