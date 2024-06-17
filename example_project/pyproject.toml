@@ -9,7 +9,7 @@ license = "MIT"
 python = "^3.10"
 Django = "^4.2.11"
 govuk-frontend-django = { path = "../", develop = true }
-govuk-frontend-jinja = "^2.5.0"
+govuk-frontend-jinja = "^3.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
