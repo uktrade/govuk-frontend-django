@@ -44,6 +44,7 @@ Below is a list of the versions of this package and the versions of the GOV.UK F
 
 | Package Version | GOV.UK Frontend Version |
 | --------------- | ----------------------- |
+| [0.7.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.7.0) - [0.7.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.7.0) | [v5.3.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.3.0) |
 | [0.6.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.6.0) - [0.6.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.6.0) | [v5.2.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.2.0) |
 | [0.5.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.5.0) - [0.5.1](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.5.1) | [v5.1.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.1.0) |
 | [0.4.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.4.0) - [0.4.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.4.0) | [v4.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.7.0) |
