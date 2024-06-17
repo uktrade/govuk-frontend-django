@@ -5,7 +5,7 @@ serve-docs:
 get-latest-release-tag:
 	@gh release list -R $(REPO) | grep "Latest" | awk -F '\t' '{for(i=2; i<=NF; i++) {if($$i~/v?[0-9]+\.[0-9]+\.[0-9]+/) {print $$i; exit}}}'
 
-GOVUK_FRONTEND_VERSION = "v5.3.1"
+GOVUK_FRONTEND_VERSION = "v5.4.0"
 GOVUK_FRONTEND_JINJA_VERSION = "3.0.0"
 
 generate-components:
@@ -18,7 +18,7 @@ clear-generated-components:
 	find govuk_frontend_django/components ! -name '__init__.py' ! -name 'base.py' -type f -exec rm -rf {} +
 
 upgrade-example-project:
-	cd example_project && npm install govuk-frontend@$(GOVUK_FRONTEND_VERSION) && npm run build
+	cd example_project && npm install govuk-frontend@$(GOVUK_FRONTEND_VERSION) && npm run build && poetry update
 
 upgrade-components:
 	echo "Upgrading components with"
