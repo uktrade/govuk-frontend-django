@@ -91,7 +91,7 @@
             {% endgds_footer %}
         {% endgds_accordion_item %}
         {% gds_accordion_item heading="Header" summary="The header component" %}
-            {% gds_header homepageUrl="/" productName="Some product" serviceName="Service name" serviceUrl="/" %}
+            {% gds_header homepageUrl="/" productName="Some product" serviceName="Service name" serviceUrl="/" useTudorCrown=False %}
                 {% gds_header_nav_item href="/" %}
                     Nav item 1
                 {% endgds_header_nav_item %}
@@ -99,7 +99,7 @@
                 {% gds_header_nav_item_inline href="/components/" text="Components" %}
             {% endgds_header %}
             OR
-            {% gds_header homepageUrl="/" productName="Some product" serviceName="Service name" serviceUrl="/" %}
+            {% gds_header homepageUrl="/" productName="Some product" serviceName="Service name" serviceUrl="/" useTudorCrown=True %}
                 {% if True %}
                     {% gds_header_nav_item_inline href="/" text="Truthy nav link" %}
                 {% endif %}

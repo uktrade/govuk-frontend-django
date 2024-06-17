@@ -15,8 +15,12 @@
     {% endgds_header %}
 {% endblock header %}
 {% block body_end %}
-    <script src='{% static "govuk-frontend/govuk/all.js" %}'></script>
-    <script>window.GOVUKFrontend.initAll()</script>
+    <script type="module"
+            src='{% static "govuk-frontend/dist/govuk/govuk-frontend.min.js" %}'></script>
+    <script type="module">
+        import { initAll } from '{% static "govuk-frontend/dist/govuk/govuk-frontend.min.js" %}'
+        initAll()
+    </script>
     <script>
         const CSRF_TOKEN = "{{ csrf_token }}";
 
