@@ -15,11 +15,11 @@ extra:
 # Standard config:
 plugins:
   - awesome-pages
-  # - material/social:
-  #     cards_layout_options:
-  #       background_color: "#ffffff"
-  #       color: "#000000"
-  #       font_family: "Roboto"
+  - material/social:
+      cards_layout_options:
+        background_color: "#ffffff"
+        color: "#000000"
+        font_family: "Roboto"
   - material/search:
       lang: en
   - mkdocstrings:
