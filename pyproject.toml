@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "govuk-frontend-django"
-version = "0.5.0"
+version = "0.5.1"
 description = "Django functionality to help when building a GOV.UK website."
 authors = [
     "DBT Live Service Team <live.services@digital.trade.gov.uk>",
@@ -25,7 +25,7 @@ packages = [
 python = "^3.8"
 Django = "^4.1.9"
 jinja2 = "^3.1.2"
-govuk-frontend-jinja = "2.8.0"
+govuk-frontend-jinja = "3.0.0"
 
 [tool.poetry.group.testing]
 optional = true
