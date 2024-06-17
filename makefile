@@ -18,7 +18,7 @@ clear-generated-components:
 	find govuk_frontend_django/components ! -name '__init__.py' ! -name 'base.py' -type f -exec rm -rf {} +
 
 upgrade-example-project:
-	cd example_project && npm install govuk-frontend@$(GOVUK_FRONTEND_VERSION)
+	cd example_project && npm install govuk-frontend@$(GOVUK_FRONTEND_VERSION) && npm run build
 
 upgrade-components:
 	echo "Upgrading components with"
