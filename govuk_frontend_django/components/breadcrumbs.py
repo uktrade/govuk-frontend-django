@@ -28,6 +28,7 @@ class GovUKBreadcrumbs(govuk_frontend_base.GovUKComponent):
 
     items: List[BreadcrumbsItems]
     collapseOnMobile: Optional[bool] = None
+    labelText: Optional[str] = None
 
     _jinja2_template = "govuk_frontend_jinja/components/breadcrumbs/macro.html"
     _macro_name = "govukBreadcrumbs"
