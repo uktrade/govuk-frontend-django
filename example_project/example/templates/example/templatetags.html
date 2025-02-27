@@ -134,6 +134,9 @@
                 {% gds_component "tag" text="Tag content" %}
             {% endgds_phase_banner %}
         {% endgds_accordion_item %}
+        {% gds_accordion_item heading="Service navigation" summary="The service navigation component" %}
+            {% gds_component "service-navigation" serviceName="Service name" serviceUrl="#" navigation=service_nav_links %}
+        {% endgds_accordion_item %}
         {% gds_accordion_item heading="Skip link" summary="The skip link component" %}
             <p class="govuk-body">The skip link is a hidden component</p>
             {% gds_component "skip-link" text="Skip to main content" %}
