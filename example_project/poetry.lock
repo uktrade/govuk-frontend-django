@@ -39,7 +39,7 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "govuk-frontend-django"
-version = "0.13.0"
+version = "0.13.1"
 description = "Django functionality to help when building a GOV.UK website."
 optional = false
 python-versions = ">=3.8,<4.0"
