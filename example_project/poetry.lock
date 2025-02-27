@@ -39,7 +39,7 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "govuk-frontend-django"
-version = "0.11.1"
+version = "0.12.1"
 description = "Django functionality to help when building a GOV.UK website."
 optional = false
 python-versions = ">=3.8,<4.0"
@@ -48,7 +48,7 @@ develop = true
 
 [package.dependencies]
 Django = ">=4.1.9, <5.2"
-govuk-frontend-jinja = "3.2.0"
+govuk-frontend-jinja = "3.3.0"
 jinja2 = "^3.1.2"
 
 [package.source]
@@ -57,13 +57,13 @@ url = ".."
 
 [[package]]
 name = "govuk-frontend-jinja"
-version = "3.2.0"
+version = "3.3.0"
 description = "GOV.UK Frontend Jinja Macros"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "govuk_frontend_jinja-3.2.0-py3-none-any.whl", hash = "sha256:0a532284034e5b43a44b5bb64ffcaff1245bafe9e000c025c26711f0bc34d929"},
-    {file = "govuk_frontend_jinja-3.2.0.tar.gz", hash = "sha256:2090dbad791b5349e7266f5ea4a640f00312e41cb8240a327a2f5d7b2bff6b3d"},
+    {file = "govuk_frontend_jinja-3.3.0-py3-none-any.whl", hash = "sha256:0b6532443f828d26466feab20d5aad2c4b08c2a90c820403ba7fde0e47a33cfc"},
+    {file = "govuk_frontend_jinja-3.3.0.tar.gz", hash = "sha256:66101398c25ab4c9fe9b1ccf2794c6b133aa8c201c8f0a3b5b4c144099572a8f"},
 ]
 
 [package.dependencies]
