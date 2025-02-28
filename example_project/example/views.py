@@ -120,6 +120,25 @@ def components_view(request):
                 reverse("templatetags"),
             ),
         ],
+        service_nav_links=[
+            {
+                "text": "Link 1",
+                "href": reverse("templatetags"),
+            },
+            {
+                "text": "Link 2",
+                "href": reverse("templatetags"),
+                "active": True,
+            },
+            {
+                "text": "Link 3",
+                "href": reverse("templatetags"),
+            },
+            {
+                "text": "Link 4",
+                "href": reverse("templatetags"),
+            },
+        ],
     )
 
     return render(request, "example/templatetags.html", context)
