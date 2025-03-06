@@ -8,7 +8,7 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Django = "^4.2.11"
+Django = "^4.2.20"
 govuk-frontend-django = { path = "../", develop = true }
 govuk-frontend-jinja = "^3.0.0"
 
