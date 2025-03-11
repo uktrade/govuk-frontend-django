@@ -27,7 +27,7 @@ class GovUKSelect(govuk_frontend_base.GovUKComponent):
     See: https://design-system.service.gov.uk/components/select/
     """
 
-    id: str
+    id: Optional[str] = None
     name: str
     items: List[SelectItems]
     value: Optional[str] = None

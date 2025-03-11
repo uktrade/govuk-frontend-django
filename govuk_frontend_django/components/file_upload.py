@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Any, Optional
 
 from govuk_frontend_django.components import base as govuk_frontend_base
 from govuk_frontend_django.components import (
@@ -19,14 +19,22 @@ class GovUKFileUpload(govuk_frontend_base.GovUKComponent):
     """
 
     name: str
-    id: str
+    id: Optional[str] = None
     value: Optional[str] = None
     disabled: Optional[bool] = None
+    multiple: Optional[bool] = None
     describedBy: Optional[str] = None
     label: govuk_frontend_label.GovUKLabel
     hint: Optional[govuk_frontend_hint.GovUKHint] = None
     errorMessage: Optional[govuk_frontend_error_message.GovUKErrorMessage] = None
     formGroup: Optional[govuk_frontend_base.FormGroup] = None
+    javascript: Optional[bool] = None
+    chooseFilesButtonText: Optional[str] = None
+    dropInstructionText: Optional[str] = None
+    multipleFilesChosenText: Optional[Any] = None
+    noFileChosenText: Optional[str] = None
+    enteredDropZoneText: Optional[str] = None
+    leftDropZoneText: Optional[str] = None
 
     _jinja2_template = "govuk_frontend_jinja/components/file-upload/macro.html"
     _macro_name = "govukFileUpload"

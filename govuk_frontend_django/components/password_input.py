@@ -23,7 +23,7 @@ class GovUKPasswordInput(govuk_frontend_base.GovUKComponent):
     See: https://design-system.service.gov.uk/components/password-input/
     """
 
-    id: str
+    id: Optional[str] = None
     name: str
     value: Optional[str] = None
     disabled: Optional[bool] = None

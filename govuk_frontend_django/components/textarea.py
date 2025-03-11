@@ -18,7 +18,7 @@ class GovUKTextarea(govuk_frontend_base.GovUKComponent):
     See: https://design-system.service.gov.uk/components/textarea/
     """
 
-    id: str
+    id: Optional[str] = None
     name: str
     spellcheck: Optional[bool] = None
     rows: Optional[str] = None

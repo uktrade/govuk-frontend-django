@@ -40,7 +40,7 @@ class GovUKInput(govuk_frontend_base.GovUKComponent):
     See: https://design-system.service.gov.uk/components/input/
     """
 
-    id: str
+    id: Optional[str] = None
     name: str
     type: Optional[str] = None
     inputmode: Optional[str] = None
