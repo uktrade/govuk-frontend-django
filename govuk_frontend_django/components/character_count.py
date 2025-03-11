@@ -23,7 +23,7 @@ class GovUKCharacterCount(govuk_frontend_base.GovUKComponent):
     See: https://design-system.service.gov.uk/components/character-count/
     """
 
-    id: str
+    id: Optional[str] = None
     name: str
     rows: Optional[str] = None
     value: Optional[str] = None
