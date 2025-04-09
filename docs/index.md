@@ -44,7 +44,12 @@ Below is a list of the versions of this package and the versions of the GOV.UK F
 
 | Package Version | GOV.UK Frontend Version |
 | --------------- | ----------------------- |
-| [0.10.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.10.0) - [0.10.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.10.0) | [v5.4.1](https://github.com/alphagov/govuk-frontend/releases/tag/v5.4.1) |
+| [0.15.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.15.0) - [0.15.1](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.15.0) | [v5.9.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.9.0) |
+| [0.14.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.14.0) - [0.14.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.14.0) | [v5.8.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.8.0) |
+| [0.13.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.13.0) - [0.13.1](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.13.0) | [v5.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.7.0) |
+| [0.12.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.12.0) - [0.12.1](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.12.0) | [v5.6.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.6.0) |
+| [0.11.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.11.0) - [0.11.1](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.11.0) | [v5.5.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.5.0) |
+| [0.10.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.10.0) - [0.10.1](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.10.0) | [v5.4.1](https://github.com/alphagov/govuk-frontend/releases/tag/v5.4.1) |
 | [0.9.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.9.0) - [0.9.1](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.9.1) | [v5.4.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.4.0) |
 | [0.8.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.8.0) - [0.8.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.8.0) | [v5.3.1](https://github.com/alphagov/govuk-frontend/releases/tag/v5.3.1) |
 | [0.7.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.7.0) - [0.7.0](https://github.com/uktrade/govuk-frontend-django/releases/tag/0.7.0) | [v5.3.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.3.0) |
